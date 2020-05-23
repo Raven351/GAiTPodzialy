@@ -1,27 +1,30 @@
 package com.ravensu.gaitprzydzialy.webscrapper;
 
+import android.os.Build;
 import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedCondition;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.util.ArrayList;
 
 public class GAiTWebScrapper {
-    private User user = new User("username", "pass");
-    public Document GetGAiTWebsite(){
+    private User user;
+
+    public GAiTWebScrapper(User user) {
+        this.user = user;
+    }
+
+    private Document GetGAiTWebsite(){
         try {
             Connection.Response res = Jsoup.connect("http://podzialy.gait.pl/")
                     .followRedirects(true)
@@ -41,4 +44,36 @@ public class GAiTWebScrapper {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public ArrayList<Assignment> ScrapAssignmentsTable() {
+        ArrayList<Assignment> assignments = new ArrayList<Assignment>();
+        Document document =  GetGAiTWebsite();
+        Element assignmentsTable = document.select("table").get(1);
+        Elements rows = assignmentsTable.select("tr");
+        for (int i = 2; i< rows.size(); i++){
+            Assignment assignment = new Assignment();
+            Elements cols = rows.get(i).select("td");
+            if (cols.size() > 0){
+                try{
+                    assignment.Date = new SimpleDateFormat("yyyy-MM-dd").parse(cols.get(0).text());
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                assignment.DriverNumber = cols.get(1).text();
+                assignment.DriverName = cols.get(2).text();
+                assignment.AssignmentCode = cols.get(3).text();
+                Log.d("SCRAPPER", "AssignmentCode: " + assignment.AssignmentCode);
+                assignment.AssignmentStartLocation = cols.get(4).text();
+                assignment.AssignmentStartTime = LocalTime.parse(cols.get(5).text());
+                assignment.AssignmentEndTime = LocalTime.parse(cols.get(6).text());
+                assignment.AssignmentEndLocation = cols.get(7).text();
+                assignment.AssignmentDuration = LocalTime.parse(cols.get(8).text());
+                assignment.Comments = cols.get(9).text();
+                assignments.add(assignment);
+            }
+        }
+        Log.d("SCRAPPER", "Date: " + assignments.get(0).Date);
+        Log.d("SCRAPPER", "Assignments number: " + assignments.size());
+        return assignments;
+    }
 }
