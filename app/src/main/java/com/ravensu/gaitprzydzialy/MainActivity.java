@@ -27,7 +27,8 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences appLogins = getSharedPreferences("app_logins", MODE_PRIVATE);
         SharedPreferences.Editor appLoginsEditor = appLogins.edit();
         Map<String, ?> allLogins = appLogins.getAll();
-        //appLoginsEditor.putString("3320", "98792501938");
+        //appLoginsEditor.putString(TestingValues.username, TestingValues.password);
+        //appLoginsEditor.remove(TestingValues.username);
         appLoginsEditor.apply();
         for (Map.Entry<String, ?> entry : allLogins.entrySet()){
             Log.d("LOGINS", entry.getKey() + ":" + entry.getValue().toString());
@@ -36,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_login);
         }
         else setContentView(R.layout.activity_main);
-        final GAiTWebScrapper gAiTWebScrapper = new GAiTWebScrapper("", "");
+        final GAiTWebScrapper gAiTWebScrapper = new GAiTWebScrapper(TestingValues.username, TestingValues.password);
 
 //        boolean firstRun = getSharedPreferences("preferences", MODE_PRIVATE).getBoolean("firstrun", true);
 //        if (firstRun){
