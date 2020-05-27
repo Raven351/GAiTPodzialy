@@ -1,4 +1,4 @@
-package com.ravensu.gaitprzydzialy.activities.ui.login;
+package com.ravensu.gaitpodzialy.activities.ui.login;
 
 import android.util.Patterns;
 
@@ -6,10 +6,10 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.ravensu.gaitprzydzialy.R;
-import com.ravensu.gaitprzydzialy.activities.data.LoginRepository;
-import com.ravensu.gaitprzydzialy.activities.data.Result;
-import com.ravensu.gaitprzydzialy.activities.data.model.LoggedInUser;
+import com.ravensu.gaitpodzialy.R;
+import com.ravensu.gaitpodzialy.activities.data.LoginRepository;
+import com.ravensu.gaitpodzialy.activities.data.Result;
+import com.ravensu.gaitpodzialy.activities.data.model.LoggedInUser;
 
 public class LoginViewModel extends ViewModel {
 

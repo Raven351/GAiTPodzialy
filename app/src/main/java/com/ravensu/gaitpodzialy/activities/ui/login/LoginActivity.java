@@ -1,4 +1,4 @@
-package com.ravensu.gaitprzydzialy.activities.ui.login;
+package com.ravensu.gaitpodzialy.activities.ui.login;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -19,7 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.ravensu.gaitprzydzialy.R;
+import com.ravensu.gaitpodzialy.R;
 
 public class LoginActivity extends AppCompatActivity {
 

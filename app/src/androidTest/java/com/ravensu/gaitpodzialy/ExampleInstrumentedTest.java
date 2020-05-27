@@ -1,4 +1,4 @@
-package com.ravensu.gaitprzydzialy;
+package com.ravensu.gaitpodzialy;
 
 import android.content.Context;
 

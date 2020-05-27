@@ -1,20 +1,15 @@
-package com.ravensu.gaitprzydzialy;
+package com.ravensu.gaitpodzialy;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.ravensu.gaitprzydzialy.activities.data.model.LoggedInUser;
-import com.ravensu.gaitprzydzialy.activities.ui.login.LoginActivity;
-import com.ravensu.gaitprzydzialy.webscrapper.GAiTWebScrapper;
+import com.ravensu.gaitpodzialy.webscrapper.GAiTWebScrapper;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {

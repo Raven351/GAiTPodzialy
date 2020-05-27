@@ -1,4 +1,4 @@
-package com.ravensu.gaitprzydzialy.activities.ui.login;
+package com.ravensu.gaitpodzialy.activities.ui.login;
 
 /**
  * Class exposing authenticated user details to the UI.

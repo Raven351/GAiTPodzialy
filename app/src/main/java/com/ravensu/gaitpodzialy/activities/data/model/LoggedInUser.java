@@ -1,6 +1,6 @@
-package com.ravensu.gaitprzydzialy.activities.data.model;
+package com.ravensu.gaitpodzialy.activities.data.model;
 
-import com.ravensu.gaitprzydzialy.webscrapper.models.Assignment;
+import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 import java.util.ArrayList;
 

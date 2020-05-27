@@ -1,7 +1,7 @@
-package com.ravensu.gaitprzydzialy.activities.data;
+package com.ravensu.gaitpodzialy.activities.data;
 
-import com.ravensu.gaitprzydzialy.activities.data.model.LoggedInUser;
-import com.ravensu.gaitprzydzialy.webscrapper.models.Assignment;
+import com.ravensu.gaitpodzialy.activities.data.model.LoggedInUser;
+import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 import java.io.IOException;
 import java.util.ArrayList;

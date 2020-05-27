@@ -1,11 +1,11 @@
-package com.ravensu.gaitprzydzialy.webscrapper;
+package com.ravensu.gaitpodzialy.webscrapper;
 
 import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
-import com.ravensu.gaitprzydzialy.webscrapper.models.Assignment;
+import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 import org.jsoup.Connection;
 import org.jsoup.Jsoup;

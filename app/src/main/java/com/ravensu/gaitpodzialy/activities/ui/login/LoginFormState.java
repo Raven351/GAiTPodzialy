@@ -1,4 +1,4 @@
-package com.ravensu.gaitprzydzialy.activities.ui.login;
+package com.ravensu.gaitpodzialy.activities.ui.login;
 
 import androidx.annotation.Nullable;
 

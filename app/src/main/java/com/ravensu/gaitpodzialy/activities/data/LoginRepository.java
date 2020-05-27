@@ -1,6 +1,6 @@
-package com.ravensu.gaitprzydzialy.activities.data;
+package com.ravensu.gaitpodzialy.activities.data;
 
-import com.ravensu.gaitprzydzialy.activities.data.model.LoggedInUser;
+import com.ravensu.gaitpodzialy.activities.data.model.LoggedInUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and

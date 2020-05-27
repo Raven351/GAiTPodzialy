@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">GAiT Przydziały</string>
+    <string name="app_name">GAiT Podziały</string>
     <string name="title_activity_login">Zaloguj się</string>
     <string name="prompt_driver_number">Numer kierującego</string>
     <string name="prompt_password">Hasło</string>

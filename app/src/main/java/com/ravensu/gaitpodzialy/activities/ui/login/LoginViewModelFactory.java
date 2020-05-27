@@ -1,11 +1,11 @@
-package com.ravensu.gaitprzydzialy.activities.ui.login;
+package com.ravensu.gaitpodzialy.activities.ui.login;
 
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
 
-import com.ravensu.gaitprzydzialy.activities.data.LoginDataSource;
-import com.ravensu.gaitprzydzialy.activities.data.LoginRepository;
+import com.ravensu.gaitpodzialy.activities.data.LoginDataSource;
+import com.ravensu.gaitpodzialy.activities.data.LoginRepository;
 
 /**
  * ViewModel provider factory to instantiate LoginViewModel.
