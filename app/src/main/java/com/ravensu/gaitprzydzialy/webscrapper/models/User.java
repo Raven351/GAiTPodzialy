@@ -1,4 +1,4 @@
-package com.ravensu.gaitprzydzialy.webscrapper;
+package com.ravensu.gaitprzydzialy.webscrapper.models;
 
 import java.util.ArrayList;
 
