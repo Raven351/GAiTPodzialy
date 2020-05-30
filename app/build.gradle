@@ -42,5 +42,6 @@ dependencies {
     // https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java
     implementation group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '2.41.0'
     implementation 'com.android.support:multidex:1.0.3'
+    implementation 'org.jetbrains:annotations-java5:15.0'
 
 }

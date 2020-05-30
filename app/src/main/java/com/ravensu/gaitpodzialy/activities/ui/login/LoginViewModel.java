@@ -1,5 +1,7 @@
 package com.ravensu.gaitpodzialy.activities.ui.login;
 
+import android.content.Context;
+import android.util.Log;
 import android.util.Patterns;
 
 import androidx.lifecycle.LiveData;
@@ -16,9 +18,15 @@ public class LoginViewModel extends ViewModel {
     private MutableLiveData<LoginFormState> loginFormState = new MutableLiveData<>();
     private MutableLiveData<LoginResult> loginResult = new MutableLiveData<>();
     private LoginRepository loginRepository;
+    private Context context;
 
-    LoginViewModel(LoginRepository loginRepository) {
+    LoginViewModel(LoginRepository loginRepository){
         this.loginRepository = loginRepository;
+    }
+
+    LoginViewModel(LoginRepository loginRepository, Context context){
+        this.loginRepository = loginRepository;
+        this.context = context;
     }
 
     LiveData<LoginFormState> getLoginFormState() {
@@ -37,6 +45,7 @@ public class LoginViewModel extends ViewModel {
             LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
             loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
         } else {
+            Log.e("LOGIN", "login: " + result.toString() );
             loginResult.setValue(new LoginResult(R.string.login_failed));
         }
     }

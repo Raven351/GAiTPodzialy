@@ -1,5 +1,7 @@
 package com.ravensu.gaitpodzialy.activities.ui.login;
 
+import android.content.Context;
+
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.annotation.NonNull;
@@ -19,6 +21,14 @@ public class LoginViewModelFactory implements ViewModelProvider.Factory {
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(LoginViewModel.class)) {
             return (T) new LoginViewModel(LoginRepository.getInstance(new LoginDataSource()));
+        } else {
+            throw new IllegalArgumentException("Unknown ViewModel class");
+        }
+    }
+
+    public <T extends ViewModel> T create(@NonNull Class<T> modelClass, Context context) {
+        if (modelClass.isAssignableFrom(LoginViewModel.class)) {
+            return (T) new LoginViewModel(LoginRepository.getInstance(new LoginDataSource()), context);
         } else {
             throw new IllegalArgumentException("Unknown ViewModel class");
         }
