@@ -26,6 +26,7 @@ import com.ravensu.gaitpodzialy.Keyboard;
 import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.activities.data.LoginDataSource;
 import com.ravensu.gaitpodzialy.activities.data.LoginRepository;
+import com.ravensu.gaitpodzialy.data.AppMainLogin;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -125,6 +126,9 @@ public class LoginActivity extends AppCompatActivity {
         String welcome = getString(R.string.welcome) + model.getDisplayName();
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("displayName", AppMainLogin.GetMainLoginUserId(this));
+
         setResult(Activity.RESULT_OK);
         finish();
     }

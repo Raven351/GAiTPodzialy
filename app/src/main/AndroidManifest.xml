@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.ravensu.gaitpodzialy">
 
     <uses-permission android:name="android.permission.INTERNET" />
@@ -14,9 +15,13 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name="com.ravensu.gaitpodzialy.activities.ui.login.LoginActivity"
-            android:label="@string/title_activity_login"></activity>
-        <activity android:name="com.ravensu.gaitpodzialy.MainActivity">
+            android:name=".activities.ui.assignmentslist.AssignmentsList"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" >
+        </activity>
+        <activity
+            android:name=".activities.ui.login.LoginActivity"
+            android:label="@string/title_activity_login" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
