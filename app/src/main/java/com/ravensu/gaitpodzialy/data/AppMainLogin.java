@@ -2,6 +2,7 @@ package com.ravensu.gaitpodzialy.data;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 public class AppMainLogin {
     private SharedPreferences sharedPreferences;
@@ -15,23 +16,26 @@ public class AppMainLogin {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
-    public static String getMainLoginUserId(Context context){
+    public static String GetMainLoginUserId(Context context){
         return getPreferences(context).getString("userId", null);
     }
 
-    public static void setMainLoginUserId(Context context, String userId){
-        SharedPreferences.Editor preferencesEditor = getPreferences(context).edit();
+    public static void SetMainLoginUserId(Context context, String userId){
+        SharedPreferences preferences = getPreferences(context);
+        SharedPreferences.Editor preferencesEditor = preferences.edit();
         preferencesEditor.putString("userId", userId);
         preferencesEditor.apply();
     }
 
-    public static String getMainLoginUserName(Context context){
+    public static String GetMainLoginUserName(Context context){
         return getPreferences(context).getString("userName", null);
     }
 
-    public static void setMainLoginUserName(Context context, String userName){
-        SharedPreferences.Editor preferencesEditor = getPreferences(context).edit();
+    public static void SetMainLoginUserName(Context context, String userName){
+        SharedPreferences preferences = getPreferences(context);
+        SharedPreferences.Editor preferencesEditor = preferences.edit();
         preferencesEditor.putString("userName", userName);
         preferencesEditor.apply();
+        Log.d("AppMainLogin", "SetMainLoginUserName: saved username " + GetMainLoginUserName(context) + "to app_main_login shared preferences");
     }
 }

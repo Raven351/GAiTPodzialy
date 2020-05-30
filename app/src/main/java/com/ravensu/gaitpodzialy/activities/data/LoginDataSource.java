@@ -68,17 +68,13 @@ public class LoginDataSource {
                     GAiTWebScrapper gAiTWebScrapper = new GAiTWebScrapper(userId, password);
                     Document gaitWebsite = gAiTWebScrapper.GetGAiTWebsite();
                     if (gaitWebsite == null) throw new Exception("Login failed");
-                    Log.d("LoginDataSource", "Site downloaded successfully");
-                    Log.d("LoginDataSource", "Saving credidentials to shared preferences");
-                    if (!AppLogins.ExistsAny(context)) AppMainLogin.setMainLoginUserId(context, userId);
-                    AppLogins.SaveCredidentials(context, userId, password);
-                    Log.d("LoginDataSource", "Attempting to scrap assignments table");
+                    if (!AppLogins.ExistsAny(context)) AppMainLogin.SetMainLoginUserId(context, userId);
                     ArrayList<Assignment> assignments = gAiTWebScrapper.ScrapAssignmentsTable(gaitWebsite);
-                    Log.d("LoginDataSource", "Assignments table scrapped successfully");
                     String displayName = assignments.get(0).DriverName;
-                    if (!AppLogins.ExistsAny(context)) AppMainLogin.setMainLoginUserName(context, displayName);
+                    if (!AppLogins.ExistsAny(context)) AppMainLogin.SetMainLoginUserName(context, displayName);
+                    AppLogins.SaveCredidentials(context, userId, password);
                     LoggedInUser user = new LoggedInUser(userId, displayName, assignments);
-                    Log.d("LoginDataSource", "Returning ResultSuccess with user model containing data: " + userId + displayName + assignments.size());
+                    Log.d("LoginDataSource", "Returning ResultSuccess with user model containing data: " + userId + " " + displayName + " , assignments size: " +  assignments.size());
                     result[0] = new Result.Success<>(user);
                 } catch (Exception e) {
                     Log.e("LoginDataSource", "Error while trying to log in: " + e.toString());
