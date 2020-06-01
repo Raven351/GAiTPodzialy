@@ -70,7 +70,9 @@ public class LoginDataSource {
                     if (gaitWebsite == null) throw new Exception("Login failed");
                     if (!AppLogins.ExistsAny(context)) AppMainLogin.SetMainLoginUserId(context, userId);
                     ArrayList<Assignment> assignments = gAiTWebScrapper.ScrapAssignmentsTable(gaitWebsite);
-                    String displayName = assignments.get(0).DriverName;
+                    //todo no assignments = no display name provided
+                    String displayName = "";
+                    if (assignments.size() > 0) displayName = assignments.get(0).DriverName;
                     if (!AppLogins.ExistsAny(context)) AppMainLogin.SetMainLoginUserName(context, displayName);
                     AppLogins.SaveCredidentials(context, userId, password);
                     LoggedInUser user = new LoggedInUser(userId, displayName, assignments);
@@ -101,21 +103,4 @@ public class LoginDataSource {
             e.printStackTrace();
         }
     }
-
-//    @Override
-//    public Result<LoggedInUser> onReceiverResult(int resultCode, Bundle resultData) {
-//        switch (resultCode){
-//            case 0:
-//                //todo progress for logging in
-//                break;
-//            case 1:
-//                String userId = resultData.getString("userId");
-//                String displayName = resultData.getString("displayName");
-//                ArrayList<Assignment> assignments= resultData.getParcelableArrayList("assignments");
-//                LoggedInUser user = new LoggedInUser(userId, displayName, assignments);
-//                return new Result.Success<>(user);
-//            case 2:
-//                return new Result.Error(new Exception(resultData.getString(Intent.EXTRA_TEXT)));
-//        }
-//    }
 }

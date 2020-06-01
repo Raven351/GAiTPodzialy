@@ -16,6 +16,12 @@ public class LoggedInUser implements Parcelable {
     private String displayName;
     private ArrayList<Assignment> assignmentsList;
 
+    public LoggedInUser(String userId, String displayName) {
+        this.userId = userId;
+        this.displayName = displayName;
+        this.assignmentsList = null;
+    }
+
     public LoggedInUser(String userId, String displayName, ArrayList<Assignment> assignmentsList) {
         this.userId = userId;
         this.displayName = displayName;

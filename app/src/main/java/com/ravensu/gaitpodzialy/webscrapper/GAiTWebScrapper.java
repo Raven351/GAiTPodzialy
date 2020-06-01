@@ -77,8 +77,10 @@ public class GAiTWebScrapper {
         assignment.DriverNumber = row.get(1).text();
         assignment.DriverName = row.get(2).text();
         assignment.AssignmentCode = row.get(3).text();
-        Log.d("SCRAPPER", "AssignmentCode: " + assignment.AssignmentCode);
+        Log.d("SCRAPPER", "Służba:" + assignment.AssignmentCode);
         assignment.AssignmentStartLocation = row.get(4).text();
+        Log.d("SCRAPPER", "Początek - lokacja " + assignment.AssignmentStartLocation);
+        Log.d("SCRAPPER", "===========================");
         assignment.AssignmentStartTime = LocalTime.parse(row.get(5).text());
         assignment.AssignmentEndTime = LocalTime.parse(row.get(6).text());
         assignment.AssignmentEndLocation = row.get(7).text();
@@ -95,6 +97,8 @@ public class GAiTWebScrapper {
     private ArrayList<Assignment> ParseAssignmentsToArrayList(Element assignmentsTable){
         ArrayList<Assignment> assignments = new ArrayList<Assignment>();
         Elements rows = assignmentsTable.select("tr");
+        //todo fix case when assignments null (login impossible)
+        if (rows.size() < 3) return  assignments;
         for (int i = 2; i< rows.size(); i++){
             Elements row = rows.get(i).select("td");
             if (row.size() > 0){
@@ -115,7 +119,6 @@ public class GAiTWebScrapper {
         Document document =  GAiTWebsite;
         if (document == null) throw new NullPointerException("ScrapAssignmentsTable: Given HTML document is null");
         ArrayList<Assignment> assignments = ParseAssignmentsToArrayList(document.select("table").get(1));
-        Log.d("SCRAPPER", "Date: " + assignments.get(0).Date);
         Log.d("SCRAPPER", "Assignments count: " + assignments.size());
         return assignments;
     }
