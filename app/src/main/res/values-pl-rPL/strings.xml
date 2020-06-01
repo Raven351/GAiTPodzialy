@@ -10,4 +10,5 @@
     <string name="invalid_username">Błędny numer kierującego</string>
     <string name="invalid_password">Błędne hasło</string>
     <string name="login_failed">Logowanie nie powiodło się</string>
+    <string name="submit">ActivityAssignmentsFabDesc</string>
 </resources>
