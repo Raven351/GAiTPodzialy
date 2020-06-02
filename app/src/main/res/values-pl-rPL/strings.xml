@@ -11,4 +11,11 @@
     <string name="invalid_password">Błędne hasło</string>
     <string name="login_failed">Logowanie nie powiodło się</string>
     <string name="submit">ActivityAssignmentsFabDesc</string>
+    <string name="firstName">Imię</string>
+    <string name="surname">Nazwisko</string>
+    <string name="today_assignment">Dzisiejsza służba</string>
+    <string name="assignment_totaltime_label">Czas trwania:</string>
+    <string name="assignment_start_label">Rozpoczęcie:</string>
+    <string name="assignment_end_label">Zakończenie:</string>
+    <string name="tomorrow_assignment">Jutrzejsza służba</string>
 </resources>

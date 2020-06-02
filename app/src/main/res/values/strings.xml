@@ -10,20 +10,24 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="submit">ActivityAssignmentsFabDesc</string>
-    <string name="driverId">0000</string>
+    <string name="driverId" translatable="false">0000</string>
     <string name="firstName">FirstName</string>
     <string name="surname">Surname</string>
     <string name="today_assignment">Today\'s Assignment</string>
-    <string name="assignment_today_status">status</string>
-    <string name="assignment_today_date">01-01-1980</string>
-    <string name="assignment_today_code">05/06/A</string>
-    <string name="assignment_today_timeend">00:00</string>
-    <string name="assignment_today_timetotal">00:00</string>
-    <string name="assignment_today_notices">+5</string>
-    <string name="assignment_totaltime_label">Czas trwania:</string>
-    <string name="assignment_today_starttime">00:00</string>
-    <string name="assignment_start_label">start</string>
-    <string name="assignment_end_label">end</string>
-    <string name="assignment_today_startlocation">startLocation</string>
-    <string name="assignment_today_endlocation">endLocation</string>
+    <string name="assignment_today_status" translatable="false">status</string>
+    <string name="assignment_today_date" translatable="false">01-01-1980</string>
+    <string name="assignment_today_code" translatable="false">05/06/A</string>
+    <string name="assignment_today_timeend" translatable="false">00:00</string>
+    <string name="assignment_today_timetotal" translatable="false">00:00</string>
+    <string name="assignment_today_notices" translatable="false">+5</string>
+    <string name="assignment_totaltime_label">Time total:</string>
+    <string name="assignment_today_starttime" translatable="false">00:00</string>
+    <string name="assignment_start_label">Start:</string>
+    <string name="assignment_end_label">End:</string>
+    <string name="assignment_today_startlocation" translatable="false">startLocation</string>
+    <string name="assignment_today_endlocation" translatable="false">endLocation</string>
+    <string name="tomorrow_assignment">Tomorrow\'s assignment</string>
+    <string name="assignment_tomorrow_starttime" translatable="false">00:00</string>
+    <string name="assignment_tomorrow_date" translatable="false">02-01-1980</string>
+    <string name="assignment_tomorrow_code" translatable="false">10/04/B</string>
 </resources>

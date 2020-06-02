@@ -25,7 +25,7 @@ public class AssignmentsListCurrentsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.assignments_list_currents_fragment, container, false);
+        return (ViewGroup) inflater.inflate(R.layout.assignments_list_currents_fragment, container, false);
     }
 
     @Override

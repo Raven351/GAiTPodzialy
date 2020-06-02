@@ -13,22 +13,33 @@
         android:background="@color/colorPrimary"
         android:elevation="8dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_change_user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginBottom="32dp"
-        android:contentDescription="@string/submit"
-        android:src="@drawable/account_icon"
-        app:backgroundTint="#DC3D3D"
-        app:layout_constraintBottom_toBottomOf="parent"
+<!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
+<!--        android:id="@+id/fab_change_user"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center|bottom"-->
+<!--        android:layout_margin="32dp"-->
+<!--        android:contentDescription="@string/submit"-->
+<!--        android:src="@drawable/account_icon"-->
+<!--        app:backgroundTint="#DC3D3D"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:maxImageSize="48dp" />-->
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/assignments_list_viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="56dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:maxImageSize="48dp" />
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.viewpager2.widget.ViewPager2>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

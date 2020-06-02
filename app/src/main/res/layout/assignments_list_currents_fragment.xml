@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/assignments_list_currents_fragment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.ui.assignmentslist.AssignmentsListCurrentsFragment">
@@ -54,10 +55,13 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/assignment_today_layout"
         android:layout_width="match_parent"
         android:layout_height="260dp"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        tools:layout_editor_absoluteX="0dp">
+        android:background="#F3F3F3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/todayAssignmentLabelContainer"
@@ -225,6 +229,171 @@
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="240dp"
+        android:background="#F3F3F3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/assignment_today_layout">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/tomorrowAssignmentLabelContainer"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#DFDFDF"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tomorrowAssignmentLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="@string/tomorrow_assignment"
+                android:textColor="#000000"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/assignmentTomorrowDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/assignment_tomorrow_date"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.902"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tomorrowAssignmentLabelContainer" />
+
+        <TextView
+            android:id="@+id/assignmentTomorrowCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/assignment_tomorrow_code"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/assignmentTomorrowDate"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/assignmentTomorrowDate" />
+
+        <TextView
+            android:id="@+id/assignmentTomorrowTimeEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/assignment_today_timeend"
+            android:textColor="#D33434"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/assignmentTomorrowEndLabel"
+            app:layout_constraintTop_toBottomOf="@+id/assignmentTomorrowEndLabel" />
+
+        <TextView
+            android:id="@+id/assignmentTomorrowTimeTotal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/assignment_today_timetotal"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/assignmentTomorrowCode"
+            app:layout_constraintTop_toTopOf="@+id/assignmentTomorrowTimeTotalLabel" />
+
+        <TextView
+            android:id="@+id/assignmentTomorrowNotices"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/assignment_today_notices"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/assignmentTomorrowCode"
+            app:layout_constraintTop_toBottomOf="@+id/assignmentTomorrowCode" />
+
+        <TextView
+            android:id="@+id/assignmentTomorrowTimeTotalLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/assignment_totaltime_label"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/assignmentTomorrowTimeTotal" />
+
+        <TextView
+            android:id="@+id/assignmentTomorrowTimeStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/assignment_tomorrow_starttime"
+            android:textColor="#0E871F"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="@+id/assignmentTomorrowStartLabel"
+            app:layout_constraintTop_toBottomOf="@+id/assignmentTomorrowStartLabel" />
+
+        <TextView
+            android:id="@+id/assignmentTomorrowStartLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/assignment_start_label"
+            android:textColor="#0E871F"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.073"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tomorrowAssignmentLabelContainer" />
+
+        <TextView
+            android:id="@+id/assignmentTomorrowEndLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@string/assignment_end_label"
+            android:textColor="#D33434"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.072"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/assignmentTomorrowStartLocation" />
+
+        <TextView
+            android:id="@+id/assignmentTomorrowStartLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@string/assignment_today_startlocation"
+            android:textColor="#0E871F"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/assignmentTomorrowTimeStart"
+            app:layout_constraintTop_toTopOf="@+id/assignmentTomorrowTimeStart" />
+
+        <TextView
+            android:id="@+id/assignmentTomorrowEndLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:text="@string/assignment_today_endlocation"
+            android:textColor="#D33434"
+            android:textSize="14sp"
+            app:layout_constraintStart_toEndOf="@+id/assignmentTomorrowTimeEnd"
+            app:layout_constraintTop_toTopOf="@+id/assignmentTomorrowTimeEnd" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
