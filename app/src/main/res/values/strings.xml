@@ -13,21 +13,20 @@
     <string name="driverId" translatable="false">0000</string>
     <string name="firstName">FirstName</string>
     <string name="surname">Surname</string>
+
     <string name="today_assignment">Today\'s Assignment</string>
-    <string name="assignment_today_status" translatable="false">status</string>
-    <string name="assignment_today_date" translatable="false">01-01-1980</string>
-    <string name="assignment_today_code" translatable="false">05/06/A</string>
-    <string name="assignment_today_timeend" translatable="false">00:00</string>
-    <string name="assignment_today_timetotal" translatable="false">00:00</string>
-    <string name="assignment_today_notices" translatable="false">+5</string>
-    <string name="assignment_totaltime_label">Time total:</string>
-    <string name="assignment_today_starttime" translatable="false">00:00</string>
+    <string name="tomorrow_assignment">Tomorrow\'s Assignment</string>
+    <string name="assignment_totalTime_label">Time total:</string>
     <string name="assignment_start_label">Start:</string>
     <string name="assignment_end_label">End:</string>
-    <string name="assignment_today_startlocation" translatable="false">startLocation</string>
-    <string name="assignment_today_endlocation" translatable="false">endLocation</string>
-    <string name="tomorrow_assignment">Tomorrow\'s assignment</string>
-    <string name="assignment_tomorrow_starttime" translatable="false">00:00</string>
-    <string name="assignment_tomorrow_date" translatable="false">02-01-1980</string>
-    <string name="assignment_tomorrow_code" translatable="false">10/04/B</string>
+    <string name="assignment_sample_status" translatable="false">status</string>
+    <string name="assignment_sample_date" translatable="false">01-01-1980</string>
+    <string name="assignment_sample_code" translatable="false">00/00/A</string>
+    <string name="assignment_sample_timeEnd" translatable="false">00:00</string>
+    <string name="assignment_sample_timeTotal" translatable="false">00:00</string>
+    <string name="assignment_sample_notices" translatable="false">+0</string>
+    <string name="assignment_sample_startTime" translatable="false">00:00</string>
+    <string name="assignment_sample_startLocation" translatable="false">startLocation</string>
+    <string name="assignment_sample_endLocation" translatable="false">endLocation</string>
+
 </resources>

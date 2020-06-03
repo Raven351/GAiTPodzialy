@@ -14,7 +14,7 @@
     <string name="firstName">Imię</string>
     <string name="surname">Nazwisko</string>
     <string name="today_assignment">Dzisiejsza służba</string>
-    <string name="assignment_totaltime_label">Czas trwania:</string>
+    <string name="assignment_totalTime_label">Czas trwania:</string>
     <string name="assignment_start_label">Rozpoczęcie:</string>
     <string name="assignment_end_label">Zakończenie:</string>
     <string name="tomorrow_assignment">Jutrzejsza służba</string>
