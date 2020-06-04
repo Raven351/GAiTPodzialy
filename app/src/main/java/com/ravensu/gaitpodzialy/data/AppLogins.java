@@ -17,7 +17,7 @@ public class AppLogins {
         return context.getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE);
     }
 
-    public static Map<String, ?> GetAllCredidentials(Context context){
+    public static Map<String, ?> GetAllCredentials(Context context){
         return getPreferences(context).getAll();
     }
 

@@ -7,16 +7,14 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
-import android.os.SystemClock;
+import android.service.autofill.UserData;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.ravensu.gaitpodzialy.activities.data.Result;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsList;
 import com.ravensu.gaitpodzialy.activities.ui.login.LoginActivity;
 import com.ravensu.gaitpodzialy.data.AppLogins;
 import com.ravensu.gaitpodzialy.data.AppMainLogin;
+import com.ravensu.gaitpodzialy.data.AppUsersData;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         appLoginsEditor.remove(TestingValues.usernameMichu);
         appLoginsEditor.apply();
 //        debug end
-        Log.d("MainActivity", "onCreate: "  + AppLogins.GetAllCredidentials(this).size());
+        Log.d("MainActivity", "onCreate: "  + AppLogins.GetAllCredentials(this).size());
         Log.d("MainActivity", "onCreate: "  + AppMainLogin.GetMainLoginUserName(this));
         new CountDownTimer(1000, 1000){
             @Override
@@ -77,9 +75,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void assignmentsListActivity(){
-        Intent intent = new Intent(this, AssignmentsList.class);
-        intent.putExtra("FROM_ACTIVITY", "MAIN");
-        startActivity(intent);
+        try {
+            AppUsersData.loadUsersData(this);
+            Intent intent = new Intent(this, AssignmentsList.class);
+            intent.putExtra("FROM_ACTIVITY", "MAIN");
+            startActivity(intent);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            Log.e("MAIN", "assignmentsListActivity: Error loading users data" + e.toString());
+        }
     }
 
     @Override
@@ -87,7 +91,12 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1){
             if (resultCode == Activity.RESULT_OK){
-                assignmentsListActivity();
+                try {
+                    AppUsersData.loadUsersData(this);
+                    assignmentsListActivity();
+                } catch (InterruptedException e) {
+                    Log.e("MAIN", "assignmentsListActivity: Error loading users data" + e.toString());
+                }
             }
         }
     }

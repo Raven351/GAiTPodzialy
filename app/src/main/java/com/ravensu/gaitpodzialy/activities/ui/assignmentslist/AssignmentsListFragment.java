@@ -8,13 +8,14 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.ravensu.gaitpodzialy.R;
-import com.ravensu.gaitpodzialy.dummy.DummyContent;
-import com.ravensu.gaitpodzialy.dummy.DummyContent.DummyItem;
+import com.ravensu.gaitpodzialy.data.AppUsersData;
+import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 /**
  * A fragment representing a list of Items.
@@ -70,7 +71,8 @@ public class AssignmentsListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new AssignmentsListRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+            Log.d("AssignmentsListFragment", "onCreateView: Assignments count: " + AppUsersData.getUsersAssignments(AppUsersData.getCurrentlySelectedUserId()).size());
+            recyclerView.setAdapter(new AssignmentsListRecyclerViewAdapter(AppUsersData.getUsersAssignments(AppUsersData.getCurrentlySelectedUserId()), mListener));
         }
         return view;
     }
@@ -105,6 +107,6 @@ public class AssignmentsListFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Assignment assignment);
     }
 }

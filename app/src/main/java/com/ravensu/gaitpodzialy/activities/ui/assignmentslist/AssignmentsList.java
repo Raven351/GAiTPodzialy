@@ -12,10 +12,11 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.ravensu.gaitpodzialy.R;
+import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 //https://developer.android.com/training/animation/screen-slide-2?hl=en#java
 
-public class AssignmentsList extends AppCompatActivity {
+public class AssignmentsList extends AppCompatActivity implements AssignmentsListFragment.OnListFragmentInteractionListener {
 
     private static final int NUM_PAGES = 3;
     private ViewPager2 viewPager2;
@@ -54,7 +55,13 @@ public class AssignmentsList extends AppCompatActivity {
         toolbar.setTitleTextColor(0xFFFFFFFF);
     }
 
-    private class ScreenSlidePagerAdapter extends FragmentStateAdapter{
+    @Override
+    public void onListFragmentInteraction(Assignment assignment) {
+
+    }
+
+
+    private static class ScreenSlidePagerAdapter extends FragmentStateAdapter{
         public ScreenSlidePagerAdapter(FragmentActivity fragmentActivity){
             super(fragmentActivity);
         }
@@ -67,7 +74,7 @@ public class AssignmentsList extends AppCompatActivity {
                     return new AssignmentsListCurrentsFragment();
                 }
                 case 1: {
-                    return new AssignmentsListCurrentsFragment();
+                    return new AssignmentsListFragment();
                 }
                 case 2:{
                     return new AssignmentsListCurrentsFragment();
