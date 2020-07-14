@@ -42,7 +42,7 @@ public class AppLogins {
      * @param password
      * @throws IllegalArgumentException if user was already added.
      */
-    public static void SaveCredidentials(Context context, String userId, String password){
+    public static void SaveCredentials(Context context, String userId, String password){
         if(Exists(context, userId)) throw new IllegalArgumentException("UserId already saved");
         SharedPreferences preferences = getPreferences(context);
         SharedPreferences.Editor preferencesEditor = preferences.edit();
@@ -50,7 +50,7 @@ public class AppLogins {
         preferencesEditor.apply();
     }
 
-    public static void RemoveCredidentials(Context context, String userId){
+    public static void RemoveCredentials(Context context, String userId){
         if(!Exists(context,userId)) throw new NullPointerException("UserId not found");
         SharedPreferences preferences = getPreferences(context);
         SharedPreferences.Editor preferencesEditor = preferences.edit();

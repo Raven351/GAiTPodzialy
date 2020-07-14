@@ -2,7 +2,6 @@ package com.ravensu.gaitpodzialy.services;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.ResultReceiver;
 
@@ -14,10 +13,7 @@ import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 import org.jsoup.nodes.Document;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import static android.os.AsyncTask.Status.RUNNING;
 
 public class UserLoginService extends IntentService {
     /**
@@ -39,7 +35,7 @@ public class UserLoginService extends IntentService {
             GAiTWebScrapper gAiTWebScrapper = new GAiTWebScrapper(intent.getStringExtra("username"), intent.getStringExtra("password"));
             Document gaitWebsite = gAiTWebScrapper.GetGAiTWebsite();
             if(gaitWebsite == null) throw new Exception("Login failed: GAIT Website Document is null.");
-            AppLogins.SaveCredidentials(this, intent.getStringExtra("username"), intent.getStringExtra("password"));
+            AppLogins.SaveCredentials(this, intent.getStringExtra("username"), intent.getStringExtra("password"));
             ArrayList<Assignment> assignments = gAiTWebScrapper.ScrapAssignmentsTable(gaitWebsite);
             String displayName = assignments.get(0).DriverName;
             bundle.putString("userId", intent.getStringExtra("username"));

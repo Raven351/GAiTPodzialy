@@ -23,8 +23,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="48dp"
         android:textAppearance="?attr/textAppearanceListItem"
+        app:layout_constraintEnd_toStartOf="@+id/timeTotalLabel"
+        app:layout_constraintHorizontal_bias="0.251"
         app:layout_constraintStart_toEndOf="@+id/date"
         app:layout_constraintTop_toTopOf="@+id/date"
         tools:text="@string/assignment_sample_code" />
@@ -109,12 +110,12 @@
         android:textAppearance="?attr/textAppearanceListItem"
         android:textColor="#0F8520"
         android:textSize="12sp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/timeStart"
         app:layout_constraintTop_toTopOf="@+id/timeStart"
-        tools:text="@string/assignment_sample_startLocation"
-        />
+        tools:text="@string/assignment_sample_startLocation" />
 
     <TextView
         android:id="@+id/locationEnd"
@@ -130,34 +131,38 @@
         android:textAppearance="?attr/textAppearanceListItem"
         android:textColor="#eb5050"
         android:textSize="12sp"
+        android:layout_marginEnd="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/locationStart"
         app:layout_constraintTop_toTopOf="@+id/timeEnd" />
 
     <TextView
-        android:id="@+id/timeLabel"
+        android:id="@+id/timeTotalLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="56dp"
+        android:text="@string/assignment_totalTime_label"
         android:textAppearance="?attr/textAppearanceListItem"
-        android:textSize="10sp"
+        android:textColor="#707070"
+        android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="@string/assignment_sample_timeTotal" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/timeTotal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
-        android:layout_marginEnd="4dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:textAppearance="?attr/textAppearanceListItem"
-        android:textColor="#000000"
-        android:textSize="10sp"
-        app:layout_constraintEnd_toStartOf="@+id/timeLabel"
-        app:layout_constraintTop_toTopOf="@+id/timeLabel"
-        tools:text="@string/assignment_totalTime_label" />
+        android:textColor="#707070"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/assignment_sample_timeTotal" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

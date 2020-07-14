@@ -74,7 +74,7 @@ public class LoginDataSource {
                     String displayName = "";
                     if (assignments.size() > 0) displayName = assignments.get(0).DriverName;
                     if (!AppLogins.ExistsAny(context)) AppMainLogin.SetMainLoginUserName(context, displayName);
-                    AppLogins.SaveCredidentials(context, userId, password);
+                    AppLogins.SaveCredentials(context, userId, password);
                     LoggedInUser user = new LoggedInUser(userId, displayName, assignments);
                     Log.d("LoginDataSource", "Returning ResultSuccess with user model containing data: " + userId + " " + displayName + " , assignments size: " +  assignments.size());
                     result[0] = new Result.Success<>(user);
@@ -98,7 +98,7 @@ public class LoginDataSource {
 
     public void logout(String userId) {
         try{
-            AppLogins.RemoveCredidentials(context, userId);
+            AppLogins.RemoveCredentials(context, userId);
         } catch (Exception e) {
             e.printStackTrace();
         }
