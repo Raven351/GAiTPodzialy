@@ -7,10 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.service.autofill.UserData;
 import android.util.Log;
 
-import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsList;
+import com.ravensu.gaitpodzialy.activities.ui.MainViewPager;
 import com.ravensu.gaitpodzialy.activities.ui.login.LoginActivity;
 import com.ravensu.gaitpodzialy.data.AppLogins;
 import com.ravensu.gaitpodzialy.data.AppMainLogin;
@@ -77,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
     private void assignmentsListActivity(){
         try {
             AppUsersData.loadUsersData(this);
-            Intent intent = new Intent(this, AssignmentsList.class);
+            Intent intent = new Intent(this, MainViewPager.class);
             intent.putExtra("FROM_ACTIVITY", "MAIN");
             startActivity(intent);
         } catch (InterruptedException e) {

@@ -1,4 +1,4 @@
-package com.ravensu.gaitpodzialy.activities.ui.assignmentslist;
+package com.ravensu.gaitpodzialy.activities.ui;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,11 +12,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.ravensu.gaitpodzialy.R;
+import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsListFragment;
+import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsTodayTomorrowFragment;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 //https://developer.android.com/training/animation/screen-slide-2?hl=en#java
 
-public class AssignmentsList extends AppCompatActivity implements AssignmentsListFragment.OnListFragmentInteractionListener {
+public class MainViewPager extends AppCompatActivity implements AssignmentsListFragment.OnListFragmentInteractionListener {
 
     private static final int NUM_PAGES = 3;
     private ViewPager2 viewPager2;
@@ -25,7 +27,7 @@ public class AssignmentsList extends AppCompatActivity implements AssignmentsLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_assignments_list);
+        setContentView(R.layout.activity_main_view_pager);
         setUpToolbar();
 
         viewPager2 = findViewById(R.id.assignments_list_viewpager);
@@ -71,13 +73,13 @@ public class AssignmentsList extends AppCompatActivity implements AssignmentsLis
         public Fragment createFragment(int position) {
             switch (position){
                 case 0:{
-                    return new AssignmentsListCurrentsFragment();
+                    return new AssignmentsTodayTomorrowFragment();
                 }
                 case 1: {
                     return new AssignmentsListFragment();
                 }
                 case 2:{
-                    return new AssignmentsListCurrentsFragment();
+                    return new AssignmentsTodayTomorrowFragment();
                 }
             }
             return null;

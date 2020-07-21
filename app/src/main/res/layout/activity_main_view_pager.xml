@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsList">
+    tools:context="com.ravensu.gaitpodzialy.activities.ui.MainViewPager">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_assignments_list_activity"
@@ -16,7 +16,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+    />
 
 <!--    <com.google.android.material.floatingactionbutton.FloatingActionButton-->
 <!--        android:id="@+id/fab_change_user"-->

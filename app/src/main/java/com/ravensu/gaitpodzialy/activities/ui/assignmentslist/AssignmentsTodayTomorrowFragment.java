@@ -14,24 +14,24 @@ import android.view.ViewGroup;
 
 import com.ravensu.gaitpodzialy.R;
 
-public class AssignmentsListCurrentsFragment extends Fragment {
+public class AssignmentsTodayTomorrowFragment extends Fragment {
 
-    private AssignmentsListCurrentsViewModelFragment mViewModel;
+    private AssignmentsTodayTomorrowViewModelFragment mViewModel;
 
-    public static AssignmentsListCurrentsFragment newInstance() {
-        return new AssignmentsListCurrentsFragment();
+    public static AssignmentsTodayTomorrowFragment newInstance() {
+        return new AssignmentsTodayTomorrowFragment();
     }
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return (ViewGroup) inflater.inflate(R.layout.assignments_list_currents_fragment, container, false);
+        return (ViewGroup) inflater.inflate(R.layout.assignments_today_tomorrow_fragment, container, false);
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewModel = ViewModelProviders.of(this).get(AssignmentsListCurrentsViewModelFragment.class);
+        mViewModel = ViewModelProviders.of(this).get(AssignmentsTodayTomorrowViewModelFragment.class);
         // TODO: Use the ViewModel
     }
 

@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".activities.ui.assignmentslist.AssignmentsList"
+            android:name=".activities.ui.MainViewPager"
             android:theme="@style/AppTheme.NoActionBar"
             >
         </activity>

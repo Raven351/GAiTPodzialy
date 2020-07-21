@@ -5,7 +5,7 @@
     android:id="@+id/assignments_list_currents_fragment_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.ui.assignmentslist.AssignmentsListCurrentsFragment">
+    tools:context=".activities.ui.assignmentslist.AssignmentsTodayTomorrowFragment">
 
 
     <androidx.constraintlayout.widget.ConstraintLayout
