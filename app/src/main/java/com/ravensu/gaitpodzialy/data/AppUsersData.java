@@ -37,6 +37,8 @@ public class AppUsersData {
         return currentlySelectedUser.UserId;
     }
 
+    public static ConcurrentHashMap<String, User> getAllUsers(){return users;}
+
     public static void loadUsersData(Context context) throws InterruptedException {
         if (AppLogins.ExistsAny(context)){
             final Map<String, ?> savedUsersCredentials = AppLogins.GetAllCredentials(context);
