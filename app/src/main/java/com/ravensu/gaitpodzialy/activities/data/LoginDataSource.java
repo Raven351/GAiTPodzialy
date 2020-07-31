@@ -5,8 +5,8 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.ravensu.gaitpodzialy.activities.data.model.LoggedInUser;
-import com.ravensu.gaitpodzialy.data.AppLogins;
-import com.ravensu.gaitpodzialy.data.AppMainLogin;
+import com.ravensu.gaitpodzialy.data.SavedAppLogins;
+import com.ravensu.gaitpodzialy.data.SavedAppMainLogin;
 import com.ravensu.gaitpodzialy.receivers.LoginResultReceiver;
 import com.ravensu.gaitpodzialy.webscrapper.GAiTWebScrapper;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
@@ -68,13 +68,12 @@ public class LoginDataSource {
                     GAiTWebScrapper gAiTWebScrapper = new GAiTWebScrapper(userId, password);
                     Document gaitWebsite = gAiTWebScrapper.GetGAiTWebsite();
                     if (gaitWebsite == null) throw new Exception("Login failed");
-                    if (!AppLogins.ExistsAny(context)) AppMainLogin.SetMainLoginUserId(context, userId);
+                    if (!SavedAppLogins.ExistsAny(context)) SavedAppMainLogin.SetMainLoginUserId(context, userId);
                     ArrayList<Assignment> assignments = gAiTWebScrapper.ScrapAssignmentsTable(gaitWebsite);
-                    //todo no assignments = no display name provided
                     String displayName = "";
                     if (assignments.size() > 0) displayName = assignments.get(0).DriverName;
-                    if (!AppLogins.ExistsAny(context)) AppMainLogin.SetMainLoginUserName(context, displayName);
-                    AppLogins.SaveCredentials(context, userId, password);
+                    if (!SavedAppLogins.ExistsAny(context)) SavedAppMainLogin.SetMainLoginUserName(context, displayName);
+                    SavedAppLogins.SaveCredentials(context, userId, password);
                     LoggedInUser user = new LoggedInUser(userId, displayName, assignments);
                     Log.d("LoginDataSource", "Returning ResultSuccess with user model containing data: " + userId + " " + displayName + " , assignments size: " +  assignments.size());
                     result[0] = new Result.Success<>(user);
@@ -98,7 +97,7 @@ public class LoginDataSource {
 
     public void logout(String userId) {
         try{
-            AppLogins.RemoveCredentials(context, userId);
+            SavedAppLogins.RemoveCredentials(context, userId);
         } catch (Exception e) {
             e.printStackTrace();
         }

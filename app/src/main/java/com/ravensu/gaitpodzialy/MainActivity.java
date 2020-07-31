@@ -11,9 +11,9 @@ import android.util.Log;
 
 import com.ravensu.gaitpodzialy.activities.ui.MainViewPager;
 import com.ravensu.gaitpodzialy.activities.ui.login.LoginActivity;
-import com.ravensu.gaitpodzialy.data.AppLogins;
-import com.ravensu.gaitpodzialy.data.AppMainLogin;
-import com.ravensu.gaitpodzialy.data.AppUsersData;
+import com.ravensu.gaitpodzialy.data.SavedAppLogins;
+import com.ravensu.gaitpodzialy.data.SavedAppMainLogin;
+import com.ravensu.gaitpodzialy.data.UsersData;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,8 +29,8 @@ public class MainActivity extends AppCompatActivity {
         appLoginsEditor.remove(TestingValues.usernameMichu);
         appLoginsEditor.apply();
 //        debug end
-        Log.d("MainActivity", "onCreate: "  + AppLogins.GetAllCredentials(this).size());
-        Log.d("MainActivity", "onCreate: "  + AppMainLogin.GetMainLoginUserName(this));
+        Log.d("MainActivity", "onCreate: "  + SavedAppLogins.GetAllCredentials(this).size());
+        Log.d("MainActivity", "onCreate: "  + SavedAppMainLogin.GetMainLoginUserName(this));
         new CountDownTimer(1000, 1000){
             @Override
             public void onTick(long millisUntilFinished) {
@@ -42,25 +42,10 @@ public class MainActivity extends AppCompatActivity {
                 startApp();
             }
         }.start();
-//        if (!AppLogins.ExistsAny(this)) {
-//            new CountDownTimer(2000, 1000){
-//                @Override
-//                public void onTick(long millisUntilFinished) {}
-//
-//                @Override
-//                public void onFinish() {
-//                    loginActivity();
-//                }
-//            }.start();
-//        }
-//        else {
-//            Toast.makeText(getApplicationContext(), "Welcome " + AppMainLogin.GetMainLoginUserName(this), Toast.LENGTH_LONG).show();
-//            assignmentsListActivity();
-//        }
     }
 
     private void startApp(){
-        if(!AppLogins.ExistsAny(this)){
+        if(!SavedAppLogins.ExistsAny(this)){
             loginActivity();
         }
         else{
@@ -75,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void assignmentsListActivity(){
         try {
-            AppUsersData.loadUsersData(this);
+            UsersData.loadUsersData(this); //todo called second time?
             Intent intent = new Intent(this, MainViewPager.class);
             intent.putExtra("FROM_ACTIVITY", "MAIN");
             startActivity(intent);
@@ -91,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1){
             if (resultCode == Activity.RESULT_OK){
                 try {
-                    AppUsersData.loadUsersData(this);
+                    UsersData.loadUsersData(this);
                     assignmentsListActivity();
                 } catch (InterruptedException e) {
                     Log.e("MAIN", "assignmentsListActivity: Error loading users data" + e.toString());

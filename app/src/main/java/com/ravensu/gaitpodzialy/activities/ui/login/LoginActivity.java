@@ -3,7 +3,6 @@ package com.ravensu.gaitpodzialy.activities.ui.login;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.KeyEvent;
@@ -20,13 +19,11 @@ import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
-import com.ravensu.gaitpodzialy.Keyboard;
 import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.activities.data.LoginDataSource;
 import com.ravensu.gaitpodzialy.activities.data.LoginRepository;
-import com.ravensu.gaitpodzialy.data.AppMainLogin;
+import com.ravensu.gaitpodzialy.data.SavedAppMainLogin;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -127,7 +124,7 @@ public class LoginActivity extends AppCompatActivity {
         // TODO : initiate successful logged in experience
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("displayName", AppMainLogin.GetMainLoginUserId(this));
+        returnIntent.putExtra("displayName", SavedAppMainLogin.GetMainLoginUserId(this));
 
         setResult(Activity.RESULT_OK);
         finish();

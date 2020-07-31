@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ravensu.gaitpodzialy.R;
-import com.ravensu.gaitpodzialy.data.AppUsersData;
+import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 /**
@@ -71,8 +71,8 @@ public class AssignmentsListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            Log.d("AssignmentsListFragment", "onCreateView: Assignments count: " + AppUsersData.getUsersAssignments(AppUsersData.getCurrentlySelectedUserId()).size());
-            recyclerView.setAdapter(new AssignmentsListRecyclerViewAdapter(AppUsersData.getUsersAssignments(AppUsersData.getCurrentlySelectedUserId()), mListener));
+            Log.d("AssignmentsListFragment", "onCreateView: Assignments count: " + UsersData.getUsersAssignments(UsersData.getCurrentlySelectedUserId()).size());
+            recyclerView.setAdapter(new AssignmentsListRecyclerViewAdapter(UsersData.getUsersAssignments(UsersData.getCurrentlySelectedUserId()), mListener));
         }
         return view;
     }

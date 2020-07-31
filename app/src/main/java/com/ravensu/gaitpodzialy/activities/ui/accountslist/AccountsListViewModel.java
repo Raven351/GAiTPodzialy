@@ -9,8 +9,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ravensu.gaitpodzialy.data.AppLogins;
-import com.ravensu.gaitpodzialy.data.AppUsersData;
+import com.ravensu.gaitpodzialy.data.SavedAppLogins;
+import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class AccountsListViewModel extends ViewModel {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                users = new MutableLiveData<>(AppUsersData.getAllUsers());
+                users = new MutableLiveData<>(UsersData.getAllUsers());
             }
         }).start();
     }
