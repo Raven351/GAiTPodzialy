@@ -25,6 +25,7 @@ public class AccountsListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_accounts_list);
         RecyclerView recyclerView = findViewById(R.id.accountsList);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        setUpToolbar();
         final AccountsListAdapter adapter = new AccountsListAdapter();
         recyclerView.setAdapter(adapter);
         //viewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(AccountsListViewModel.class);
@@ -35,6 +36,7 @@ public class AccountsListActivity extends AppCompatActivity {
                 adapter.setUsers(users);
             }
         });
+
     }
 
     private void setUpToolbar(){
