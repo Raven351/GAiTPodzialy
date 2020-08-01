@@ -1,4 +1,4 @@
-package com.ravensu.gaitpodzialy.activities.ui.accountslist;
+package com.ravensu.gaitpodzialy.activities.ui.accountsList;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
@@ -13,11 +13,11 @@ import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class AccountsListAdapter extends RecyclerView.Adapter<AccountsListAdapter.ViewHolder> {
 
-    private ArrayList<User> users;
+    private ArrayList<User> users = new ArrayList<User>();
     private AccountsListViewModel viewModel;
 
     @NonNull
@@ -32,11 +32,19 @@ public class AccountsListAdapter extends RecyclerView.Adapter<AccountsListAdapte
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if (position % 2 == 1) holder.mView.setBackgroundColor(Color.parseColor("#e8e8e8"));
         holder.mUser = users.get(position);
+        holder.mUserId.setText(users.get(position).UserId);
     }
 
     @Override
     public int getItemCount() {
         return users == null ? 0 : users.size();
+    }
+
+    public void setUsers(ConcurrentHashMap<String, User> users){
+        for (String key : users.keySet()){
+            this.users.add(users.get(key));
+        }
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{

@@ -1,28 +1,32 @@
-package com.ravensu.gaitpodzialy.activities.ui.accountslist;
+package com.ravensu.gaitpodzialy.activities.ui.accountsList;
 
-import android.view.View;
-import android.view.ViewGroup;
+import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.ViewModel;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.ravensu.gaitpodzialy.data.SavedAppLogins;
 import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
-import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class AccountsListViewModel extends ViewModel {
+public class AccountsListViewModel extends AndroidViewModel {
     private MutableLiveData<ConcurrentHashMap<String, User>> users;
+
+    public AccountsListViewModel(@NonNull Application application) {
+        super(application);
+        users = new MutableLiveData<>(UsersData.getAllUsers());
+    }
+
     public LiveData<ConcurrentHashMap<String, User>> getUsers(){
         if (users == null){
             users = new MutableLiveData<ConcurrentHashMap<String, User>>();
             loadUsers();
         }
+        Log.d("AccountsListViewModel", "getUsers: users count: " + users.getValue().size());
         return users;
     }
 

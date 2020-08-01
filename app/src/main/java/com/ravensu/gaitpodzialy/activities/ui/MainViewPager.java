@@ -10,8 +10,10 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.ravensu.gaitpodzialy.R;
+import com.ravensu.gaitpodzialy.activities.ui.accountsList.AccountsListActivity;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsListFragment;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsTodayTomorrowFragment;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
@@ -60,6 +62,11 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
     @Override
     public void onListFragmentInteraction(Assignment assignment) {
 
+    }
+
+    public void onClickAccountsButton(View view) {
+        Intent intent = new Intent(this, AccountsListActivity.class);
+        startActivity(intent);
     }
 
 
