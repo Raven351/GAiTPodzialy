@@ -87,4 +87,8 @@ public class UsersData {
             Log.d("AppUsersData", "loadUsersData: Main user: " + getUsersAssignments(currentlySelectedUser.UserId).size());
         }
     }
+
+    public static void setCurrentlySelectedUser(String userId){
+        currentlySelectedUser = getUserByUserId(userId);
+    }
 }

@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/logoutUserButton"
+        android:id="@+id/settingsUserButton"
         android:layout_width="60dp"
         android:layout_height="40dp"
         android:layout_marginEnd="32dp"
