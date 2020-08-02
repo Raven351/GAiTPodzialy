@@ -62,6 +62,10 @@ public class UsersData {
         return currentlySelectedUser.UserId;
     }
 
+    public static User getMainUser(){
+        return mainUser;
+    }
+
     public static ConcurrentHashMap<String, User> getAllUsers(){return users;}
 
     public static void loadUsersData(Context context) throws InterruptedException {

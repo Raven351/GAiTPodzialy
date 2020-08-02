@@ -24,10 +24,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //debug
-        final SharedPreferences appLogins = getSharedPreferences("app_logins", MODE_PRIVATE);
-        SharedPreferences.Editor appLoginsEditor = appLogins.edit();
-        appLoginsEditor.remove(TestingValues.usernameMichu);
-        appLoginsEditor.apply();
+//        final SharedPreferences appLogins = getSharedPreferences("app_logins", MODE_PRIVATE);
+//        SharedPreferences.Editor appLoginsEditor = appLogins.edit();
+//        appLoginsEditor.remove(TestingValues.usernameMichu);
+//        appLoginsEditor.apply();
 //        debug end
         Log.d("MainActivity", "onCreate: "  + SavedAppLogins.GetAllCredentials(this).size());
         Log.d("MainActivity", "onCreate: "  + SavedAppMainLogin.GetMainLoginUserName(this));

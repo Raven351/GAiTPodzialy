@@ -2,6 +2,7 @@ package com.ravensu.gaitpodzialy.activities.ui.accountsList;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.service.autofill.UserData;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,12 +42,14 @@ public class AccountsListAdapter extends RecyclerView.Adapter<AccountsListAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         if (position % 2 == 1) holder.mView.setBackgroundColor(Color.parseColor("#e8e8e8"));
+        if (users.get(position) == UsersData.getCurrentlySelectedUser()) holder.mView.setBackgroundColor(Color.parseColor("#0ecef0"));
         holder.mUser = users.get(position);
         holder.mUserId.setText(users.get(position).UserId);
         holder.mChangeToUserButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 UsersData.setCurrentlySelectedUser(users.get(position).UserId);
+
                 notifyDataSetChanged();
                 parentActivity.finish();
             }

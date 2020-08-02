@@ -7,16 +7,20 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.ravensu.gaitpodzialy.R;
+import com.ravensu.gaitpodzialy.activities.ui.login.LoginActivity;
+import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
 import java.util.concurrent.ConcurrentHashMap;
 
 public class AccountsListActivity extends AppCompatActivity {
-    private AccountsListViewModel viewModel;
+    private AccountsListViewModel accountsListViewModel;
 
 
     @Override
@@ -29,8 +33,8 @@ public class AccountsListActivity extends AppCompatActivity {
         final AccountsListAdapter adapter = new AccountsListAdapter(this);
         recyclerView.setAdapter(adapter);
         //viewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(AccountsListViewModel.class);
-        viewModel = new ViewModelProvider(this).get(AccountsListViewModel.class);
-        viewModel.getUsers().observe(this, new Observer<ConcurrentHashMap<String, User>>() {
+        accountsListViewModel = new ViewModelProvider(this).get(AccountsListViewModel.class);
+        accountsListViewModel.getUsers().observe(this, new Observer<ConcurrentHashMap<String, User>>() {
             @Override
             public void onChanged(ConcurrentHashMap<String, User> users) {
                 adapter.setUsers(users);
@@ -46,6 +50,22 @@ public class AccountsListActivity extends AppCompatActivity {
     }
 
     public void onClickAddAccountButton(View view) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.putExtra("requestCode", 2);
+        startActivityForResult(intent, 2);
+    }
 
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 2){
+            if (resultCode == Activity.RESULT_OK){
+                try {
+                    UsersData.loadUsersData(this);
+                }
+                catch (InterruptedException e){
+
+                }
+            }
+        }
     }
 }

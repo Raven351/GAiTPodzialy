@@ -4,6 +4,8 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,6 +18,8 @@ import android.view.ViewGroup;
 import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
+
+import java.util.ArrayList;
 
 /**
  * A fragment representing a list of Items.
@@ -30,6 +34,7 @@ public class AssignmentsListFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    private AssignmentsListViewModel assignmentsListViewModel;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -51,10 +56,10 @@ public class AssignmentsListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         if (getArguments() != null) {
             mColumnCount = getArguments().getInt(ARG_COLUMN_COUNT);
         }
+
     }
 
     @Override
@@ -72,7 +77,15 @@ public class AssignmentsListFragment extends Fragment {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
             Log.d("AssignmentsListFragment", "onCreateView: Assignments count: " + UsersData.getUsersAssignments(UsersData.getCurrentlySelectedUserId()).size());
-            recyclerView.setAdapter(new AssignmentsListRecyclerViewAdapter(UsersData.getUsersAssignments(UsersData.getCurrentlySelectedUserId()), mListener));
+            final AssignmentsListAdapter adapter = new AssignmentsListAdapter();
+            recyclerView.setAdapter(adapter);
+            assignmentsListViewModel = new ViewModelProvider(this).get(AssignmentsListViewModel.class);
+            assignmentsListViewModel.getAssignments().observe(getViewLifecycleOwner(), new Observer<ArrayList<Assignment>>() {
+                @Override
+                public void onChanged(ArrayList<Assignment> assignments) {
+                    adapter.setAssignments(assignments);
+                }
+            });
         }
         return view;
     }

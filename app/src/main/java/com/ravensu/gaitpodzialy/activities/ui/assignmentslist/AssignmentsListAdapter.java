@@ -1,39 +1,39 @@
 package com.ravensu.gaitpodzialy.activities.ui.assignmentslist;
 
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.SimpleExpandableListAdapter;
 import android.widget.TextView;
 
 import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsListFragment.OnListFragmentInteractionListener;
+import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.dummy.DummyContent.DummyItem;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
+import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * {@link RecyclerView.Adapter} that can display a {@link DummyItem} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
  * TODO: Replace the implementation with code for your data type.
  */
-public class AssignmentsListRecyclerViewAdapter extends RecyclerView.Adapter<AssignmentsListRecyclerViewAdapter.ViewHolder> {
+public class AssignmentsListAdapter extends RecyclerView.Adapter<AssignmentsListAdapter.ViewHolder> {
 
-    private final ArrayList<Assignment> assignments;
-    private final OnListFragmentInteractionListener mListener;
+    private MutableLiveData<User> currentlySelectedUser = new MutableLiveData<>(UsersData.getCurrentlySelectedUser());
+    private ArrayList<Assignment> assignments;
 
-    public AssignmentsListRecyclerViewAdapter(ArrayList<Assignment> assignments, OnListFragmentInteractionListener listener) {
-        this.assignments = assignments;
-        mListener = listener;
+    public AssignmentsListAdapter() {
+        this.assignments = currentlySelectedUser.getValue().Assignments;
+
     }
 
     @NotNull
@@ -57,22 +57,16 @@ public class AssignmentsListRecyclerViewAdapter extends RecyclerView.Adapter<Ass
         holder.mLocationStart.setText(assignments.get(position).AssignmentStartLocation);
         holder.mLocationEnd.setText(assignments.get(position).AssignmentEndLocation);
         holder.mTimeTotal.setText(assignments.get(position).AssignmentDuration.toString());
-
-        holder.mView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (null != mListener) {
-                    // Notify the active callbacks interface (the activity, if the
-                    // fragment is attached to one) that an item has been selected.
-                    mListener.onListFragmentInteraction(holder.mAssignment);
-                }
-            }
-        });
     }
 
     @Override
     public int getItemCount() {
         return assignments.size();
+    }
+
+    public void setAssignments(ArrayList<Assignment> assignments){
+        this.assignments = assignments;
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

@@ -1,6 +1,7 @@
 package com.ravensu.gaitpodzialy.activities.ui.login;
 
 import android.app.Activity;
+import android.app.Instrumentation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -125,7 +126,6 @@ public class LoginActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
         Intent returnIntent = new Intent();
         returnIntent.putExtra("displayName", SavedAppMainLogin.GetMainLoginUserId(this));
-
         setResult(Activity.RESULT_OK);
         finish();
     }
@@ -136,6 +136,8 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        return;
+        Intent intent = getIntent();
+        if (intent.getIntExtra("requestCode", 1) == 2) finish();
+        else return;
     }
 }
