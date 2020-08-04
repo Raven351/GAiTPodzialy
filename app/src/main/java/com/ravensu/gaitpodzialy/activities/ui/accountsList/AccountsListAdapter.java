@@ -50,7 +50,6 @@ public class AccountsListAdapter extends RecyclerView.Adapter<AccountsListAdapte
             public void onClick(View v) {
                 UsersData.setCurrentlySelectedUser(users.get(position).UserId);
 
-                notifyDataSetChanged();
                 parentActivity.finish();
             }
         });

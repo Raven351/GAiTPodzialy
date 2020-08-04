@@ -83,6 +83,7 @@ public class AssignmentsListFragment extends Fragment {
             assignmentsListViewModel.getAssignments().observe(getViewLifecycleOwner(), new Observer<ArrayList<Assignment>>() {
                 @Override
                 public void onChanged(ArrayList<Assignment> assignments) {
+                    adapter.notifyDataSetChanged();
                     adapter.setAssignments(assignments);
                 }
             });
@@ -107,6 +108,14 @@ public class AssignmentsListFragment extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+    }
+
+
 
     /**
      * This interface must be implemented by activities that contain this

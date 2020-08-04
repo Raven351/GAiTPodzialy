@@ -10,6 +10,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 
 import com.ravensu.gaitpodzialy.R;
@@ -35,6 +36,7 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
         viewPager2 = findViewById(R.id.assignments_list_viewpager);
         pageAdapter = new ScreenSlidePagerAdapter(this);
         viewPager2.setAdapter(pageAdapter);
+        viewPager2.setCurrentItem(getIntent().getIntExtra("CURRENT_PAGE", 0), false);
     }
 
     private boolean isPreviousActivityMain(){
@@ -69,6 +71,12 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
         startActivity(intent);
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        finish();
+        startActivity(getIntent().putExtra("CURRENT_PAGE", this.viewPager2.getCurrentItem()));
+    }
 
     private static class ScreenSlidePagerAdapter extends FragmentStateAdapter{
         public ScreenSlidePagerAdapter(FragmentActivity fragmentActivity){
@@ -96,5 +104,6 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
         public int getItemCount() {
             return NUM_PAGES;
         }
+
     }
 }
