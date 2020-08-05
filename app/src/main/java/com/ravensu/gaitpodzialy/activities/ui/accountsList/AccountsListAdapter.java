@@ -2,6 +2,7 @@ package com.ravensu.gaitpodzialy.activities.ui.accountsList;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.os.Handler;
 import android.service.autofill.UserData;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,9 +49,17 @@ public class AccountsListAdapter extends RecyclerView.Adapter<AccountsListAdapte
         holder.mChangeToUserButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
+                parentActivity.findViewById(R.id.accountsLoadingCircle).setVisibility(View.VISIBLE);
                 UsersData.setCurrentlySelectedUser(users.get(position).UserId);
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        parentActivity.findViewById(R.id.accountsLoadingCircle).setVisibility(View.GONE);
+                        parentActivity.finish();
+                    }
+                }, 500); //delay added because if active user is being changed too fast it will cause assignments views to not refresh itself and show assignments for previously selected user
 
-                parentActivity.finish();
             }
         });
     }
