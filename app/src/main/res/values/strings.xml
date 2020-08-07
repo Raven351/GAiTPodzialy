@@ -36,4 +36,7 @@
     <string name="unable_to_logout_toast">Cannot logout default user!</string>
     <string name="logout_confirmation_alert_dialog_message">Do you really want to logout user?</string>
 
+
+    <string name="document_sample_name" translatable="false">{DocumentTitle}</string>
+
 </resources>
