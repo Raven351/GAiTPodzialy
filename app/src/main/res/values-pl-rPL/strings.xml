@@ -18,4 +18,11 @@
     <string name="assignment_start_label">Rozpoczęcie:</string>
     <string name="assignment_end_label">Zakończenie:</string>
     <string name="tomorrow_assignment">Jutrzejsza służba</string>
+
+    <!--    Users panel-->
+    <string name="change_default_user_alert_dialog_message">"Czy napewno chcesz ustawić tego użytkownika jako domyślnego?<br/><br/>Dane domyślnego użytkownika będą wyświetlane od razu po uruchomieniu aplikacji."</string>
+    <string name="change_default_user_success_toast_1">Użytkownik </string>
+    <string name="change_default_user_success_toast_2"> został ustawiony jako domyślny</string>
+    <string name="unable_to_logout_toast">Nie można wylogować głównego użytkownika!</string>
+    <string name="logout_confirmation_alert_dialog_message">Czy napewno chcesz wylogować użytkownika?</string>
 </resources>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GAiT Podziały</string>
+    <string name="app_name" translatable="false">GAiT Podziały</string>
     <string name="title_activity_login">Sign in</string>
     <string name="prompt_driver_number">Driver Number</string>
     <string name="prompt_password">Password</string>
@@ -28,5 +28,12 @@
     <string name="assignment_sample_startTime" translatable="false">00:00</string>
     <string name="assignment_sample_startLocation" translatable="false">startLocation</string>
     <string name="assignment_sample_endLocation" translatable="false">endLocation</string>
+
+<!--    Users panel-->
+    <string name="change_default_user_alert_dialog_message">"Do you really want to set this user as your default user?<br/> <br/>After launching app next time, data of this user will be the first one to show up."</string>
+    <string name="change_default_user_success_toast_1">User </string>
+    <string name="change_default_user_success_toast_2"> has been set as default</string>
+    <string name="unable_to_logout_toast">Cannot logout default user!</string>
+    <string name="logout_confirmation_alert_dialog_message">Do you really want to logout user?</string>
 
 </resources>

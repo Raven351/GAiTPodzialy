@@ -68,6 +68,18 @@ public class UsersData {
 
     public static ConcurrentHashMap<String, User> getAllUsers(){return users;}
 
+    public static void setCurrentlySelectedUser(String userId){
+        currentlySelectedUser = getUserByUserId(userId);
+    }
+
+    public static void setMainUser(String userId){
+        mainUser = getUserByUserId(userId);
+    }
+
+    public static void removeUser(String userId){
+        users.remove(userId);
+    }
+
     public static void loadUsersData(Context context) throws InterruptedException {
         if (SavedAppLogins.ExistsAny(context)){
             final Map<String, ?> savedUsersCredentials = SavedAppLogins.GetAllCredentials(context);
@@ -90,9 +102,5 @@ public class UsersData {
             currentlySelectedUser = mainUser;
             Log.d("AppUsersData", "loadUsersData: Main user: " + getUsersAssignments(currentlySelectedUser.UserId).size());
         }
-    }
-
-    public static void setCurrentlySelectedUser(String userId){
-        currentlySelectedUser = getUserByUserId(userId);
     }
 }

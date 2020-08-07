@@ -61,6 +61,8 @@ public class AccountsListActivity extends AppCompatActivity {
             if (resultCode == Activity.RESULT_OK){
                 try {
                     UsersData.loadUsersData(this);
+                    finish();
+                    startActivity(getIntent());
                 }
                 catch (InterruptedException e){
 
