@@ -98,7 +98,7 @@ public class GAiTWebScrapper {
         }
         document.Name = row.get(1).text();
         document.Number = row.get(2).text();
-        document.URL = row.get(3).text();
+        document.URL = row.select("a").attr("href");
         return document;
     }
 

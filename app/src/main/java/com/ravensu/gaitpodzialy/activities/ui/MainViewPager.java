@@ -17,6 +17,7 @@ import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.activities.ui.accountsList.AccountsListActivity;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsListFragment;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsTodayTomorrowFragment;
+import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.DocumentsListFragment;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 //https://developer.android.com/training/animation/screen-slide-2?hl=en#java
@@ -94,7 +95,7 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
                     return new AssignmentsListFragment();
                 }
                 case 2:{
-                    return new AssignmentsTodayTomorrowFragment();
+                    return new DocumentsListFragment();
                 }
             }
             return null;

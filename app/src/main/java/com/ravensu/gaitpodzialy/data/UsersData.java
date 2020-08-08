@@ -95,7 +95,7 @@ public class UsersData {
                         Log.d("AppUsersData", "loadUsersData: Documents count for user: " + entry.getKey() + " - " + documents.size());
                         User user = new User(entry.getKey(), entry.getValue().toString(), assignments, documents);
                         UsersData.addUserData(user);
-                        users.put(entry.getKey(), new User(entry.getKey(), entry.getValue().toString(), assignments));
+                        users.put(entry.getKey(), new User(entry.getKey(), entry.getValue().toString(), assignments, documents));
                     }
                 }
             });
