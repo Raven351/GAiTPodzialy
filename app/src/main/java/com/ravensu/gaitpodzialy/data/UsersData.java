@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.ravensu.gaitpodzialy.webscrapper.GAiTWebScrapper;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
+import com.ravensu.gaitpodzialy.webscrapper.models.Document;
 import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
 import java.util.ArrayList;
@@ -89,8 +90,10 @@ public class UsersData {
                     for (Map.Entry<String, ?> entry : savedUsersCredentials.entrySet()){
                         GAiTWebScrapper gAiTWebScrapper = new GAiTWebScrapper(entry.getKey(), entry.getValue().toString());
                         ArrayList<Assignment> assignments = gAiTWebScrapper.ScrapAssignmentsTable(gAiTWebScrapper.GetGAiTWebsite());
+                        ArrayList<Document> documents = gAiTWebScrapper.ScrapDocumentsTable(gAiTWebScrapper.GetGAiTWebsite());
                         Log.d("AppUsersData", "loadUsersData: Saving user data: " + entry.getKey()  + " - Assignments count: "+ assignments.size());
-                        User user = new User(entry.getKey(), entry.getValue().toString(), assignments);
+                        Log.d("AppUsersData", "loadUsersData: Documents count for user: " + entry.getKey() + " - " + documents.size());
+                        User user = new User(entry.getKey(), entry.getValue().toString(), assignments, documents);
                         UsersData.addUserData(user);
                         users.put(entry.getKey(), new User(entry.getKey(), entry.getValue().toString(), assignments));
                     }

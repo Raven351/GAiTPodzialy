@@ -89,6 +89,19 @@ public class GAiTWebScrapper {
         return assignment;
     }
 
+    private com.ravensu.gaitpodzialy.webscrapper.models.Document ParseDocumentRecord(Elements row){
+        com.ravensu.gaitpodzialy.webscrapper.models.Document document = new com.ravensu.gaitpodzialy.webscrapper.models.Document();
+        try{
+            document.Date = new SimpleDateFormat("yyyy-MM-dd").parse(row.get(0).text());
+        } catch (ParseException e){
+            e.printStackTrace();
+        }
+        document.Name = row.get(1).text();
+        document.Number = row.get(2).text();
+        document.URL = row.get(3).text();
+        return document;
+    }
+
     /**
      *
      * @param assignmentsTable HTML <table> element containing <tr> rows elements with <td> cells.
@@ -109,6 +122,20 @@ public class GAiTWebScrapper {
         return assignments;
     }
 
+    private ArrayList<com.ravensu.gaitpodzialy.webscrapper.models.Document> ParseDocumentsToArrayList(Element documentsTable){
+        ArrayList<com.ravensu.gaitpodzialy.webscrapper.models.Document> documents = new ArrayList<com.ravensu.gaitpodzialy.webscrapper.models.Document>();
+        Elements rows = documentsTable.select("tr");
+        if (rows.size() < 3) return documents;
+        for (int i = 2; i< rows.size(); i++){
+            Elements row = rows.get(i).select("td");
+            if (row.size() > 0){
+                com.ravensu.gaitpodzialy.webscrapper.models.Document document = ParseDocumentRecord(row);
+                documents.add(document);
+            }
+        }
+        return documents;
+    }
+
     /**
      * @param GAiTWebsite HTML Document of GAiTWebsite.
      * @return ArrayList of Assignemnt objects with assigned data from the assignment table of given HTML document.
@@ -121,5 +148,12 @@ public class GAiTWebScrapper {
         ArrayList<Assignment> assignments = ParseAssignmentsToArrayList(document.select("table").get(1));
         Log.d("SCRAPPER", "Assignments count: " + assignments.size());
         return assignments;
+    }
+
+    public ArrayList<com.ravensu.gaitpodzialy.webscrapper.models.Document> ScrapDocumentsTable(Document GAiTWebsite){
+        Document document = GAiTWebsite;
+        if (document == null) throw new NullPointerException("ScrapDocumentsTable: Given HTML document is null");
+        ArrayList<com.ravensu.gaitpodzialy.webscrapper.models.Document> documents = ParseDocumentsToArrayList(document.select("table").get(3));
+        return documents;
     }
 }

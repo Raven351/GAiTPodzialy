@@ -3,7 +3,7 @@ package com.ravensu.gaitpodzialy.webscrapper.models;
 import java.time.LocalTime;
 import java.util.Date;
 
-public class Assignment implements Cloneable {
+public class Assignment {
     public Date Date;
     public String DriverNumber;
     public String DriverName;
