@@ -97,7 +97,7 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
                         intent.setDataAndType(Uri.parse(GAIT_SITE_URL + url), "application/pdf");
                         Intent chooserIntent = Intent.createChooser(intent, "Open Document");
                         chooserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        parentFragment.startActivity(chooserIntent); //todo fix pdf not opening
+                        parentFragment.startActivity(chooserIntent);
                         }
                     }).start();
             }
