@@ -1,23 +1,25 @@
 package com.ravensu.gaitpodzialy.activities.ui.assignmentslist;
 
-import android.app.Activity;
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
-import android.service.autofill.UserData;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ravensu.gaitpodzialy.R;
-import com.ravensu.gaitpodzialy.activities.ui.MainViewPager;
 import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Document;
 import com.ravensu.gaitpodzialy.webscrapper.models.User;
@@ -30,6 +32,7 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
     private MutableLiveData<User> currentlySelectedUser = new MutableLiveData<>(UsersData.getCurrentlySelectedUser());
     private ArrayList<Document> documents;
     private Fragment parentFragment;
+    private final String GAIT_SITE_URL = "http://podzialy.gait.pl/";
 
     public DocumentsListAdapter(Fragment fragment){
         this.documents = currentlySelectedUser.getValue().Documents;
@@ -87,14 +90,16 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setDataAndType(Uri.parse("http://" + url), "application/pdf");
-                Intent chooserIntent = Intent.createChooser(intent, "Open Document");
-                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://" + url));
-                chooserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                parentFragment.startActivity(chooserIntent);
-//                WebView webView = new WebView(parentFragment.getContext());
-//                webView.loadUrl("http://" + url);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                        Intent intent = new Intent();
+                        intent.setDataAndType(Uri.parse(GAIT_SITE_URL + url), "application/pdf");
+                        Intent chooserIntent = Intent.createChooser(intent, "Open Document");
+                        chooserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        parentFragment.startActivity(chooserIntent); //todo fix pdf not opening
+                        }
+                    }).start();
             }
         });
     }

@@ -14,10 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.ui.accountsList.AccountsListActivity"></activity>
+        <activity android:name=".activities.ui.accountsList.AccountsListActivity" />
         <activity
             android:name=".activities.ui.MainViewPager"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".activities.ui.login.LoginActivity"
             android:label="@string/title_activity_login" />
