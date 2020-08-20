@@ -21,37 +21,28 @@
             android:id="@+id/driverId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginTop="12dp"
             android:text="@string/driverId"
             android:textColor="#000000"
             android:textSize="30sp"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.91"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/driverFirstName"
+            android:id="@+id/driverName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginBottom="12dp"
             android:text="@string/firstName"
             android:textColor="#000000"
             android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.1"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <TextView
-            android:id="@+id/driverSurname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="12dp"
-            android:text="@string/surname"
-            android:textColor="#000000"
-            android:textSize="20sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/driverFirstName" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -210,23 +201,34 @@
 
         <TextView
             android:id="@+id/assignmentFirstStartLocation"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:layout_marginEnd="20dp"
+            android:lines="2"
+            android:maxLines="2"
+            android:singleLine="false"
+            android:scrollHorizontally="false"
             android:text="@string/assignment_sample_startLocation"
             android:textColor="#0E871F"
             android:textSize="14sp"
+            app:layout_constraintEnd_toStartOf="@+id/assignmentFirstDate"
             app:layout_constraintStart_toEndOf="@+id/assignmentFirstTimeStart"
             app:layout_constraintTop_toTopOf="@+id/assignmentFirstTimeStart" />
 
         <TextView
             android:id="@+id/assignmentFirstEndLocation"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:lines="2"
+            android:maxLines="2"
+            android:scrollHorizontally="false"
+            android:singleLine="false"
             android:text="@string/assignment_sample_endLocation"
             android:textColor="#D33434"
             android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/assignmentFirstStartLocation"
             app:layout_constraintStart_toEndOf="@+id/assignmentFirstTimeEnd"
             app:layout_constraintTop_toTopOf="@+id/assignmentFirstTimeEnd" />
 
@@ -281,7 +283,7 @@
             app:layout_constraintTop_toBottomOf="@+id/tomorrowAssignmentLabelContainer" />
 
         <TextView
-            android:id="@+id/assignmentTomorrowCode"
+            android:id="@+id/assignmentSecondCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -294,7 +296,7 @@
             app:layout_constraintTop_toBottomOf="@+id/assignmentSecondDate" />
 
         <TextView
-            android:id="@+id/assignmentTomorrowTimeEnd"
+            android:id="@+id/assignmentSecondTimeEnd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -305,25 +307,25 @@
             app:layout_constraintTop_toBottomOf="@+id/assignmentTomorrowEndLabel" />
 
         <TextView
-            android:id="@+id/assignmentTomorrowTimeTotal"
+            android:id="@+id/assignmentSecondTimeTotal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/assignment_sample_timeTotal"
             android:textColor="#000000"
             android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@+id/assignmentTomorrowCode"
+            app:layout_constraintEnd_toEndOf="@+id/assignmentSecondCode"
             app:layout_constraintTop_toTopOf="@+id/assignmentTomorrowTimeTotalLabel" />
 
         <TextView
-            android:id="@+id/assignmentTomorrowNotices"
+            android:id="@+id/assignmentSecondNotices"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/assignment_sample_notices"
             android:textColor="#000000"
             android:textSize="14sp"
-            app:layout_constraintEnd_toEndOf="@+id/assignmentTomorrowCode"
-            app:layout_constraintTop_toBottomOf="@+id/assignmentTomorrowCode" />
+            app:layout_constraintEnd_toEndOf="@+id/assignmentSecondCode"
+            app:layout_constraintTop_toBottomOf="@+id/assignmentSecondCode" />
 
         <TextView
             android:id="@+id/assignmentTomorrowTimeTotalLabel"
@@ -335,21 +337,21 @@
             android:textColor="#000000"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/assignmentTomorrowTimeTotal" />
+            app:layout_constraintEnd_toStartOf="@+id/assignmentSecondTimeTotal" />
 
         <TextView
-            android:id="@+id/assignmentTomorrowTimeStart"
+            android:id="@+id/assignmentSecondTimeStart"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/assignment_sample_startTime"
             android:textColor="#0E871F"
             android:textSize="14sp"
-            app:layout_constraintStart_toStartOf="@+id/assignmentTomorrowStartLabel"
-            app:layout_constraintTop_toBottomOf="@+id/assignmentTomorrowStartLabel" />
+            app:layout_constraintStart_toStartOf="@+id/assignmentSecondStartLabel"
+            app:layout_constraintTop_toBottomOf="@+id/assignmentSecondStartLabel" />
 
         <TextView
-            android:id="@+id/assignmentTomorrowStartLabel"
+            android:id="@+id/assignmentSecondStartLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -372,29 +374,40 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.072"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/assignmentTomorrowStartLocation" />
+            app:layout_constraintTop_toBottomOf="@+id/assignmentSecondStartLocation" />
 
         <TextView
-            android:id="@+id/assignmentTomorrowStartLocation"
-            android:layout_width="wrap_content"
+            android:id="@+id/assignmentSecondStartLocation"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:layout_marginEnd="20dp"
+            android:lines="2"
+            android:maxLines="2"
+            android:scrollHorizontally="false"
+            android:singleLine="false"
             android:text="@string/assignment_sample_startLocation"
             android:textColor="#0E871F"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/assignmentTomorrowTimeStart"
-            app:layout_constraintTop_toTopOf="@+id/assignmentTomorrowTimeStart" />
+            app:layout_constraintEnd_toStartOf="@+id/assignmentSecondDate"
+            app:layout_constraintStart_toEndOf="@+id/assignmentSecondTimeStart"
+            app:layout_constraintTop_toTopOf="@+id/assignmentSecondTimeStart" />
 
         <TextView
-            android:id="@+id/assignmentTomorrowEndLocation"
-            android:layout_width="wrap_content"
+            android:id="@+id/assignmentSecondEndLocation"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:lines="2"
+            android:maxLines="2"
+            android:scrollHorizontally="false"
+            android:singleLine="false"
             android:text="@string/assignment_sample_endLocation"
             android:textColor="#D33434"
             android:textSize="14sp"
-            app:layout_constraintStart_toEndOf="@+id/assignmentTomorrowTimeEnd"
-            app:layout_constraintTop_toTopOf="@+id/assignmentTomorrowTimeEnd" />
+            app:layout_constraintEnd_toEndOf="@+id/assignmentSecondStartLocation"
+            app:layout_constraintStart_toEndOf="@+id/assignmentSecondTimeEnd"
+            app:layout_constraintTop_toTopOf="@+id/assignmentSecondTimeEnd" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

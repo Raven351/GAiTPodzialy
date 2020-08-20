@@ -13,11 +13,11 @@
     <string name="submit">ActivityAssignmentsFabDesc</string>
     <string name="firstName">Imię</string>
     <string name="surname">Nazwisko</string>
-    <string name="today_assignment">Dzisiejsza służba</string>
+    <string name="today_assignment">Pierwszy najbliższy przydział</string>
     <string name="assignment_totalTime_label">Czas trwania:</string>
     <string name="assignment_start_label">Rozpoczęcie:</string>
     <string name="assignment_end_label">Zakończenie:</string>
-    <string name="tomorrow_assignment">Jutrzejsza służba</string>
+    <string name="tomorrow_assignment">Drugi najbliższy przydział</string>
 
     <!--    Users panel-->
     <string name="change_default_user_alert_dialog_message">"Czy napewno chcesz ustawić tego użytkownika jako domyślnego?<br/><br/>Dane domyślnego użytkownika będą wyświetlane od razu po uruchomieniu aplikacji."</string>

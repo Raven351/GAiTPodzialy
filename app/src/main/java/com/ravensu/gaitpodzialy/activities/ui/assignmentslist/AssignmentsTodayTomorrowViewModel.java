@@ -43,6 +43,7 @@ public class AssignmentsTodayTomorrowViewModel extends ViewModel {
         return isOngoing;
     }
 
+    //todo fix case when user has no assignments
     private void loadFirstAssignment(){
         LocalDate date = LocalDate.now();
         ArrayList<Assignment> assignments = getSortedAssignments();
@@ -70,9 +71,16 @@ public class AssignmentsTodayTomorrowViewModel extends ViewModel {
 
     private void loadSecondAssignment(){
         ArrayList<Assignment> assignments = getSortedAssignments();
-        if (assignments.indexOf(firstAssignment.getValue()) + 1 < assignments.size()) secondAssignment.setValue(assignments.get(assignments.indexOf(firstAssignment) + 1));
-        //todo fix
-        else secondAssignment.setValue(new Assignment());
+        for (int i = 0; i<assignments.size(); i++){
+            if(assignments.get(i).Date.equals(firstAssignment.getValue().Date) &&
+                    assignments.get(i).AssignmentStartTime.equals(firstAssignment.getValue().AssignmentStartTime) &&
+                            i + 1 != assignments.size()){
+                secondAssignment.setValue(assignments.get(i+1));
+                return;
+            }
+        }
+        //if (assignments.indexOf(firstAssignment.getValue()) + 1 < assignments.size()) secondAssignment.setValue(assignments.get(assignments.indexOf(firstAssignment) + 1));
+        secondAssignment.setValue(new Assignment());
     }
 
     private ArrayList<Assignment> getAssignmentsByDate(LocalDate date) {
