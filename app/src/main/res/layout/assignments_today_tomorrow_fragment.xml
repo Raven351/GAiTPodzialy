@@ -268,7 +268,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <TextView
-            android:id="@+id/assignmentTomorrowDate"
+            android:id="@+id/assignmentSecondDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
@@ -288,10 +288,10 @@
             android:text="@string/assignment_sample_code"
             android:textColor="#000000"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/assignmentTomorrowDate"
+            app:layout_constraintEnd_toEndOf="@+id/assignmentSecondDate"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/assignmentTomorrowDate" />
+            app:layout_constraintTop_toBottomOf="@+id/assignmentSecondDate" />
 
         <TextView
             android:id="@+id/assignmentTomorrowTimeEnd"

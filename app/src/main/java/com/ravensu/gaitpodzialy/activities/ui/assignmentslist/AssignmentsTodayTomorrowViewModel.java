@@ -45,7 +45,6 @@ public class AssignmentsTodayTomorrowViewModel extends ViewModel {
 
     private void loadFirstAssignment(){
         LocalDate date = LocalDate.now();
-        LocalDate loopEndDate = date.plusDays(30);
         ArrayList<Assignment> assignments = getSortedAssignments();
         int i = 0;
         while (i<assignments.size()){
@@ -72,48 +71,8 @@ public class AssignmentsTodayTomorrowViewModel extends ViewModel {
     private void loadSecondAssignment(){
         ArrayList<Assignment> assignments = getSortedAssignments();
         if (assignments.indexOf(firstAssignment.getValue()) + 1 < assignments.size()) secondAssignment.setValue(assignments.get(assignments.indexOf(firstAssignment) + 1));
+        //todo fix
         else secondAssignment.setValue(new Assignment());
-    }
-
-    private void loadAssignments(){
-        LocalDate date = LocalDate.now();
-        LocalDate loopEndDate = LocalDate.now().plusDays(30);
-        ArrayList<Assignment> assignments = getAssignmentsByDate(date);
-        boolean isFirstAssignmentSet = false;
-        boolean isSecondAssignmentSet = false;
-        while ((!isFirstAssignmentSet && !isSecondAssignmentSet ) || date.getDayOfYear() == loopEndDate.getDayOfYear()){
-            if (!assignments.isEmpty()){
-                for (int i = 0; i< assignments.size(); i++){
-                    if (LocalTime.now().isBefore(assignments.get(i).AssignmentEndTime)){
-                        if (isFirstAssignmentSet) {
-                            secondAssignment.setValue(assignments.get(i));
-                            isSecondAssignmentSet = true;
-                        }
-                        else {
-                            firstAssignment.setValue(assignments.get(i));
-                            isFirstAssignmentSet = true;
-                            if (LocalTime.now().isAfter(assignments.get(i).AssignmentStartTime)){
-                                isOngoing.setValue(true);
-                            }
-                            if (i+1 != assignments.size()) {
-                                secondAssignment.setValue(assignments.get(i+1));
-                                isSecondAssignmentSet = true;
-                            }
-                        }
-                    }
-                }
-            }
-            Log.d(TAG, "loadAssignments: Loop:" + date.toString());
-            date = date.plusDays(1);
-        }
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//            }
-//        }, 5000);
-
     }
 
     private ArrayList<Assignment> getAssignmentsByDate(LocalDate date) {
