@@ -31,32 +31,6 @@ public class LoginDataSource {
     }
 
     public Result<LoggedInUser> login(final String userId, final String password) {
-//        final Intent intent = new Intent(Intent.ACTION_SYNC, null, context, UserLoginService.class);
-//        intent.putExtra("receiver", loginResultReceiver);
-//        intent.putExtra("username", userId);
-//        intent.putExtra("password", password);
-//        context.startService(intent);
-//
-//        try {
-//            // TODO: handle loggedInUser authentication
-//            Log.d("LoginDataSource", "Attempting to download site" );
-//            GAiTWebScrapper gAiTWebScrapper = new GAiTWebScrapper(userId, password);
-//            org.jsoup.nodes.Document gaitWebsite = gAiTWebScrapper.GetGAiTWebsite();
-//            if (gaitWebsite == null) throw new Exception("Login failed");
-//            Log.d("LoginDataSource", "Site downloaded successfully");
-//            Log.d("LoginDataSource", "Saving credidentials to shared preferences");
-//            AppLogins.SaveCredidentials(context, userId, password);
-//            Log.d("LoginDataSource", "Attempting to scrap assignments table");
-//            ArrayList<Assignment> assignments = gAiTWebScrapper.ScrapAssignmentsTable(gaitWebsite);
-//
-//            String displayName = assignments.get(0).DriverName;
-//            LoggedInUser user = new LoggedInUser(userId, displayName, assignments);
-//            return new Result.Success<>(user);
-//        } catch (Exception e) {
-//            Log.e("LoginDataSource", "Error while trying to log in: " + e.toString());
-//            return new Result.Error(new IOException("LoginDataSource: Error while trying to log in", e));
-//        }
-
         final Result[] result = new Result[1];
         result[0] = new Result.Error(new IllegalThreadStateException("LoginDataSource: Thread execution failed"));
         Thread loginThread =  new Thread(new Runnable() {

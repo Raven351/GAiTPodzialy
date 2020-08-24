@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ravensu.gaitpodzialy.R;
+import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 import java.text.SimpleDateFormat;
@@ -53,6 +54,28 @@ public class AssignmentsTodayTomorrowFragment extends Fragment {
         final TextView assignmentSecondEndLocation = view.findViewById(R.id.assignmentSecondEndLocation);
         final TextView assignmentSecondTimeTotal = view.findViewById(R.id.assignmentSecondTimeTotal);
 
+        if (UsersData.getCurrentlySelectedUser().Assignments.size() == 0){
+            driverIdTextView.setText(UsersData.getCurrentlySelectedUserId());
+            driverNameTextView.setVisibility(View.GONE);
+            assignmentFirstStatusTextView.setVisibility(View.GONE);
+            assignmentFirstStartLocation.setVisibility(View.GONE);
+            assignmentFirstTimeStart.setVisibility(View.GONE);
+            assignmentFirstEndLocation.setVisibility(View.GONE);
+            assignmentFirstTimeEnd.setVisibility(View.GONE);
+            assignmentFirstDateTextView.setVisibility(View.GONE);
+            assignmentFirstCodeTextView.setVisibility(View.GONE);
+            assignmentFirstNoticesTextView.setVisibility(View.GONE);
+            assignmentFirstTimeTotal.setVisibility(View.GONE);
+            assignmentSecondStartLocation.setVisibility(View.GONE);
+            assignmentSecondTimeStart.setVisibility(View.GONE);
+            assignmentSecondEndLocation.setVisibility(View.GONE);
+            assignmentSecondTimeEnd.setVisibility(View.GONE);
+            assignmentSecondDateTextView.setVisibility(View.GONE);
+            assignmentSecondCodeTextView.setVisibility(View.GONE);
+            assignmentSecondNoticesTextView.setVisibility(View.GONE);
+            assignmentSecondTimeTotal.setVisibility(View.GONE);
+        }
+
         assignmentsTodayTomorrowViewModel = new ViewModelProvider(this).get(AssignmentsTodayTomorrowViewModel.class);
         assignmentsTodayTomorrowViewModel.getFirstAssignment().observe(getViewLifecycleOwner(), new Observer<Assignment>() {
             @Override
@@ -68,18 +91,18 @@ public class AssignmentsTodayTomorrowFragment extends Fragment {
                 assignmentFirstStartLocation.setText(assignment.AssignmentStartLocation);
                 assignmentFirstTimeEnd.setText(assignment.AssignmentEndTime.toString());
                 assignmentFirstEndLocation.setText(assignment.AssignmentEndLocation);
+
             }
         });
         assignmentsTodayTomorrowViewModel.getIsOnGoing().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
-                //todo assign strings
                 if (aBoolean) {
-                    assignmentFirstStatusTextView.setText("W trakcie");
+                    assignmentFirstStatusTextView.setText(R.string.status_ongoing);
                     assignmentFirstStatusTextView.setTextColor(Color.parseColor("#1895f5"));
                 }
                 else {
-                    assignmentFirstStatusTextView.setText("Rozpocznie się");
+                    assignmentFirstStatusTextView.setText(R.string.status_willstart);
                     assignmentFirstStatusTextView.setTextColor(Color.parseColor("#19851b"));
                 }
             }

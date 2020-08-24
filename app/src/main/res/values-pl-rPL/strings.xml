@@ -18,6 +18,8 @@
     <string name="assignment_start_label">Rozpoczęcie:</string>
     <string name="assignment_end_label">Zakończenie:</string>
     <string name="tomorrow_assignment">Drugi najbliższy przydział</string>
+    <string name="status_ongoing">W trakcie</string>
+    <string name="status_willstart">Rozpocznie się</string>
 
     <!--    Users panel-->
     <string name="change_default_user_alert_dialog_message">"Czy napewno chcesz ustawić tego użytkownika jako domyślnego?<br/><br/>Dane domyślnego użytkownika będą wyświetlane od razu po uruchomieniu aplikacji."</string>

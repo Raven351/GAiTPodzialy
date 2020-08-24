@@ -80,7 +80,6 @@ public class AssignmentsTodayTomorrowViewModel extends ViewModel {
             }
         }
         //if (assignments.indexOf(firstAssignment.getValue()) + 1 < assignments.size()) secondAssignment.setValue(assignments.get(assignments.indexOf(firstAssignment) + 1));
-        secondAssignment.setValue(new Assignment());
     }
 
     private ArrayList<Assignment> getAssignmentsByDate(LocalDate date) {

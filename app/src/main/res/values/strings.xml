@@ -28,6 +28,8 @@
     <string name="assignment_sample_startTime" translatable="false">00:00</string>
     <string name="assignment_sample_startLocation" translatable="false">startLocation</string>
     <string name="assignment_sample_endLocation" translatable="false">endLocation</string>
+    <string name="status_ongoing">Ongoing</string>
+    <string name="status_willstart">Will start</string>
 
 <!--    Users panel-->
     <string name="change_default_user_alert_dialog_message">"Do you really want to set this user as your default user?<br/> <br/>After launching app next time, data of this user will be the first one to show up."</string>

@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void assignmentsListActivity(){
         try {
-            UsersData.loadUsersData(this); //todo called second time?
+            UsersData.loadUsersData(this);
             Intent intent = new Intent(this, MainViewPager.class);
             intent.putExtra("FROM_ACTIVITY", "MAIN");
             startActivity(intent);
@@ -75,12 +75,7 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1){
             if (resultCode == Activity.RESULT_OK){
-                try {
-                    UsersData.loadUsersData(this);
-                    assignmentsListActivity();
-                } catch (InterruptedException e) {
-                    Log.e("MAIN", "assignmentsListActivity: Error loading users data" + e.toString());
-                }
+                assignmentsListActivity();
             }
         }
     }
