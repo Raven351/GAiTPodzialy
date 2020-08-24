@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class AssignmentsTodayTomorrowViewModel extends ViewModel {
+public class AssignmentsFirstSecondViewModel extends ViewModel {
     private String TAG = "AssignmentsTodayTomorrowViewModel";
     private MutableLiveData<Assignment> firstAssignment;
     private MutableLiveData<Assignment> secondAssignment;

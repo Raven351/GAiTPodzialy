@@ -16,15 +16,19 @@ import com.ravensu.gaitpodzialy.dummy.DummyContent.DummyItem;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
+import org.apache.commons.lang3.time.DateUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class AssignmentsListAdapter extends RecyclerView.Adapter<AssignmentsListAdapter.ViewHolder> {
 
     private MutableLiveData<User> currentlySelectedUser = new MutableLiveData<>(UsersData.getCurrentlySelectedUser());
     private ArrayList<Assignment> assignments;
+    private int todayAssignmentPosition;
 
     public AssignmentsListAdapter() {
         this.assignments = currentlySelectedUser.getValue().Assignments;
@@ -41,7 +45,12 @@ public class AssignmentsListAdapter extends RecyclerView.Adapter<AssignmentsList
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
+        Date today = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
         if(position % 2 == 1) holder.mView.setBackgroundColor(Color.parseColor("#e8e8e8"));
+        if (assignments.get(position).Date.equals(today)) {
+            holder.mView.setBackgroundColor(Color.parseColor("#aacef0"));
+            todayAssignmentPosition = position;
+        }
         holder.mAssignment = assignments.get(position);
         String dateFormat = new SimpleDateFormat("dd-MM-yyyy").format(assignments.get(position).Date);
         holder.mDate.setText(dateFormat);
@@ -58,6 +67,8 @@ public class AssignmentsListAdapter extends RecyclerView.Adapter<AssignmentsList
     public int getItemCount() {
         return assignments.size();
     }
+
+    public int getTodayAssignmentPosition() {return todayAssignmentPosition;}
 
     public void setAssignments(ArrayList<Assignment> assignments){
         this.assignments = assignments;

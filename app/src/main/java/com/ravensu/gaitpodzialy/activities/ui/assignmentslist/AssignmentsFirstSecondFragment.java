@@ -22,12 +22,12 @@ import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 import java.text.SimpleDateFormat;
 
-public class AssignmentsTodayTomorrowFragment extends Fragment {
+public class AssignmentsFirstSecondFragment extends Fragment {
 
-    private AssignmentsTodayTomorrowViewModel assignmentsTodayTomorrowViewModel;
+    private AssignmentsFirstSecondViewModel assignmentsFirstSecondViewModel;
 
-    public static AssignmentsTodayTomorrowFragment newInstance() {
-        return new AssignmentsTodayTomorrowFragment();
+    public static AssignmentsFirstSecondFragment newInstance() {
+        return new AssignmentsFirstSecondFragment();
     }
 
     @Override
@@ -76,8 +76,8 @@ public class AssignmentsTodayTomorrowFragment extends Fragment {
             assignmentSecondTimeTotal.setVisibility(View.GONE);
         }
 
-        assignmentsTodayTomorrowViewModel = new ViewModelProvider(this).get(AssignmentsTodayTomorrowViewModel.class);
-        assignmentsTodayTomorrowViewModel.getFirstAssignment().observe(getViewLifecycleOwner(), new Observer<Assignment>() {
+        assignmentsFirstSecondViewModel = new ViewModelProvider(this).get(AssignmentsFirstSecondViewModel.class);
+        assignmentsFirstSecondViewModel.getFirstAssignment().observe(getViewLifecycleOwner(), new Observer<Assignment>() {
             @Override
             public void onChanged(Assignment assignment) {
                 driverIdTextView.setText(assignment.DriverNumber);
@@ -94,7 +94,7 @@ public class AssignmentsTodayTomorrowFragment extends Fragment {
 
             }
         });
-        assignmentsTodayTomorrowViewModel.getIsOnGoing().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+        assignmentsFirstSecondViewModel.getIsOnGoing().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean aBoolean) {
                 if (aBoolean) {
@@ -107,7 +107,7 @@ public class AssignmentsTodayTomorrowFragment extends Fragment {
                 }
             }
         });
-        assignmentsTodayTomorrowViewModel.getSecondAssignment().observe(getViewLifecycleOwner(), new Observer<Assignment>() {
+        assignmentsFirstSecondViewModel.getSecondAssignment().observe(getViewLifecycleOwner(), new Observer<Assignment>() {
             @Override
             public void onChanged(Assignment assignment) {
                 String dateFormat = new SimpleDateFormat("dd-MM-yyyy").format(assignment.Date);

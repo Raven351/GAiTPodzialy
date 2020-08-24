@@ -10,13 +10,12 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 
 import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.activities.ui.accountsList.AccountsListActivity;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsListFragment;
-import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsTodayTomorrowFragment;
+import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsFirstSecondFragment;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.DocumentsListFragment;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
@@ -89,7 +88,7 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
         public Fragment createFragment(int position) {
             switch (position){
                 case 0:{
-                    return new AssignmentsTodayTomorrowFragment();
+                    return new AssignmentsFirstSecondFragment();
                 }
                 case 1: {
                     return new AssignmentsListFragment();

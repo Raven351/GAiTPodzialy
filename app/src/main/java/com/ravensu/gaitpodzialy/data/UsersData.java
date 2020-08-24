@@ -89,7 +89,7 @@ public class UsersData {
                 public void run() {
                     for (Map.Entry<String, ?> entry : savedUsersCredentials.entrySet()){
                         GAiTWebScrapper gAiTWebScrapper = new GAiTWebScrapper(entry.getKey(), entry.getValue().toString());
-                        ArrayList<Assignment> assignments = gAiTWebScrapper.ScrapAssignmentsTable(gAiTWebScrapper.GetGAiTWebsite());
+                        ArrayList<Assignment> assignments = gAiTWebScrapper.ScrapAssignmentsTable(gAiTWebScrapper.GetGAiTWebsite()); //todo handle case when already logged in user cannot log in (this line returns null)
                         ArrayList<Document> documents = gAiTWebScrapper.ScrapDocumentsTable(gAiTWebScrapper.GetGAiTWebsite());
                         Log.d("AppUsersData", "loadUsersData: Saving user data: " + entry.getKey()  + " - Assignments count: "+ assignments.size());
                         Log.d("AppUsersData", "loadUsersData: Documents count for user: " + entry.getKey() + " - " + documents.size());

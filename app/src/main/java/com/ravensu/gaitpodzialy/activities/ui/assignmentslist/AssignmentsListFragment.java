@@ -70,7 +70,7 @@ public class AssignmentsListFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            final RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
@@ -90,6 +90,7 @@ public class AssignmentsListFragment extends Fragment {
         }
         return view;
     }
+
 
 
     @Override
