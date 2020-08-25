@@ -43,11 +43,13 @@ public class GAiTWebScrapper {
                     .method(Connection.Method.POST)
                     .execute();
             Document doc = res.parse();
-            Elements docTitle = doc.select("title");
-            if(docTitle.isEmpty()) throw new NullPointerException("No <title> tag. Login failed?");
-            else {
-                Log.d("SCRAPPER", "GetGAiTWebsite - Doc Title: " + doc.title());
+            if(isGAiTWebsiteLoginSuccessful(doc)){
+                Log.d("SCRAPPER", "GetGAiTWebsite - Doc Title: " + "USER " + this.username + " SUCCESSFULLY LOGGED IN");
                 return doc;
+            }
+            else {
+                Log.e("SCRAPPER", "GetGAiTWebsite - Doc Title: " + "USER " + this.username + " FAILED TO LOGIN");
+                return null;
             }
 
         } catch (NullPointerException e) {
@@ -59,6 +61,15 @@ public class GAiTWebScrapper {
             Log.e("SCRAPPER", "GetGAiTWebsite: " + e.toString());
             return null;
         }
+    }
+
+    private boolean isGAiTWebsiteLoginSuccessful (Document document){
+        Elements docTitle = document.select("title");
+        Elements forms = document.select("form");
+        for (Element form : forms){
+            if (form.attr("action").equals("logout.php")) return true;
+        }
+        return false;
     }
 
     /**

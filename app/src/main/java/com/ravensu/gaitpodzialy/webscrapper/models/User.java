@@ -7,6 +7,7 @@ public class User {
     public String Password;
     public ArrayList<Assignment> Assignments;
     public ArrayList<Document> Documents;
+    public boolean isUserProperlyLoggedIn;
 
     public User(){}
 
@@ -28,5 +29,11 @@ public class User {
         Password = password;
         Assignments = assignments;
         Documents = documents;
+    }
+
+    public User(String userId, String password, boolean isUserProperlyLoggedIn){
+        this.UserId = userId;
+        this.Password = password;
+        this.isUserProperlyLoggedIn = isUserProperlyLoggedIn;
     }
 }

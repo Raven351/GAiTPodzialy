@@ -17,6 +17,7 @@ import com.ravensu.gaitpodzialy.activities.ui.accountsList.AccountsListActivity;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsListFragment;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsFirstSecondFragment;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.DocumentsListFragment;
+import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 //https://developer.android.com/training/animation/screen-slide-2?hl=en#java
@@ -33,10 +34,15 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
         setContentView(R.layout.activity_main_view_pager);
         setUpToolbar();
 
-        viewPager2 = findViewById(R.id.assignments_list_viewpager);
-        pageAdapter = new ScreenSlidePagerAdapter(this);
-        viewPager2.setAdapter(pageAdapter);
-        viewPager2.setCurrentItem(getIntent().getIntExtra("CURRENT_PAGE", 0), false);
+        if (!UsersData.getIsUsersDataAccessAvailable()){
+            //todo show messagebox that data is unavailable
+        }
+        else {
+            viewPager2 = findViewById(R.id.assignments_list_viewpager);
+            pageAdapter = new ScreenSlidePagerAdapter(this);
+            viewPager2.setAdapter(pageAdapter);
+            viewPager2.setCurrentItem(getIntent().getIntExtra("CURRENT_PAGE", 0), false);
+        }
     }
 
     private boolean isPreviousActivityMain(){

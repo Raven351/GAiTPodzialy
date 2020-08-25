@@ -9,6 +9,7 @@ import com.ravensu.gaitpodzialy.webscrapper.models.Document;
 import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
@@ -20,6 +21,7 @@ public class UsersData {
     private static User mainUser;
     private static User currentlySelectedUser; //user currently selected in app
     private final static ConcurrentHashMap<String, User> users = new ConcurrentHashMap<>();
+    private static boolean isUsersDataAccessAvailable = true;
 
     /**
      * Adds User object to users ConcurrentHashMap
@@ -81,6 +83,10 @@ public class UsersData {
         users.remove(userId);
     }
 
+    public static boolean getIsUsersDataAccessAvailable() {return isUsersDataAccessAvailable;}
+
+    public static void setIsUsersDataAccessAvailable(boolean isUsersDataAccessAvailable) { UsersData.isUsersDataAccessAvailable = isUsersDataAccessAvailable;}
+
     public static void loadUsersData(Context context) throws InterruptedException {
         if (SavedAppLogins.ExistsAny(context)){
             final Map<String, ?> savedUsersCredentials = SavedAppLogins.GetAllCredentials(context);
@@ -89,20 +95,40 @@ public class UsersData {
                 public void run() {
                     for (Map.Entry<String, ?> entry : savedUsersCredentials.entrySet()){
                         GAiTWebScrapper gAiTWebScrapper = new GAiTWebScrapper(entry.getKey(), entry.getValue().toString());
-                        ArrayList<Assignment> assignments = gAiTWebScrapper.ScrapAssignmentsTable(gAiTWebScrapper.GetGAiTWebsite()); //todo handle case when already logged in user cannot log in (this line returns null)
-                        ArrayList<Document> documents = gAiTWebScrapper.ScrapDocumentsTable(gAiTWebScrapper.GetGAiTWebsite());
-                        Log.d("AppUsersData", "loadUsersData: Saving user data: " + entry.getKey()  + " - Assignments count: "+ assignments.size());
-                        Log.d("AppUsersData", "loadUsersData: Documents count for user: " + entry.getKey() + " - " + documents.size());
-                        User user = new User(entry.getKey(), entry.getValue().toString(), assignments, documents);
-                        UsersData.addUserData(user);
-                        users.put(entry.getKey(), new User(entry.getKey(), entry.getValue().toString(), assignments, documents));
+                        org.jsoup.nodes.Document gAiTWebsite = gAiTWebScrapper.GetGAiTWebsite();
+                        if (gAiTWebsite != null){
+                            ArrayList<Assignment> assignments = gAiTWebScrapper.ScrapAssignmentsTable(gAiTWebScrapper.GetGAiTWebsite()); //todo handle case when already logged in user cannot log in (this line returns null)
+                            ArrayList<Document> documents = gAiTWebScrapper.ScrapDocumentsTable(gAiTWebScrapper.GetGAiTWebsite());
+                            Log.d("AppUsersData", "loadUsersData: Saving user data: " + entry.getKey()  + " - Assignments count: "+ assignments.size());
+                            Log.d("AppUsersData", "loadUsersData: Documents count for user: " + entry.getKey() + " - " + documents.size());
+                            User user = new User(entry.getKey(), entry.getValue().toString(), assignments, documents);
+                            user.isUserProperlyLoggedIn = true;
+                            setIsUsersDataAccessAvailable(true);
+                            UsersData.addUserData(user);
+                            //users.put(entry.getKey(), new User(entry.getKey(), entry.getValue().toString(), assignments, documents));
+                        }
+                        else {
+                            // todo add user with empty data and parameter that it hasn't been logged in properly
+                            users.put(entry.getKey(), new User(entry.getKey(), entry.getValue().toString(), false));
+                        }
                     }
                 }
             });
             loadUsersDataThread.start();
             loadUsersDataThread.join(5000);
             mainUser = users.get(SavedAppMainLogin.GetMainLoginUserId(context));
-            currentlySelectedUser = mainUser;
+            if (!mainUser.isUserProperlyLoggedIn){
+                ArrayList<User> usersList = new ArrayList<User>(users.values());
+                int i = 0;
+                while (currentlySelectedUser == null || i < usersList.size()){
+                    if (usersList.get(i).isUserProperlyLoggedIn) currentlySelectedUser = usersList.get(i);
+                    else i++;
+                }
+                if (i == usersList.size()) setIsUsersDataAccessAvailable(false);
+            }
+            else {
+                currentlySelectedUser = mainUser;
+            }
             Log.d("AppUsersData", "loadUsersData: Main user: " + getUsersAssignments(currentlySelectedUser.UserId).size());
         }
     }
