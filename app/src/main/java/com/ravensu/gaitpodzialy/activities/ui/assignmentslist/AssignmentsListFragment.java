@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.data.UsersData;
@@ -66,11 +67,18 @@ public class AssignmentsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_assignments_list, container, false);
-
+        final RecyclerView recyclerView = view.findViewById(R.id.assignmentsList);
+        TextView assignmentsListInfoTextView = view.findViewById(R.id.assignmentsListInfoTextView);
+        if (UsersData.getCurrentlySelectedUser().Assignments.size() < 1){
+            assignmentsListInfoTextView.setText(R.string.no_assignments);
+            assignmentsListInfoTextView.setVisibility(View.VISIBLE);
+        }
+        else{
+            assignmentsListInfoTextView.setVisibility(View.GONE);
+        }
         // Set the adapter
-        if (view instanceof RecyclerView) {
+        if (recyclerView != null) {
             Context context = view.getContext();
-            final RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {

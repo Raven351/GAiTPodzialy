@@ -27,4 +27,11 @@
     <string name="change_default_user_success_toast_2"> został ustawiony jako domyślny</string>
     <string name="unable_to_logout_toast">Nie można wylogować głównego użytkownika!</string>
     <string name="logout_confirmation_alert_dialog_message">Czy napewno chcesz wylogować użytkownika?</string>
+
+    <string name="data_error">BŁĄD POBIERANIA DANYCH</string>
+    <string name="data_error_dialog_title">Logowanie użytkownika nie powiodło się!</string>
+    <string name="data_error_dialog_message">Aplikacja nie mogła zalogować się do strony internetowej GAiT.\nSpróbuj zalogować się bezpośrednio poprzez stronę internetową.\nJeżeli udało Ci się prawidłowo zalogować przez stronę internetową, a niniejszy komunikat dalej występuje, proszę o kontakt poprzez..</string>
+    <string name="data_error_dialog_negative_button">Strona internetowa GAiT</string>
+    <string name="no_assignments">Brak przydziałów</string>
+    <string name="no_documents">No documents</string>
 </resources>

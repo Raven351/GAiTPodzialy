@@ -34,18 +34,14 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_view_pager);
-        setUpToolbar();
-        viewPager2 = findViewById(R.id.assignments_list_viewpager);
-        pageAdapter = new ScreenSlidePagerAdapter(this);
-        viewPager2.setAdapter(pageAdapter);
-        viewPager2.setCurrentItem(getIntent().getIntExtra("CURRENT_PAGE", 0), false);
-        if (!UsersData.getIsUsersDataAccessAvailable()){
+        if (!UsersData.getCurrentlySelectedUser().isUserProperlyLoggedIn){
+            setContentView(R.layout.activity_main_view_pager_data_error);
+            setUpToolbar();
             new AlertDialog.Builder(this)
-                    .setTitle("Couldn't log in to GAiT Website")
-                    .setMessage("Application couldn't login to GAiT website. Try again later or try logging in directly to GAiT website. If you could login properly to GAiT website and this message keeps popping up, please contact me at ...")
-                    .setPositiveButton("Ok", null)
-                    .setNegativeButton("Go to GAiT Website", new DialogInterface.OnClickListener() {
+                    .setTitle(R.string.data_error_dialog_title)
+                    .setMessage(R.string.data_error_dialog_message)
+                    .setPositiveButton("OK", null)
+                    .setNegativeButton(R.string.data_error_dialog_negative_button, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             String url = "http://podzialy.gait.pl/";
@@ -54,6 +50,14 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
                             startActivity(intent);
                         }
                     }).show();
+        }
+        else{
+            setContentView(R.layout.activity_main_view_pager);
+            setUpToolbar();
+            viewPager2 = findViewById(R.id.assignments_list_viewpager);
+            pageAdapter = new ScreenSlidePagerAdapter(this);
+            viewPager2.setAdapter(pageAdapter);
+            viewPager2.setCurrentItem(getIntent().getIntExtra("CURRENT_PAGE", 0), false);
         }
     }
 
@@ -65,11 +69,14 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
 
     @Override
     public void onBackPressed(){
-        if (isPreviousActivityMain() || viewPager2.getCurrentItem() == 0){
-        }
-        else{
-            super.onBackPressed();
-            viewPager2.setCurrentItem(viewPager2.getCurrentItem() - 1);
+        if (viewPager2 != null){
+            if (isPreviousActivityMain() || viewPager2.getCurrentItem() == 0){
+                //do nothing
+            }
+            else{
+                super.onBackPressed();
+                viewPager2.setCurrentItem(viewPager2.getCurrentItem() - 1);
+            }
         }
     }
 
@@ -92,8 +99,14 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
     @Override
     protected void onRestart() {
         super.onRestart();
-        finish();
-        startActivity(getIntent().putExtra("CURRENT_PAGE", this.viewPager2.getCurrentItem()));
+        if (viewPager2 != null){
+            finish();
+            startActivity(getIntent().putExtra("CURRENT_PAGE", this.viewPager2.getCurrentItem()));
+        }
+        else {
+            finish();
+            startActivity(getIntent());
+        }
     }
 
     private static class ScreenSlidePagerAdapter extends FragmentStateAdapter{

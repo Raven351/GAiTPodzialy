@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ravensu.gaitpodzialy.R;
+import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Document;
 
 import java.util.ArrayList;
@@ -47,9 +49,17 @@ public class DocumentsListFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_documents_list, container, false);
-        if (view instanceof RecyclerView){
+        final RecyclerView recyclerView = view.findViewById(R.id.documentsList);
+        TextView documentsListInfoTextView = view.findViewById(R.id.documentsListInfoTextView);
+        if (UsersData.getCurrentlySelectedUser().Documents.size() < 1){
+            documentsListInfoTextView.setText(R.string.no_documents);
+            documentsListInfoTextView.setVisibility(View.VISIBLE);
+        }
+        else{
+            documentsListInfoTextView.setVisibility(View.GONE);
+        }
+        if (recyclerView != null){
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
             if (mColumnCount<=1){
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             }
