@@ -34,7 +34,8 @@ public class GAiTWebScrapper {
      */
     public Document GetGAiTWebsite(){
         try {
-            Connection.Response res = Jsoup.connect("http://podzialy.gait.pl/")
+            //todo change back to correct url
+            Connection.Response res = Jsoup.connect("http://podzialy.gaity.pl/")
                     .followRedirects(true)
                     .userAgent("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36")
                     .timeout(2000)

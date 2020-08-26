@@ -101,15 +101,14 @@ public class UsersData {
                             ArrayList<Document> documents = gAiTWebScrapper.ScrapDocumentsTable(gAiTWebScrapper.GetGAiTWebsite());
                             Log.d("AppUsersData", "loadUsersData: Saving user data: " + entry.getKey()  + " - Assignments count: "+ assignments.size());
                             Log.d("AppUsersData", "loadUsersData: Documents count for user: " + entry.getKey() + " - " + documents.size());
-                            User user = new User(entry.getKey(), entry.getValue().toString(), assignments, documents);
-                            user.isUserProperlyLoggedIn = true;
+                            User user = new User(entry.getKey(), entry.getValue().toString(), assignments, documents, true);
                             setIsUsersDataAccessAvailable(true);
                             UsersData.addUserData(user);
                             //users.put(entry.getKey(), new User(entry.getKey(), entry.getValue().toString(), assignments, documents));
                         }
                         else {
                             // todo add user with empty data and parameter that it hasn't been logged in properly
-                            users.put(entry.getKey(), new User(entry.getKey(), entry.getValue().toString(), false));
+                            users.put(entry.getKey(), new User(entry.getKey(), entry.getValue().toString(), new ArrayList<Assignment>(), new ArrayList<Document>(), false));
                         }
                     }
                 }
@@ -119,12 +118,14 @@ public class UsersData {
             mainUser = users.get(SavedAppMainLogin.GetMainLoginUserId(context));
             if (!mainUser.isUserProperlyLoggedIn){
                 ArrayList<User> usersList = new ArrayList<User>(users.values());
-                int i = 0;
-                while (currentlySelectedUser == null || i < usersList.size()){
-                    if (usersList.get(i).isUserProperlyLoggedIn) currentlySelectedUser = usersList.get(i);
-                    else i++;
+                for (int i = 0; i<usersList.size(); i++){
+                    if (currentlySelectedUser != null) break;
+                    else if (usersList.get(i).isUserProperlyLoggedIn) currentlySelectedUser = usersList.get(i);
+                    if (i == (usersList.size() - 1) && currentlySelectedUser == null) {
+                        currentlySelectedUser = mainUser;
+                        setIsUsersDataAccessAvailable(false);
+                    }
                 }
-                if (i == usersList.size()) setIsUsersDataAccessAvailable(false);
             }
             else {
                 currentlySelectedUser = mainUser;

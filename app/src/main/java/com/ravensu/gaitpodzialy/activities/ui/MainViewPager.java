@@ -1,6 +1,7 @@
 package com.ravensu.gaitpodzialy.activities.ui;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
@@ -8,7 +9,9 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -33,15 +36,24 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_view_pager);
         setUpToolbar();
-
+        viewPager2 = findViewById(R.id.assignments_list_viewpager);
+        pageAdapter = new ScreenSlidePagerAdapter(this);
+        viewPager2.setAdapter(pageAdapter);
+        viewPager2.setCurrentItem(getIntent().getIntExtra("CURRENT_PAGE", 0), false);
         if (!UsersData.getIsUsersDataAccessAvailable()){
-            //todo show messagebox that data is unavailable
-        }
-        else {
-            viewPager2 = findViewById(R.id.assignments_list_viewpager);
-            pageAdapter = new ScreenSlidePagerAdapter(this);
-            viewPager2.setAdapter(pageAdapter);
-            viewPager2.setCurrentItem(getIntent().getIntExtra("CURRENT_PAGE", 0), false);
+            new AlertDialog.Builder(this)
+                    .setTitle("Couldn't log in to GAiT Website")
+                    .setMessage("Application couldn't login to GAiT website. Try again later or try logging in directly to GAiT website. If you could login properly to GAiT website and this message keeps popping up, please contact me at ...")
+                    .setPositiveButton("Ok", null)
+                    .setNegativeButton("Go to GAiT Website", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            String url = "http://podzialy.gait.pl/";
+                            Intent intent = new Intent(Intent.ACTION_VIEW);
+                            intent.setData(Uri.parse(url));
+                            startActivity(intent);
+                        }
+                    }).show();
         }
     }
 

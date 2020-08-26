@@ -36,4 +36,12 @@ public class User {
         this.Password = password;
         this.isUserProperlyLoggedIn = isUserProperlyLoggedIn;
     }
+
+    public User(String userName, String password, ArrayList<Assignment> assignments, ArrayList<Document> documents, boolean isUserProperlyLoggedIn) {
+        UserId = userName;
+        Password = password;
+        Assignments = assignments;
+        Documents = documents;
+        this.isUserProperlyLoggedIn = isUserProperlyLoggedIn;
+    }
 }
