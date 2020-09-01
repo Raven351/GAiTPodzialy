@@ -23,6 +23,8 @@ import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.DocumentsListFragm
 import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
+import me.relex.circleindicator.CircleIndicator3;
+
 //https://developer.android.com/training/animation/screen-slide-2?hl=en#java
 
 public class MainViewPager extends AppCompatActivity implements AssignmentsListFragment.OnListFragmentInteractionListener {
@@ -58,6 +60,8 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
             pageAdapter = new ScreenSlidePagerAdapter(this);
             viewPager2.setAdapter(pageAdapter);
             viewPager2.setCurrentItem(getIntent().getIntExtra("CURRENT_PAGE", 0), false);
+            CircleIndicator3 viewpagerIndicator = findViewById(R.id.assignments_list_viewpager_indicator);
+            viewpagerIndicator.setViewPager(viewPager2);
         }
     }
 
