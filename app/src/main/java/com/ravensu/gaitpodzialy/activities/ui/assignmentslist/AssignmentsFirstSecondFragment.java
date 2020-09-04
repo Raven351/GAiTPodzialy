@@ -34,8 +34,6 @@ public class AssignmentsFirstSecondFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         final View view = inflater.inflate(R.layout.assignments_today_tomorrow_fragment, container, false);
-        final TextView driverNameTextView = view.findViewById(R.id.driverName);
-        final TextView driverIdTextView = view.findViewById(R.id.driverId);
         final TextView assignmentFirstStatusTextView = view.findViewById(R.id.assignmentFirstStatus);
         final TextView assignmentFirstDateTextView = view.findViewById(R.id.assignmentFirstDate);
         final TextView assignmentFirstCodeTextView = view.findViewById(R.id.assignmentFirstCode);
@@ -55,8 +53,6 @@ public class AssignmentsFirstSecondFragment extends Fragment {
         final TextView assignmentSecondTimeTotal = view.findViewById(R.id.assignmentSecondTimeTotal);
 
         if (UsersData.getCurrentlySelectedUser().Assignments.size() == 0){
-            driverIdTextView.setText(UsersData.getCurrentlySelectedUserId());
-            driverNameTextView.setVisibility(View.GONE);
             assignmentFirstStatusTextView.setVisibility(View.GONE);
             assignmentFirstStartLocation.setVisibility(View.GONE);
             assignmentFirstTimeStart.setVisibility(View.GONE);
@@ -80,8 +76,6 @@ public class AssignmentsFirstSecondFragment extends Fragment {
         assignmentsFirstSecondViewModel.getFirstAssignment().observe(getViewLifecycleOwner(), new Observer<Assignment>() {
             @Override
             public void onChanged(Assignment assignment) {
-                driverIdTextView.setText(assignment.DriverNumber);
-                driverNameTextView.setText(assignment.DriverName);
                 String dateFormat = new SimpleDateFormat("dd-MM-yyyy").format(assignment.Date);
                 assignmentFirstDateTextView.setText(dateFormat);
                 assignmentFirstCodeTextView.setText(assignment.AssignmentCode);

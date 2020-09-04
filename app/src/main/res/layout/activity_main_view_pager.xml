@@ -12,15 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@color/colorPrimary"
-        android:elevation="8dp"
+        android:elevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        >
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
         <RelativeLayout
-            android:layout_height="match_parent"
-            android:layout_width="match_parent">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
             <TextView
                 android:id="@+id/appTitle"
@@ -37,7 +37,6 @@
 
             <ImageButton
                 android:id="@+id/infoButton"
-                android:contentDescription="Information icon"
                 android:layout_width="45dp"
                 android:layout_height="44dp"
                 android:layout_alignParentTop="true"
@@ -47,13 +46,13 @@
                 android:layout_marginBottom="6dp"
                 android:layout_toStartOf="@+id/accountsButton"
                 android:background="@android:color/transparent"
+                android:contentDescription="Information icon"
                 android:padding="0dp"
                 android:scaleType="fitXY"
                 app:srcCompat="@drawable/info_white_24dp" />
 
             <ImageButton
                 android:id="@+id/accountsButton"
-                android:contentDescription="Account icon"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_alignParentTop="true"
@@ -63,16 +62,52 @@
                 android:layout_marginEnd="15dp"
                 android:layout_marginBottom="6dp"
                 android:background="@android:color/transparent"
+                android:contentDescription="Account icon"
+                android:onClick="onClickAccountsButton"
                 android:padding="0dp"
                 android:scaleType="fitXY"
-                app:srcCompat="@drawable/account_circle_white"
-                android:onClick="onClickAccountsButton"/>
+                app:srcCompat="@drawable/account_circle_white" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_assignments_list_activity"
+        android:background="@color/lightRed"
+        android:elevation="6dp">
+
+        <TextView
+            android:id="@+id/driverId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@string/driverId"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/driverName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:text=""
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/driverId" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="20dp"
-        android:background="#000000"
+        android:background="@color/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/assignments_list_viewpager">
@@ -80,14 +115,14 @@
             android:id="@+id/assignments_list_viewpager_indicator"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:ci_margin="15dp"/>
+            app:ci_margin="20dp"/>
     </RelativeLayout>
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/assignments_list_viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="56dp"
-        android:layout_marginBottom="15dp"
+        android:layout_marginTop="120dp"
+        android:layout_marginBottom="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

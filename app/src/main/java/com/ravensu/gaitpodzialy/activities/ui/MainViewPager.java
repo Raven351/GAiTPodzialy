@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -14,6 +16,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.activities.ui.accountsList.AccountsListActivity;
@@ -32,6 +35,7 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
     private static final int NUM_PAGES = 3;
     private ViewPager2 viewPager2;
     private FragmentStateAdapter pageAdapter;
+    private MainViewPagerViewModel viewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +66,21 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
             viewPager2.setCurrentItem(getIntent().getIntExtra("CURRENT_PAGE", 0), false);
             CircleIndicator3 viewpagerIndicator = findViewById(R.id.assignments_list_viewpager_indicator);
             viewpagerIndicator.setViewPager(viewPager2);
+            final TextView driverIdTextView = findViewById(R.id.driverId);
+            final TextView driverNameTextView = findViewById(R.id.driverName);
+            viewModel = new ViewModelProvider(this).get(MainViewPagerViewModel.class);
+            viewModel.getDriverId().observe(this, new Observer<String>() {
+                @Override
+                public void onChanged(String s) {
+                    driverIdTextView.setText(s);
+                }
+            });
+            viewModel.getDriverName().observe(this, new Observer<String>() {
+                @Override
+                public void onChanged(String s) {
+                    driverNameTextView.setText(s);
+                }
+            });
         }
     }
 

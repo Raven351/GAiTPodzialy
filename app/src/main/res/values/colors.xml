@@ -6,4 +6,5 @@
     <color name="greyList">#e8e8e8</color>
     <color name="selectedUser">#6df76d</color>
     <color name="mainUser">#008fc7</color>
+    <color name = "lightRed">#eb5454</color>
 </resources>
