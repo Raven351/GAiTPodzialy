@@ -6,16 +6,16 @@
     <string name="action_sign_in">Sign in</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="welcome">"Welcome! "</string>
-    <string name="invalid_username">Not a valid username</string>
-    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="invalid_username">Enter driver ID</string>
+    <string name="invalid_password">Enter password</string>
     <string name="login_failed">"Login failed"</string>
     <string name="submit">ActivityAssignmentsFabDesc</string>
     <string name="driverId" translatable="false">0000</string>
     <string name="firstName">FirstName</string>
     <string name="surname">Surname</string>
 
-    <string name="today_assignment">Today\'s Assignment</string>
-    <string name="tomorrow_assignment">Tomorrow\'s Assignment</string>
+    <string name="today_assignment">First Upcoming Assignment</string>
+    <string name="tomorrow_assignment">Second Upcoming Assignment</string>
     <string name="assignment_totalTime_label">Time total:</string>
     <string name="assignment_start_label">Start:</string>
     <string name="assignment_end_label">End:</string>
