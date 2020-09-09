@@ -3,6 +3,8 @@ package com.ravensu.gaitpodzialy;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -16,8 +18,6 @@ import com.ravensu.gaitpodzialy.data.SavedAppMainLogin;
 import com.ravensu.gaitpodzialy.data.UsersData;
 
 public class MainActivity extends AppCompatActivity {
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +46,37 @@ public class MainActivity extends AppCompatActivity {
 
     private void startApp(){
         if(!SavedAppLogins.ExistsAny(this)){
-            loginActivity();
+            final SharedPreferences defaultPreferences = getSharedPreferences(getPackageName() + "_preferences", MODE_PRIVATE);
+            //defaultPreferences.edit().putBoolean("appUsageConditionsAccepted", false).apply(); //for debugging
+            if (!defaultPreferences.getBoolean("appUsageConditionsAccepted", false)){
+                firstLaunchWarning();
+            }
+            else loginActivity();
         }
         else{
             assignmentsListActivity();
         }
+    }
+
+    private void firstLaunchWarning() {
+        final SharedPreferences defaultPreferences = getSharedPreferences(getPackageName() + "_preferences", MODE_PRIVATE);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.first_launch_welcome_dialog_title)
+                .setMessage(R.string.first_launch_welcome_dialog_message)
+                .setCancelable(false)
+                .setPositiveButton(R.string.first_launch_welcome_dialog_positive, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        defaultPreferences.edit().putBoolean("appUsageConditionsAccepted", true).apply();
+                        loginActivity();
+                    }
+                })
+                .setNegativeButton(R.string.first_launch_welcome_dialog_negative, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finishAndRemoveTask();
+                    }
+                }).show();
     }
 
     private void loginActivity(){
