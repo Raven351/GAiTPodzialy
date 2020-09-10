@@ -132,6 +132,11 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
         }
     }
 
+    public void onClickInfoButton(View view) {
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
+    }
+
     private static class ScreenSlidePagerAdapter extends FragmentStateAdapter{
         public ScreenSlidePagerAdapter(FragmentActivity fragmentActivity){
             super(fragmentActivity);
