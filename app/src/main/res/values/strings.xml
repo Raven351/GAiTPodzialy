@@ -43,7 +43,7 @@
 
     <string name="data_error">DATA ERROR</string>
     <string name="data_error_dialog_title">User log in failed!</string>
-    <string name="data_error_dialog_message">Application couldn\'t log in this user to GAiT website.\nTry logging in directly through GAiT website.\nIf you could log in properly and this message keeps popping up, please inform me about this at ..</string>
+    <string name="data_error_dialog_message">Application couldn\'t log in this user to GAiT website.\nTry logging in directly through GAiT website.\nIf you could log in properly and this message keeps popping up, please inform me about this through contact form at ravensu.com/contact</string>
     <string name="data_error_dialog_negative_button">Go to GAiT website</string>
     <string name="no_assignments">No assignments</string>
     <string name="no_documents">No documents</string>

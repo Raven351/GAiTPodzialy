@@ -30,7 +30,7 @@
 
     <string name="data_error">BŁĄD POBIERANIA DANYCH</string>
     <string name="data_error_dialog_title">Logowanie użytkownika nie powiodło się!</string>
-    <string name="data_error_dialog_message">Aplikacja nie mogła zalogować się do strony internetowej GAiT.\nSpróbuj zalogować się bezpośrednio poprzez stronę internetową.\nJeżeli udało Ci się prawidłowo zalogować przez stronę internetową, a niniejszy komunikat dalej występuje, proszę o kontakt poprzez..</string>
+    <string name="data_error_dialog_message">Aplikacja nie mogła zalogować się do strony internetowej GAiT.\nSpróbuj zalogować się bezpośrednio poprzez stronę internetową.\nJeżeli udało Ci się prawidłowo zalogować przez stronę internetową, a niniejszy komunikat dalej występuje, proszę o kontakt poprzez formularz kontaktowy na stronie ravensu.com/contact</string>
     <string name="data_error_dialog_negative_button">Strona internetowa GAiT</string>
     <string name="no_assignments">Brak przydziałów</string>
     <string name="no_documents">No documents</string>

@@ -51,6 +51,7 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         if(position % 2 == 1) holder.mView.setBackgroundColor(Color.parseColor("#e8e8e8"));
+        else holder.mView.setBackgroundColor(Color.parseColor("#FFFFFF"));
         holder.mDocument = documents.get(position);
         String dateFormat = new SimpleDateFormat("dd-MM-yyyy").format(documents.get(position).Date);
         holder.mDate.setText(dateFormat);
