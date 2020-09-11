@@ -27,6 +27,7 @@ import com.ravensu.gaitpodzialy.webscrapper.models.User;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 
 public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdapter.ViewHolder> {
     private MutableLiveData<User> currentlySelectedUser = new MutableLiveData<>(UsersData.getCurrentlySelectedUser());
@@ -36,8 +37,17 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
 
     public DocumentsListAdapter(Fragment fragment){
         this.documents = currentlySelectedUser.getValue().Documents;
-        Collections.reverse(this.documents);
+        sortDocumentsByDate();
         this.parentFragment = fragment;
+    }
+
+    private void sortDocumentsByDate() {
+        Collections.sort(documents, new Comparator<Document>() {
+            @Override
+            public int compare(Document o1, Document o2) {
+                return o2.Date.compareTo(o1.Date);
+            }
+        });
     }
 
     @NonNull

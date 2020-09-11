@@ -46,12 +46,12 @@ public class AssignmentsListAdapter extends RecyclerView.Adapter<AssignmentsList
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         Date today = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
-        if(position % 2 == 1) holder.mView.setBackgroundColor(Color.parseColor("#e8e8e8"));
-        else holder.mView.setBackgroundColor(Color.parseColor("#ffffff"));
         if (assignments.get(position).Date.equals(today)) {
             holder.mView.setBackgroundColor(Color.parseColor("#aacef0"));
             todayAssignmentPosition = position;
         }
+        else if(position % 2 == 1) holder.mView.setBackgroundColor(Color.parseColor("#e8e8e8"));
+        else holder.mView.setBackgroundColor(Color.parseColor("#ffffff"));
         holder.mAssignment = assignments.get(position);
         String dateFormat = new SimpleDateFormat("dd-MM-yyyy").format(assignments.get(position).Date);
         holder.mDate.setText(dateFormat);
