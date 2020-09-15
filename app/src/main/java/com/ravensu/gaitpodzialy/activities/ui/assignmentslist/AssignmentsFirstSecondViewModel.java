@@ -42,12 +42,12 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
     public LiveData<Boolean> getIsOnGoing(){
         return isOngoing;
     }
-
     //todo fix case when user has no assignments
     private void loadFirstAssignment(){
         LocalDate date = LocalDate.now();
         ArrayList<Assignment> assignments = getSortedAssignments();
         int i = 0;
+        if (assignments.size() == 0 ) firstAssignment.setValue(new Assignment());
         while (i<assignments.size()){
             Log.d(TAG, "loadFirstAssignment: " + assignments.get(i).Date + assignments.get(i).AssignmentStartTime);
             LocalDate assignmentDate = assignments.get(i).Date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -71,14 +71,17 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
 
     private void loadSecondAssignment(){
         ArrayList<Assignment> assignments = getSortedAssignments();
-        for (int i = 0; i<assignments.size(); i++){
-            if(assignments.get(i).Date.equals(firstAssignment.getValue().Date) &&
-                    assignments.get(i).AssignmentStartTime.equals(firstAssignment.getValue().AssignmentStartTime) &&
-                            i + 1 != assignments.size()){
-                secondAssignment.setValue(assignments.get(i+1));
-                return;
+        if (firstAssignment.getValue() != null){
+            for (int i = 0; i<assignments.size(); i++){
+                if(assignments.get(i).Date.equals(firstAssignment.getValue().Date) &&
+                        assignments.get(i).AssignmentStartTime.equals(firstAssignment.getValue().AssignmentStartTime) &&
+                        i + 1 != assignments.size()){
+                    secondAssignment.setValue(assignments.get(i+1));
+                    return;
+                }
             }
         }
+        secondAssignment.setValue(new Assignment());
         //if (assignments.indexOf(firstAssignment.getValue()) + 1 < assignments.size()) secondAssignment.setValue(assignments.get(assignments.indexOf(firstAssignment) + 1));
     }
 
