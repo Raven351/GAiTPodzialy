@@ -92,7 +92,7 @@ public class UsersData {
 
     public static void setIsUsersDataAccessAvailable(boolean isUsersDataAccessAvailable) { UsersData.isUsersDataAccessAvailable = isUsersDataAccessAvailable;}
 
-    public static void loadUsersData(Context context) throws InterruptedException {
+    public static boolean loadUsersData(Context context) throws InterruptedException {
         if (SavedAppLogins.ExistsAny(context)){
             final Map<String, ?> savedUsersCredentials = SavedAppLogins.GetAllCredentials(context);
             ExecutorService executorService = Executors.newFixedThreadPool(savedUsersCredentials.size());
@@ -113,5 +113,6 @@ public class UsersData {
             mainUser = users.get(SavedAppMainLogin.GetMainLoginUserId(context));
             currentlySelectedUser = mainUser;
         }
+        return currentlySelectedUser != null;
     }
 }

@@ -31,7 +31,7 @@
     <string name="data_error">BŁĄD POBIERANIA DANYCH</string>
     <string name="data_error_dialog_title">Logowanie użytkownika nie powiodło się!</string>
     <string name="data_error_dialog_message">Aplikacja nie mogła zalogować się do strony internetowej GAiT.\nSpróbuj zalogować się bezpośrednio poprzez stronę internetową.\nJeżeli udało Ci się prawidłowo zalogować przez stronę internetową, a niniejszy komunikat dalej występuje, proszę o kontakt poprzez formularz kontaktowy na stronie ravensu.com/contact</string>
-    <string name="data_error_dialog_negative_button">Strona internetowa GAiT</string>
+    <string name="data_error_dialog_negative_button">Otwórz w przeglądarce</string>
     <string name="no_assignments">Brak przydziałów</string>
     <string name="no_documents">No documents</string>
     <string name="first_launch_welcome_dialog_title">Ostrzeżenie</string>
@@ -41,6 +41,8 @@
 
     <string name="about">Niniejsza aplikacja NIE jest oficjalną aplikacją i nie należy do spółki Gdańskie Autobusy i Tramwaje.\nTwórca w żaden sposób nie ponosi odpowiedzialności za szkody w wyniku potencjalnych błędów w działaniu aplikacji.\nDane używane w aplikacji są pobierane ze strony <a href = "http://podzialy.gait.pl">podzialy.gait.pl</a> za pomocą metody webscrapping\'u.</string>
     <string name="about_more_info">Możesz dowiedzieć się więcej o tej aplikacji i zobaczyć jej kod źródłowy na <a href = "https://github.com/Raven351/GAiTPodzialy">github.com/Raven351/GAiTPodzialy</a></string>
-
     <string name="about_made_by">Wykonanie:\nBartosz Baum\n<a href="https://dev.ravensu.com">dev.ravensu.com</a>\n\nLicencja GNU GPLv3</string>
+
+    <string name="users_loading_error_dialog_title">Wystąpił błąd!</string>
+    <string name="users_loading_error_dialog_message">Wystąpił błąd podczas próby wczytania danych użytkownika.\nMoże być to spowodowane słabym połączeniem internetowym.</string>
 </resources>

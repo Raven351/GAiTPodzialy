@@ -32,34 +32,22 @@ public class GAiTWebScrapper {
      *
      * @return HTML document with GAiT website if logged in properly or null if not.
      */
-    public Document GetGAiTWebsite(){
-        try {
-            //todo change back to correct url
-            Connection.Response res = Jsoup.connect("http://podzialy.gait.pl/")
-                    .followRedirects(true)
-                    .userAgent("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36")
-                    .timeout(2000)
-                    .data("konto", this.username)
-                    .data("password", this.password)
-                    .method(Connection.Method.POST)
-                    .execute();
-            Document doc = res.parse();
-            if(isGAiTWebsiteLoginSuccessful(doc)){
-                Log.d("SCRAPPER", "GetGAiTWebsite - Doc Title: " + "USER " + this.username + " SUCCESSFULLY LOGGED IN");
-                return doc;
-            }
-            else {
-                Log.e("SCRAPPER", "GetGAiTWebsite - Doc Title: " + "USER " + this.username + " FAILED TO LOGIN");
-                return null;
-            }
-
-        } catch (NullPointerException e) {
-            e.printStackTrace();
-            Log.e("SCRAPPER", "GetGAiTWebsite: " + e.toString());
-            return null;
-        } catch (IOException e) {
-            e.printStackTrace();
-            Log.e("SCRAPPER", "GetGAiTWebsite: " + e.toString());
+    public Document GetGAiTWebsite() throws NullPointerException, IOException{
+        Connection.Response res = Jsoup.connect("http://podzialy.gait.pl/")
+                .followRedirects(true)
+                .userAgent("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36")
+                .timeout(32000)
+                .data("konto", this.username)
+                .data("password", this.password)
+                .method(Connection.Method.POST)
+                .execute();
+        Document doc = res.parse();
+        if(isGAiTWebsiteLoginSuccessful(doc)){
+            Log.d("SCRAPPER", "GetGAiTWebsite - Doc Title: " + "USER " + this.username + " SUCCESSFULLY LOGGED IN");
+            return doc;
+        }
+        else {
+            Log.e("SCRAPPER", "GetGAiTWebsite - Doc Title: " + "USER " + this.username + " FAILED TO LOGIN");
             return null;
         }
     }
@@ -89,10 +77,7 @@ public class GAiTWebScrapper {
         assignment.DriverNumber = row.get(1).text();
         assignment.DriverName = row.get(2).text();
         assignment.AssignmentCode = row.get(3).text();
-        Log.d("SCRAPPER", "Służba:" + assignment.AssignmentCode);
         assignment.AssignmentStartLocation = row.get(4).text();
-        Log.d("SCRAPPER", "Początek - lokacja " + assignment.AssignmentStartLocation);
-        Log.d("SCRAPPER", "===========================");
         assignment.AssignmentStartTime = LocalTime.parse(row.get(5).text());
         assignment.AssignmentEndTime = LocalTime.parse(row.get(6).text());
         assignment.AssignmentEndLocation = row.get(7).text();

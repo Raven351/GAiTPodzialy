@@ -7,9 +7,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
+import android.view.View;
 
 import com.ravensu.gaitpodzialy.activities.ui.MainViewPager;
 import com.ravensu.gaitpodzialy.activities.ui.login.LoginActivity;
@@ -86,10 +88,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void assignmentsListActivity(){
         try {
-            UsersData.loadUsersData(this);
+            boolean usersLoaded = UsersData.loadUsersData(this);
             Intent intent = new Intent(this, MainViewPager.class);
             intent.putExtra("FROM_ACTIVITY", "MAIN");
-            startActivity(intent);
+            if (usersLoaded) startActivity(intent); //if there is week connection nul
+            else  {
+                findViewById(R.id.start_progress_circular).setVisibility(View.INVISIBLE);
+                usersLoadingErrorDialog();
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
             Log.e("MAIN", "assignmentsListActivity: Error loading users data" + e.toString());
@@ -104,5 +110,28 @@ public class MainActivity extends AppCompatActivity {
                 assignmentsListActivity();
             }
         }
+    }
+
+    private void usersLoadingErrorDialog(){
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle(R.string.users_loading_error_dialog_title)
+            .setMessage(R.string.users_loading_error_dialog_message)
+            .setCancelable(false)
+            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finishAndRemoveTask();
+                }
+            })
+            .setNegativeButton(R.string.data_error_dialog_negative_button, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String url = "http://podzialy.gait.pl/";
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(url));
+                    startActivity(intent);
+                    finish();
+                }
+            }).show();
     }
 }
