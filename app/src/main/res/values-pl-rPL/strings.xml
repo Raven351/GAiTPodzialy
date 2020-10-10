@@ -45,4 +45,5 @@
 
     <string name="users_loading_error_dialog_title">Wystąpił błąd!</string>
     <string name="users_loading_error_dialog_message">Wystąpił błąd podczas próby wczytania danych użytkownika.\nMoże być to spowodowane słabym połączeniem internetowym.</string>
+    <string name="status_dayoff">Dzień wolny</string>
 </resources>

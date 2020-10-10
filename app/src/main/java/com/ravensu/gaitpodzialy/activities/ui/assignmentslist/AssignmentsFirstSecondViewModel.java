@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
@@ -21,7 +22,7 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
     private String TAG = "AssignmentsTodayTomorrowViewModel";
     private MutableLiveData<Assignment> firstAssignment;
     private MutableLiveData<Assignment> secondAssignment;
-    private MutableLiveData<Boolean> isOngoing = new MutableLiveData<>(false);
+    private MutableLiveData<Integer> isOngoing = new MutableLiveData<>(R.string.status_willstart);
     private Integer firstAssignmentIndex = 0;
 
     public LiveData<Assignment> getFirstAssignment(){
@@ -40,7 +41,7 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
         return secondAssignment;
     }
 
-    public LiveData<Boolean> getIsOnGoing(){
+    public LiveData<Integer> getIsOnGoing(){
         return isOngoing;
     }
     //todo fix case when user has no assignments
@@ -54,18 +55,24 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
             LocalDate assignmentDate = assignments.get(i).Date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             Log.d(TAG, "loadFirstAssignment: " + date.toString() + "      " + assignmentDate.toString());
             if (assignmentDate.isEqual(date)) Log.d(TAG, "loadFirstAssignment: IS EQUAL");
-            if (assignmentDate.isEqual(date) && LocalTime.now().isBefore(assignments.get(i).AssignmentEndTime)){
+            if (assignmentDate.isEqual(date) && LocalTime.MIDNIGHT.equals(assignments.get(i).AssignmentStartTime) && LocalTime.MIDNIGHT.equals(assignments.get(i).AssignmentEndTime)){
+                firstAssignment.setValue(assignments.get(i));
+                firstAssignmentIndex = i;
+                isOngoing.setValue(R.string.status_dayoff);
+                break;
+            }
+            else if (assignmentDate.isEqual(date) && LocalTime.now().isBefore(assignments.get(i).AssignmentEndTime)){
                 firstAssignment.setValue(assignments.get(i));
                 firstAssignmentIndex = i;
                 if (LocalTime.now().isAfter(assignments.get(i).AssignmentStartTime)){
-                    isOngoing.setValue(true);
+                    isOngoing.setValue(R.string.status_ongoing);
                 }
                 break;
             }
             else if (assignmentDate.isAfter(date)){
                 firstAssignment.setValue(assignments.get(i));
                 firstAssignmentIndex = i;
-                isOngoing.setValue(false);
+                isOngoing.setValue(R.string.status_willstart);
                 break;
             }
             else i++;

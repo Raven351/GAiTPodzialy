@@ -95,17 +95,18 @@ public class AssignmentsFirstSecondFragment extends Fragment {
 
             }
         });
-        assignmentsFirstSecondViewModel.getIsOnGoing().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
+        assignmentsFirstSecondViewModel.getIsOnGoing().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean) {
-                    assignmentFirstStatusTextView.setText(R.string.status_ongoing);
+            public void onChanged(Integer stringResource) {
+                String status = getResources().getString(stringResource);
+                assignmentFirstStatusTextView.setText(status);
+                if (status.equals(getResources().getString(R.string.status_ongoing))) {
                     assignmentFirstStatusTextView.setTextColor(Color.parseColor("#1895f5"));
                 }
-                else {
-                    assignmentFirstStatusTextView.setText(R.string.status_willstart);
+                else if (status.equals(getResources().getString(R.string.status_willstart))){
                     assignmentFirstStatusTextView.setTextColor(Color.parseColor("#19851b"));
                 }
+                else assignmentFirstStatusTextView.setTextColor(Color.parseColor("#39748f"));
             }
         });
         assignmentsFirstSecondViewModel.getSecondAssignment().observe(getViewLifecycleOwner(), new Observer<Assignment>() {
