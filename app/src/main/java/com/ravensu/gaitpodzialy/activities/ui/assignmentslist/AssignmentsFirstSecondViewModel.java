@@ -79,7 +79,7 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
                 if(i >= assignments.size()){
                     break;
                 }
-                else if (!assignments.get(i).isSameData(firstAssignment.getValue())) {
+                else {
                     secondAssignment.setValue(assignments.get(i));
                     return;
                 }
