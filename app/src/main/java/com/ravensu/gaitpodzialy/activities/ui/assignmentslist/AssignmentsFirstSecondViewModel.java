@@ -22,6 +22,7 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
     private MutableLiveData<Assignment> firstAssignment;
     private MutableLiveData<Assignment> secondAssignment;
     private MutableLiveData<Boolean> isOngoing = new MutableLiveData<>(false);
+    private Integer firstAssignmentIndex = 0;
 
     public LiveData<Assignment> getFirstAssignment(){
         if (firstAssignment == null){
@@ -55,6 +56,7 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
             if (assignmentDate.isEqual(date)) Log.d(TAG, "loadFirstAssignment: IS EQUAL");
             if (assignmentDate.isEqual(date) && LocalTime.now().isBefore(assignments.get(i).AssignmentEndTime)){
                 firstAssignment.setValue(assignments.get(i));
+                firstAssignmentIndex = i;
                 if (LocalTime.now().isAfter(assignments.get(i).AssignmentStartTime)){
                     isOngoing.setValue(true);
                 }
@@ -62,6 +64,7 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
             }
             else if (assignmentDate.isAfter(date)){
                 firstAssignment.setValue(assignments.get(i));
+                firstAssignmentIndex = i;
                 isOngoing.setValue(false);
                 break;
             }
@@ -72,11 +75,12 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
     private void loadSecondAssignment(){
         ArrayList<Assignment> assignments = getSortedAssignments();
         if (firstAssignment.getValue() != null){
-            for (int i = 0; i<assignments.size(); i++){
-                if(assignments.get(i).Date.equals(firstAssignment.getValue().Date) &&
-                        assignments.get(i).AssignmentStartTime.equals(firstAssignment.getValue().AssignmentStartTime) &&
-                        i + 1 != assignments.size()){
-                    secondAssignment.setValue(assignments.get(i+1));
+            for (int i = firstAssignmentIndex + 1; i<assignments.size(); i++){
+                if(i >= assignments.size()){
+                    break;
+                }
+                else if (!assignments.get(i).isSameData(firstAssignment.getValue())) {
+                    secondAssignment.setValue(assignments.get(i));
                     return;
                 }
             }
@@ -123,5 +127,11 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
             Log.d(TAG, assignment.Date.toString() + assignment.AssignmentStartTime.toString());
         }
         return assignments;
+    }
+
+    private boolean isAssignmentDayOff(Assignment assignment){
+        return assignment.AssignmentStartTime.equals(LocalTime.MIDNIGHT) &&
+                assignment.AssignmentEndTime.equals(LocalTime.MIDNIGHT) &&
+                assignment.AssignmentStartLocation.contains("-");
     }
 }
