@@ -113,7 +113,7 @@ public class GAiTWebScrapper {
             Elements row = rows.get(i).select("td");
             if (row.size() > 0){
                 Assignment assignment = ParseAssignmentRecord(row);
-                if (assignments.size() > 1){
+                if (assignments.size() > 0){
                     if (!assignments.get((assignments.size() - 1)).isSameData(assignment)) assignments.add(assignment);
                 }
                 else assignments.add(assignment);
