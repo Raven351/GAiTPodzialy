@@ -43,6 +43,7 @@ public class AssignmentsFirstSecondFragment extends Fragment {
         final TextView assignmentFirstStartLocation = view.findViewById(R.id.assignmentFirstStartLocation);
         final TextView assignmentFirstEndLocation = view.findViewById(R.id.assignmentFirstEndLocation);
         final TextView assignmentFirstTimeTotal = view.findViewById(R.id.assignmentFirstTimeTotal);
+        final TextView assignmentFirstWeekDay = view.findViewById(R.id.assignmentFirstWeekDay);
         final TextView assignmentSecondDateTextView = view.findViewById(R.id.assignmentSecondDate);
         final TextView assignmentSecondCodeTextView = view.findViewById(R.id.assignmentSecondCode);
         final TextView assignmentSecondNoticesTextView = view.findViewById(R.id.assignmentSecondNotices);
@@ -51,6 +52,7 @@ public class AssignmentsFirstSecondFragment extends Fragment {
         final TextView assignmentSecondStartLocation = view.findViewById(R.id.assignmentSecondStartLocation);
         final TextView assignmentSecondEndLocation = view.findViewById(R.id.assignmentSecondEndLocation);
         final TextView assignmentSecondTimeTotal = view.findViewById(R.id.assignmentSecondTimeTotal);
+        final TextView assignmentSecondWeekDay = view.findViewById(R.id.assignmentSecondWeekDay);
 
         if (UsersData.getCurrentlySelectedUser().Assignments.size() == 0){
             assignmentFirstStatusTextView.setVisibility(View.GONE);
@@ -70,6 +72,8 @@ public class AssignmentsFirstSecondFragment extends Fragment {
             assignmentSecondCodeTextView.setVisibility(View.GONE);
             assignmentSecondNoticesTextView.setVisibility(View.GONE);
             assignmentSecondTimeTotal.setVisibility(View.GONE);
+            assignmentFirstWeekDay.setVisibility(View.GONE);
+            assignmentSecondWeekDay.setVisibility(View.GONE);
         }
 
         assignmentsFirstSecondViewModel = new ViewModelProvider(this).get(AssignmentsFirstSecondViewModel.class);
@@ -85,6 +89,9 @@ public class AssignmentsFirstSecondFragment extends Fragment {
                 assignmentFirstStartLocation.setText(assignment.AssignmentStartLocation);
                 assignmentFirstTimeEnd.setText(assignment.AssignmentEndTime.toString());
                 assignmentFirstEndLocation.setText(assignment.AssignmentEndLocation);
+                String weekday = new SimpleDateFormat("EEEE").format(assignment.Date);
+                weekday = weekday.substring(0, 1).toUpperCase() + weekday.substring(1);
+                assignmentFirstWeekDay.setText(weekday);
 
             }
         });
@@ -113,6 +120,9 @@ public class AssignmentsFirstSecondFragment extends Fragment {
                 assignmentSecondTimeEnd.setText(assignment.AssignmentEndTime.toString());
                 assignmentSecondStartLocation.setText(assignment.AssignmentStartLocation);
                 assignmentSecondEndLocation.setText(assignment.AssignmentEndLocation);
+                String weekday = new SimpleDateFormat("EEEE").format(assignment.Date);
+                weekday = weekday.substring(0, 1).toUpperCase() + weekday.substring(1);
+                assignmentSecondWeekDay.setText(weekday);
             }
         });
 

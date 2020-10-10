@@ -69,17 +69,30 @@
             app:layout_constraintTop_toBottomOf="@+id/todayAssignmentLabelContainer" />
 
         <TextView
+            android:id="@+id/assignmentFirstWeekDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="@id/assignmentFirstDate"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/assignmentFirstDate"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:text="@string/assignment_sample_weekday"/>
+
+        <TextView
             android:id="@+id/assignmentFirstCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/assignment_sample_code"
             android:textColor="#000000"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/assignmentFirstDate"
+            app:layout_constraintEnd_toEndOf="@+id/assignmentFirstWeekDay"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/assignmentFirstDate" />
+            app:layout_constraintTop_toBottomOf="@+id/assignmentFirstWeekDay" />
 
         <TextView
             android:id="@+id/assignmentFirstTimeEnd"
@@ -106,10 +119,13 @@
             android:id="@+id/assignmentFirstNotices"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:text="@string/assignment_sample_notices"
             android:textColor="#000000"
             android:textSize="14sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:maxWidth="140sp"
             app:layout_constraintEnd_toEndOf="@+id/assignmentFirstCode"
             app:layout_constraintTop_toBottomOf="@+id/assignmentFirstCode" />
 
@@ -246,17 +262,30 @@
             app:layout_constraintTop_toBottomOf="@+id/tomorrowAssignmentLabelContainer" />
 
         <TextView
+            android:id="@+id/assignmentSecondWeekDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:layout_constraintEnd_toEndOf="@id/assignmentSecondDate"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/assignmentSecondDate"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            android:text="@string/assignment_sample_weekday"/>
+
+        <TextView
             android:id="@+id/assignmentSecondCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="16dp"
             android:text="@string/assignment_sample_code"
             android:textColor="#000000"
             android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="@+id/assignmentSecondDate"
+            app:layout_constraintEnd_toEndOf="@+id/assignmentSecondWeekDay"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/assignmentSecondDate" />
+            app:layout_constraintTop_toBottomOf="@+id/assignmentSecondWeekDay" />
 
         <TextView
             android:id="@+id/assignmentSecondTimeEnd"
@@ -283,10 +312,13 @@
             android:id="@+id/assignmentSecondNotices"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="4dp"
             android:text="@string/assignment_sample_notices"
             android:textColor="#000000"
             android:textSize="14sp"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:maxWidth="140sp"
             app:layout_constraintEnd_toEndOf="@+id/assignmentSecondCode"
             app:layout_constraintTop_toBottomOf="@+id/assignmentSecondCode" />
 

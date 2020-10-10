@@ -58,5 +58,6 @@
 
     <string name="users_loading_error_dialog_title">Error!</string>
     <string name="users_loading_error_dialog_message">There was an error while attempting to load users.\nIt could be caused because of weak internet connection.</string>
+    <string name="assignment_sample_weekday">weekday</string>
 
 </resources>
