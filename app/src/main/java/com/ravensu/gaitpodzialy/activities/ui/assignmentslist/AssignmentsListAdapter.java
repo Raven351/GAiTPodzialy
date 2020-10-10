@@ -62,6 +62,9 @@ public class AssignmentsListAdapter extends RecyclerView.Adapter<AssignmentsList
         holder.mLocationStart.setText(assignments.get(position).AssignmentStartLocation);
         holder.mLocationEnd.setText(assignments.get(position).AssignmentEndLocation);
         holder.mTimeTotal.setText(assignments.get(position).AssignmentDuration.toString());
+        String weekday = new SimpleDateFormat("EEEE").format(assignments.get(position).Date);
+        weekday = weekday.substring(0, 1).toUpperCase() + weekday.substring(1);
+        holder.mWeekday.setText(weekday);
     }
 
     @Override
@@ -86,6 +89,7 @@ public class AssignmentsListAdapter extends RecyclerView.Adapter<AssignmentsList
         public final TextView mLocationStart;
         public final TextView mLocationEnd;
         public final TextView mTimeTotal;
+        public final TextView mWeekday;
         public Assignment mAssignment;
 
         public ViewHolder(View view) {
@@ -99,6 +103,7 @@ public class AssignmentsListAdapter extends RecyclerView.Adapter<AssignmentsList
             mLocationStart = (TextView) view.findViewById(R.id.locationStart);
             mLocationEnd = (TextView) view.findViewById(R.id.locationEnd);
             mTimeTotal = (TextView) view.findViewById(R.id.timeTotal);
+            mWeekday = (TextView) view.findViewById(R.id.weekday);
         }
 
         @Override
