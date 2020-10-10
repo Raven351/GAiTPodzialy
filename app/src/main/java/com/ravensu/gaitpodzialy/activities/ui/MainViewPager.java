@@ -92,15 +92,18 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
 
     @Override
     public void onBackPressed(){
-        if (viewPager2 != null){
-            if (isPreviousActivityMain() || viewPager2.getCurrentItem() == 0){
-                //do nothing
-            }
-            else{
-                super.onBackPressed();
-                viewPager2.setCurrentItem(viewPager2.getCurrentItem() - 1);
-            }
-        }
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.exit_app_dialog_title)
+                .setMessage(R.string.exit_app_dialog_message)
+                .setCancelable(true)
+                .setPositiveButton(R.string.dialog_yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finishAffinity();
+                    }
+                })
+                .setNegativeButton(R.string.dialog_no, null)
+                .show();
     }
 
     private void setUpToolbar(){

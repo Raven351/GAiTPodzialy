@@ -58,7 +58,12 @@
 
     <string name="users_loading_error_dialog_title">Error!</string>
     <string name="users_loading_error_dialog_message">There was an error while attempting to load users.\nIt could be caused because of weak internet connection.</string>
-    <string name="assignment_sample_weekday">weekday</string>
+    <string name="assignment_sample_weekday" translatable="false">weekday</string>
     <string name="status_dayoff">Day off</string>
+
+    <string name="exit_app_dialog_title">Warning</string>
+    <string name="exit_app_dialog_message">Do you really want to exit app?</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
 
 </resources>
