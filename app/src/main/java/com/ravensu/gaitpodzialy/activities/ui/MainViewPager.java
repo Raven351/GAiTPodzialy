@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.ravensu.gaitpodzialy.MainActivity;
 import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.activities.ui.accountsList.AccountsListActivity;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsListFragment;
@@ -137,6 +138,11 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
 
     public void onClickInfoButton(View view) {
         Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
+    }
+
+    public void onClickRefreshButton(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 

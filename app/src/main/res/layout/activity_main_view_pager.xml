@@ -36,6 +36,23 @@
                 android:textStyle="bold" />
 
             <ImageButton
+                android:id="@+id/refreshButton"
+                android:layout_width="45dp"
+                android:layout_height="44dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="6dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="6dp"
+                android:background="@android:color/transparent"
+                android:contentDescription="Refresh icon"
+                android:padding="0dp"
+                android:scaleType="fitXY"
+                android:onClick="onClickRefreshButton"
+                app:srcCompat="@drawable/ic_baseline_refresh_24" />
+
+            <ImageButton
                 android:id="@+id/infoButton"
                 android:layout_width="45dp"
                 android:layout_height="44dp"
@@ -47,9 +64,9 @@
                 android:layout_toStartOf="@+id/accountsButton"
                 android:background="@android:color/transparent"
                 android:contentDescription="Information icon"
+                android:onClick="onClickInfoButton"
                 android:padding="0dp"
                 android:scaleType="fitXY"
-                android:onClick="onClickInfoButton"
                 app:srcCompat="@drawable/info_white_24dp" />
 
             <ImageButton
@@ -57,10 +74,10 @@
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentEnd="true"
+                android:layout_toStartOf="@+id/refreshButton"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="6dp"
-                android:layout_marginEnd="15dp"
+                android:layout_marginEnd="20dp"
                 android:layout_marginBottom="6dp"
                 android:background="@android:color/transparent"
                 android:contentDescription="Account icon"
