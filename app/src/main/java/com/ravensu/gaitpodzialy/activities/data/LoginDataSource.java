@@ -38,7 +38,6 @@ public class LoginDataSource {
             public void run() {
                 try {
                     // TODO: handle loggedInUser authentication
-                    Log.d("LoginDataSource", "Attempting to download site" );
                     GAiTWebScrapper gAiTWebScrapper = new GAiTWebScrapper(userId, password);
                     Document gaitWebsite = gAiTWebScrapper.GetGAiTWebsite();
                     if (gaitWebsite == null) throw new Exception("Login failed");
@@ -49,10 +48,8 @@ public class LoginDataSource {
                     if (!SavedAppLogins.ExistsAny(context)) SavedAppMainLogin.SetMainLoginUserName(context, displayName);
                     SavedAppLogins.SaveCredentials(context, userId, password);
                     LoggedInUser user = new LoggedInUser(userId, displayName, assignments);
-                    Log.d("LoginDataSource", "Returning ResultSuccess with user model containing data: " + userId + " " + displayName + " , assignments size: " +  assignments.size());
                     result[0] = new Result.Success<>(user);
                 } catch (Exception e) {
-                    Log.e("LoginDataSource", "Error while trying to log in: " + e.toString());
                     result[0] = new Result.Error(new IOException("LoginDataSource: Error while trying to log in", e));
                 }
             }

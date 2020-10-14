@@ -146,7 +146,6 @@ public class GAiTWebScrapper {
         Document document =  GAiTWebsite;
         if (document == null) throw new NullPointerException("ScrapAssignmentsTable: Given HTML document is null");
         ArrayList<Assignment> assignments = ParseAssignmentsToArrayList(document.select("table").get(1));
-        Log.d("SCRAPPER", "Assignments count: " + assignments.size());
         return assignments;
     }
 

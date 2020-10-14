@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ravensu.gaitpodzialy.R;
-import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsListFragment.OnListFragmentInteractionListener;
 import com.ravensu.gaitpodzialy.data.UsersData;
-import com.ravensu.gaitpodzialy.dummy.DummyContent.DummyItem;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 import com.ravensu.gaitpodzialy.webscrapper.models.User;
 

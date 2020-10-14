@@ -51,10 +51,7 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
         int i = 0;
         if (assignments.size() == 0 ) firstAssignment.setValue(new Assignment());
         while (i<assignments.size()){
-            Log.d(TAG, "loadFirstAssignment: " + assignments.get(i).Date + assignments.get(i).AssignmentStartTime);
             LocalDate assignmentDate = assignments.get(i).Date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            Log.d(TAG, "loadFirstAssignment: " + date.toString() + "      " + assignmentDate.toString());
-            if (assignmentDate.isEqual(date)) Log.d(TAG, "loadFirstAssignment: IS EQUAL");
             if (assignmentDate.isEqual(date) && LocalTime.MIDNIGHT.equals(assignments.get(i).AssignmentStartTime) && LocalTime.MIDNIGHT.equals(assignments.get(i).AssignmentEndTime)){
                 firstAssignment.setValue(assignments.get(i));
                 firstAssignmentIndex = i;
@@ -109,7 +106,6 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
                 return o1.AssignmentStartTime.compareTo(o2.AssignmentStartTime);
             }
         });
-        Log.d(TAG, "getAssignmentsByDate: Sorted assignments: ");
         for (Assignment assignment : assignmentsByDate) {
             Log.d(TAG, assignment.AssignmentStartTime.toString());
         }
@@ -129,7 +125,6 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
                 return o1.AssignmentStartTime.compareTo(o2.AssignmentStartTime);
             }
         }));
-        Log.d(TAG, "getSortedAssignments: Sorted assignments");
         for (Assignment assignment : assignments){
             Log.d(TAG, assignment.Date.toString() + assignment.AssignmentStartTime.toString());
         }

@@ -84,7 +84,6 @@ public class AssignmentsListFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            Log.d("AssignmentsListFragment", "onCreateView: Assignments count: " + UsersData.getUsersAssignments(UsersData.getCurrentlySelectedUserId()).size());
             final AssignmentsListAdapter adapter = new AssignmentsListAdapter();
             recyclerView.setAdapter(adapter);
             assignmentsListViewModel = new ViewModelProvider(this).get(AssignmentsListViewModel.class);

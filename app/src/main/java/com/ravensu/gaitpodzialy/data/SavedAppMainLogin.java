@@ -63,6 +63,5 @@ public class SavedAppMainLogin {
         SharedPreferences.Editor preferencesEditor = preferences.edit();
         preferencesEditor.putString("userName", userName);
         preferencesEditor.apply();
-        Log.d("AppMainLogin", "SetMainLoginUserName: saved username " + GetMainLoginUserName(context) + "to app_main_login shared preferences");
     }
 }

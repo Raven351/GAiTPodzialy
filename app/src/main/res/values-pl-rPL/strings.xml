@@ -44,7 +44,7 @@
     <string name="about_made_by">Wykonanie:\nBartosz Baum\n<a href="https://dev.ravensu.com">dev.ravensu.com</a>\n\nLicencja GNU GPLv3</string>
 
     <string name="users_loading_error_dialog_title">Wystąpił błąd!</string>
-    <string name="users_loading_error_dialog_message">Wystąpił błąd podczas próby wczytania danych użytkownika.\nMoże być to spowodowane słabym połączeniem internetowym.</string>
+    <string name="users_loading_error_dialog_message">Wystąpił błąd podczas próby wczytania danych użytkownika.\n\nMoże być to spowodowane brakiem lub słabym połączeniem internetowym.</string>
     <string name="status_dayoff">Dzień wolny</string>
 
     <string name="exit_app_dialog_title">Ostrzeżenie</string>

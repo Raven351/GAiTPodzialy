@@ -26,7 +26,6 @@ public class AccountsListViewModel extends AndroidViewModel {
             users = new MutableLiveData<ConcurrentHashMap<String, User>>();
             loadUsers();
         }
-        Log.d("AccountsListViewModel", "getUsers: users count: " + users.getValue().size());
         return users;
     }
 

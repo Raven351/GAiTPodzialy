@@ -31,8 +31,6 @@ public class MainActivity extends AppCompatActivity {
 //        appLoginsEditor.remove(TestingValues.usernameMichu);
 //        appLoginsEditor.apply();
 //        debug end
-        Log.d("MainActivity", "onCreate: "  + SavedAppLogins.GetAllCredentials(this).size());
-        Log.d("MainActivity", "onCreate: "  + SavedAppMainLogin.GetMainLoginUserName(this));
         new CountDownTimer(1000, 1000){
             @Override
             public void onTick(long millisUntilFinished) {
@@ -98,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
             }
         } catch (InterruptedException e) {
             e.printStackTrace();
-            Log.e("MAIN", "assignmentsListActivity: Error loading users data" + e.toString());
         }
     }
 
