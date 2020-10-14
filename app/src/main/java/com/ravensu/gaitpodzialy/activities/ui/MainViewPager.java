@@ -15,7 +15,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ravensu.gaitpodzialy.MainActivity;
@@ -37,6 +39,7 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
     private ViewPager2 viewPager2;
     private FragmentStateAdapter pageAdapter;
     private MainViewPagerViewModel viewModel;
+    private RelativeLayout mainViewpagerLoadingCircle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,8 +145,20 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
     }
 
     public void onClickRefreshButton(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        mainViewpagerLoadingCircle = findViewById(R.id.mainViewpagerLoadingCircle);
+        mainViewpagerLoadingCircle.setVisibility(View.VISIBLE);
+        viewPager2.setUserInputEnabled(false);
+        findViewById(R.id.infoButton).setEnabled(false);
+        findViewById(R.id.accountsButton).setEnabled(false);
+        findViewById(R.id.refreshButton).setEnabled(false);
+        final String currentlySelectedUserId = UsersData.getCurrentlySelectedUserId();
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                refreshData(currentlySelectedUserId);
+            }
+        });
+        thread.start();
     }
 
     private static class ScreenSlidePagerAdapter extends FragmentStateAdapter{
@@ -173,5 +188,45 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
             return NUM_PAGES;
         }
 
+    }
+
+    private void refreshData(String currentlySelectedUserId){
+        try {
+            boolean usersDataLoaded = UsersData.loadUsersData(this);
+            if (usersDataLoaded) {
+                finish();
+                UsersData.setCurrentlySelectedUser(currentlySelectedUserId);
+                startActivity(getIntent().putExtra("CURRENT_PAGE", this.viewPager2.getCurrentItem()));
+            }
+            else{
+                usersLoadingErrorDialog();
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+            usersLoadingErrorDialog();
+        }
+    }
+
+    private void usersLoadingErrorDialog(){
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle(R.string.users_loading_error_dialog_title)
+                .setMessage(R.string.users_loading_error_dialog_message)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finishAffinity();
+                    }
+                })
+                .setNegativeButton(R.string.data_error_dialog_negative_button, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String url = "http://podzialy.gait.pl/";
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(url));
+                        startActivity(intent);
+                        finishAffinity();
+                    }
+                }).show();
     }
 }

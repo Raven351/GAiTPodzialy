@@ -120,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
             .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    finishAndRemoveTask();
+                    finishAffinity();
                 }
             })
             .setNegativeButton(R.string.data_error_dialog_negative_button, new DialogInterface.OnClickListener() {
@@ -130,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse(url));
                     startActivity(intent);
-                    finish();
+                    finishAffinity();
                 }
             }).show();
     }

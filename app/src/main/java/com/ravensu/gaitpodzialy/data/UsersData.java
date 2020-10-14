@@ -25,7 +25,7 @@ import java.util.concurrent.Future;
 public class UsersData {
     private static User mainUser;
     private static User currentlySelectedUser; //user currently selected in app
-    private final static ConcurrentHashMap<String, User> users = new ConcurrentHashMap<>();
+    private static ConcurrentHashMap<String, User> users = new ConcurrentHashMap<>();
     private static boolean isUsersDataAccessAvailable = true;
 
     /**
@@ -94,6 +94,7 @@ public class UsersData {
 
     public static boolean loadUsersData(Context context) throws InterruptedException {
         if (SavedAppLogins.ExistsAny(context)){
+            users = new ConcurrentHashMap<>();
             final Map<String, ?> savedUsersCredentials = SavedAppLogins.GetAllCredentials(context);
             ExecutorService executorService = Executors.newFixedThreadPool(savedUsersCredentials.size());
             List<Future<User>> userFutureList = new ArrayList<Future<User>>();

@@ -148,4 +148,20 @@
 
     </androidx.viewpager2.widget.ViewPager2>
 
+    <RelativeLayout
+        android:id="@+id/mainViewpagerLoadingCircle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:background="#80000000"
+        android:padding="130dp"
+        android:visibility="gone">
+
+        <ProgressBar
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/colorPrimary" />
+    </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
