@@ -54,7 +54,7 @@
 
     <string name="about">This application is NOT affiliated with Gdańskie Autobusy i Tramwaje.\nCreator of this app made every effort to make it free of any bugs and mistakes, however he cannot guarantee that these won\'t occur and he cannot be held liable for any damages caused by errors in application.\nData used in this application is fetched from site <a href = "http://podzialy.gait.pl">podzialy.gait.pl</a> using webscrapping method.</string>
     <string name="about_more_info">You can learn more about this application and see source code at <a href = "https://github.com/Raven351/GAiTPodzialy">github.com/Raven351/GAiTPodzialy</a></string>
-    <string name="about_made_by">Made by\nBartosz Baum\n<a href="https://dev.ravensu.com">dev.ravensu.com</a>\n\nLicense GNU GPLv3</string>
+    <string name="about_made_by">Made by\nBartosz Baum\n<a href="https://dev.ravensu.com">dev.ravensu.com</a>\n\nLicense GNU GPLv3\n\nVersion 0.9</string>
 
     <string name="users_loading_error_dialog_title">Error!</string>
     <string name="users_loading_error_dialog_message">There was an error while attempting to load users.\nIt could be caused because of weak internet connection.</string>
