@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="title_activity_login">Sign in</string>
+    <string name="prompt_driver_number">Driver Number</string>
+    <string name="prompt_password">Password</string>
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome! "</string>
+    <string name="invalid_username">Enter driver ID</string>
+    <string name="invalid_password">Enter password</string>
+    <string name="login_failed">"Login failed"</string>
+    <string name="submit">ActivityAssignmentsFabDesc</string>
+    <string name="firstName">FirstName</string>
+    <string name="surname">Surname</string>
+
+    <string name="today_assignment">First Upcoming Assignment</string>
+    <string name="tomorrow_assignment">Second Upcoming Assignment</string>
+    <string name="assignment_totalTime_label">Time total:</string>
+    <string name="assignment_start_label">Start:</string>
+    <string name="assignment_end_label">End:</string>
+    <string name="status_ongoing">Ongoing</string>
+    <string name="status_willstart">Will start</string>
+
+    <!--    Users panel-->
+    <string name="change_default_user_alert_dialog_message">"Do you really want to set this user as your default user?<br /> <br />After launching app next time, data of this user will be the first one to show up."</string>
+    <string name="change_default_user_success_toast_1">User </string>
+    <string name="change_default_user_success_toast_2"> has been set as default</string>
+    <string name="unable_to_logout_toast">Cannot logout default user!</string>
+    <string name="logout_confirmation_alert_dialog_message">Do you really want to logout user?</string>
+
+    <string name="data_error">DATA ERROR</string>
+    <string name="data_error_dialog_title">User log in failed!</string>
+    <string name="data_error_dialog_message">Application couldn\'t log in this user to GAiT website.\nTry logging in directly through GAiT website.\nIf you could log in properly and this message keeps popping up, please inform me about this through contact form at ravensu.com/contact</string>
+    <string name="data_error_dialog_negative_button">Open in browser</string>
+    <string name="no_assignments">No assignments</string>
+    <string name="no_documents">No documents</string>
+    <string name="first_launch_welcome_dialog_title">Warning</string>
+    <string name="first_launch_welcome_dialog_message">Welcome!\n\nFollowing application is NOT affiliated with Gdańskie Autobusy i Tramwaje.\n\nThis application has been created as a hobby project for GAiT\'s drivers, their families and their friends.\n\nMain purpose of this application is to make it possible for drivers to view information about theirs assignments in a more clear and transparent way. Assignments\' data is fetched from site made for employees (podzialy.gait.pl). Even though creator of this app made every effort to make it free of any bugs and mistakes, he cannot guarantee that these won\'t occur and he cannot be held liable for any damages caused by errors in application.\n\nIn case of finding any bug, you can report it through contact form on ravensu.com\n\nHave a nice use! :)\nBartosz Baum  |  ravensu.com</string>
+    <string name="first_launch_welcome_dialog_positive">Accept</string>
+    <string name="first_launch_welcome_dialog_negative">Decline</string>
+
+    <string name="about">This application is NOT affiliated with Gdańskie Autobusy i Tramwaje.\nCreator of this app made every effort to make it free of any bugs and mistakes, however he cannot guarantee that these won\'t occur and he cannot be held liable for any damages caused by errors in application.\nData used in this application is fetched from site <a href = "http://podzialy.gait.pl">podzialy.gait.pl</a> using webscrapping method.</string>
+    <string name="about_more_info">You can learn more about this application and see source code at <a href = "https://github.com/Raven351/GAiTPodzialy">github.com/Raven351/GAiTPodzialy</a></string>
+    <string name="about_made_by">Made by\nBartosz Baum\n<a href="https://dev.ravensu.com">dev.ravensu.com</a>\n\nLicense GNU GPLv3\n\nVersion 0.9</string>
+
+    <string name="users_loading_error_dialog_title">Error!</string>
+    <string name="users_loading_error_dialog_message">There was an error while attempting to load users.\nIt could be caused because of weak internet connection.</string>
+    <string name="status_dayoff">Day off</string>
+
+    <string name="exit_app_dialog_title">Warning</string>
+    <string name="exit_app_dialog_message">Do you really want to exit app?</string>
+    <string name="dialog_yes">Yes</string>
+    <string name="dialog_no">No</string>
+</resources>
