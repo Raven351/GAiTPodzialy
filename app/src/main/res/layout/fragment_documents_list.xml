@@ -27,6 +27,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        android:scrollbars="vertical"
         tools:context=".activities.ui.assignmentslist.DocumentsListFragment"
         tools:listitem="@layout/fragment_documents_item" />
 </androidx.constraintlayout.widget.ConstraintLayout>
