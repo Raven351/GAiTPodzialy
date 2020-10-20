@@ -24,6 +24,8 @@ import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Document;
 import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
+import org.threeten.bp.format.DateTimeFormatter;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -63,7 +65,7 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
         if(position % 2 == 1) holder.mView.setBackgroundColor(Color.parseColor("#e8e8e8"));
         else holder.mView.setBackgroundColor(Color.parseColor("#FFFFFF"));
         holder.mDocument = documents.get(position);
-        String dateFormat = new SimpleDateFormat("dd-MM-yyyy").format(documents.get(position).Date);
+        String dateFormat = documents.get(position).Date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         holder.mDate.setText(dateFormat);
         holder.mName.setText(documents.get(position).Name);
         holder.mNumber.setText(documents.get(position).Number);

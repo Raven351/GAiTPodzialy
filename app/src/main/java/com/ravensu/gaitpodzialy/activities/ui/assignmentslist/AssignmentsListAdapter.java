@@ -16,6 +16,8 @@ import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.jetbrains.annotations.NotNull;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.format.DateTimeFormatter;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,7 +45,7 @@ public class AssignmentsListAdapter extends RecyclerView.Adapter<AssignmentsList
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        Date today = DateUtils.truncate(new Date(), Calendar.DAY_OF_MONTH);
+        LocalDate today = LocalDate.now();
         if (assignments.get(position).Date.equals(today)) {
             holder.mView.setBackgroundColor(Color.parseColor("#aacef0"));
             todayAssignmentPosition = position;
@@ -51,7 +53,7 @@ public class AssignmentsListAdapter extends RecyclerView.Adapter<AssignmentsList
         else if(position % 2 == 1) holder.mView.setBackgroundColor(Color.parseColor("#e8e8e8"));
         else holder.mView.setBackgroundColor(Color.parseColor("#ffffff"));
         holder.mAssignment = assignments.get(position);
-        String dateFormat = new SimpleDateFormat("dd-MM-yyyy").format(assignments.get(position).Date);
+        String dateFormat = assignments.get(position).Date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         holder.mDate.setText(dateFormat);
         holder.mAssignmentCode.setText(assignments.get(position).AssignmentCode);
         holder.mComments.setText(assignments.get(position).Comments);
@@ -60,7 +62,7 @@ public class AssignmentsListAdapter extends RecyclerView.Adapter<AssignmentsList
         holder.mLocationStart.setText(assignments.get(position).AssignmentStartLocation);
         holder.mLocationEnd.setText(assignments.get(position).AssignmentEndLocation);
         holder.mTimeTotal.setText(assignments.get(position).AssignmentDuration.toString());
-        String weekday = new SimpleDateFormat("EEEE").format(assignments.get(position).Date);
+        String weekday = assignments.get(position).Date.format(DateTimeFormatter.ofPattern("EEEE"));
         weekday = weekday.substring(0, 1).toUpperCase() + weekday.substring(1);
         holder.mWeekday.setText(weekday);
     }

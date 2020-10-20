@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.ravensu.gaitpodzialy"
-        minSdkVersion 26
+        minSdkVersion 24
         targetSdkVersion 29
         versionCode 2
         versionName "0.9"
@@ -48,6 +48,7 @@ dependencies {
     //implementation 'com.romandanylyk:pageindicatorview:1.0.3'
     implementation 'me.relex:circleindicator:2.1.4'
     //implementation 'com.viewpagerindicator:library:2.4.1'
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.1'
 
 
 }

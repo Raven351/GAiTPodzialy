@@ -20,6 +20,8 @@ import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
+import org.threeten.bp.format.DateTimeFormatter;
+
 import java.text.SimpleDateFormat;
 
 public class AssignmentsFirstSecondFragment extends Fragment {
@@ -80,7 +82,7 @@ public class AssignmentsFirstSecondFragment extends Fragment {
         assignmentsFirstSecondViewModel.getFirstAssignment().observe(getViewLifecycleOwner(), new Observer<Assignment>() {
             @Override
             public void onChanged(Assignment assignment) {
-                String dateFormat = new SimpleDateFormat("dd-MM-yyyy").format(assignment.Date);
+                String dateFormat = assignment.Date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
                 assignmentFirstDateTextView.setText(dateFormat);
                 assignmentFirstCodeTextView.setText(assignment.AssignmentCode);
                 assignmentFirstNoticesTextView.setText(assignment.Comments);
@@ -89,7 +91,7 @@ public class AssignmentsFirstSecondFragment extends Fragment {
                 assignmentFirstStartLocation.setText(assignment.AssignmentStartLocation);
                 assignmentFirstTimeEnd.setText(assignment.AssignmentEndTime.toString());
                 assignmentFirstEndLocation.setText(assignment.AssignmentEndLocation);
-                String weekday = new SimpleDateFormat("EEEE").format(assignment.Date);
+                String weekday = assignment.Date.format(DateTimeFormatter.ofPattern("EEEE"));
                 weekday = weekday.substring(0, 1).toUpperCase() + weekday.substring(1);
                 assignmentFirstWeekDay.setText(weekday);
 
@@ -112,7 +114,7 @@ public class AssignmentsFirstSecondFragment extends Fragment {
         assignmentsFirstSecondViewModel.getSecondAssignment().observe(getViewLifecycleOwner(), new Observer<Assignment>() {
             @Override
             public void onChanged(Assignment assignment) {
-                String dateFormat = new SimpleDateFormat("dd-MM-yyyy").format(assignment.Date);
+                String dateFormat = assignment.Date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
                 assignmentSecondDateTextView.setText(dateFormat);
                 assignmentSecondCodeTextView.setText(assignment.AssignmentCode);
                 assignmentSecondNoticesTextView.setText(assignment.Comments);
@@ -121,7 +123,7 @@ public class AssignmentsFirstSecondFragment extends Fragment {
                 assignmentSecondTimeEnd.setText(assignment.AssignmentEndTime.toString());
                 assignmentSecondStartLocation.setText(assignment.AssignmentStartLocation);
                 assignmentSecondEndLocation.setText(assignment.AssignmentEndLocation);
-                String weekday = new SimpleDateFormat("EEEE").format(assignment.Date);
+                String weekday = assignment.Date.format(DateTimeFormatter.ofPattern("EEEE"));
                 weekday = weekday.substring(0, 1).toUpperCase() + weekday.substring(1);
                 assignmentSecondWeekDay.setText(weekday);
             }

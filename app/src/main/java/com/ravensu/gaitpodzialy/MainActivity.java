@@ -13,6 +13,7 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 
+import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.ravensu.gaitpodzialy.activities.ui.MainViewPager;
 import com.ravensu.gaitpodzialy.activities.ui.login.LoginActivity;
 import com.ravensu.gaitpodzialy.data.SavedAppLogins;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AndroidThreeTen.init(this);
         //debug
 //        final SharedPreferences appLogins = getSharedPreferences("app_logins", MODE_PRIVATE);
 //        SharedPreferences.Editor appLoginsEditor = appLogins.edit();

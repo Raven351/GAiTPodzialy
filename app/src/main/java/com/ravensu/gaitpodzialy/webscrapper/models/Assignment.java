@@ -2,11 +2,12 @@ package com.ravensu.gaitpodzialy.webscrapper.models;
 
 import androidx.annotation.Nullable;
 
-import java.time.LocalTime;
-import java.util.Date;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.LocalTime;
 
 public class Assignment {
-    public Date Date;
+    public LocalDate Date;
     public String DriverNumber;
     public String DriverName;
     public String AssignmentCode;

@@ -11,15 +11,17 @@ import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
-import java.time.LocalDate;
-import java.time.LocalTime;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.LocalTime;
+
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class AssignmentsFirstSecondViewModel extends ViewModel {
-    private String TAG = "AssignmentsTodayTomorrowViewModel";
+    private final String TAG = "AssignmentsFirstSecond";
     private MutableLiveData<Assignment> firstAssignment;
     private MutableLiveData<Assignment> secondAssignment;
     private MutableLiveData<Integer> isOngoing = new MutableLiveData<>(R.string.status_willstart);
@@ -51,7 +53,7 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
         int i = 0;
         if (assignments.size() == 0 ) firstAssignment.setValue(new Assignment());
         while (i<assignments.size()){
-            LocalDate assignmentDate = assignments.get(i).Date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate assignmentDate = assignments.get(i).Date;
             if (assignmentDate.isEqual(date) && LocalTime.MIDNIGHT.equals(assignments.get(i).AssignmentStartTime) && LocalTime.MIDNIGHT.equals(assignments.get(i).AssignmentEndTime)){
                 firstAssignment.setValue(assignments.get(i));
                 firstAssignmentIndex = i;
@@ -97,7 +99,7 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
         ArrayList<Assignment> assignments = UsersData.getCurrentlySelectedUser().Assignments;
         ArrayList<Assignment> assignmentsByDate = new ArrayList<>();
         for (int i = 0; i < assignments.size(); i++) {
-            LocalDate assignmentDate = assignments.get(i).Date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate assignmentDate = assignments.get(i).Date;
             if (assignmentDate.equals(date)) assignmentsByDate.add(assignments.get(i));
         }
         Collections.sort(assignmentsByDate, new Comparator<Assignment>() {

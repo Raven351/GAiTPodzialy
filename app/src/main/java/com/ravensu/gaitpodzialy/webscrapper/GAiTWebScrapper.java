@@ -16,7 +16,11 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalTime;
+import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
+import org.threeten.bp.LocalTime;
+import org.threeten.bp.format.DateTimeFormatter;
+
 import java.util.ArrayList;
 
 public class GAiTWebScrapper {
@@ -68,12 +72,7 @@ public class GAiTWebScrapper {
      */
     private Assignment ParseAssignmentRecord(Elements row){
         Assignment assignment = new Assignment();
-        try{
-            assignment.Date = new SimpleDateFormat("yyyy-MM-dd").parse(row.get(0).text());
-            //todo add exception handling for app
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        assignment.Date = LocalDate.parse(row.get(0).text(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         assignment.DriverNumber = row.get(1).text();
         assignment.DriverName = row.get(2).text();
         assignment.AssignmentCode = row.get(3).text();
@@ -88,11 +87,7 @@ public class GAiTWebScrapper {
 
     private com.ravensu.gaitpodzialy.webscrapper.models.Document ParseDocumentRecord(Elements row){
         com.ravensu.gaitpodzialy.webscrapper.models.Document document = new com.ravensu.gaitpodzialy.webscrapper.models.Document();
-        try{
-            document.Date = new SimpleDateFormat("yyyy-MM-dd").parse(row.get(0).text());
-        } catch (ParseException e){
-            e.printStackTrace();
-        }
+        document.Date = LocalDate.parse(row.get(0).text(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         document.Name = row.get(1).text();
         document.Number = row.get(2).text();
         document.URL = row.select("a").attr("href");
