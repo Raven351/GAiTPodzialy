@@ -20,9 +20,7 @@ public class AboutActivity extends AppCompatActivity {
     private void setupHyperlinks(){
         TextView textViewMadeBy = findViewById(R.id.textview_made_by);
         TextView textViewAbout = findViewById(R.id.textview_about);
-        TextView textViewAboutMoreInfo = findViewById(R.id.textview_about_more_info);
         textViewMadeBy.setMovementMethod(LinkMovementMethod.getInstance());
         textViewAbout.setMovementMethod(LinkMovementMethod.getInstance());
-        textViewAboutMoreInfo.setMovementMethod(LinkMovementMethod.getInstance());
     }
 }
