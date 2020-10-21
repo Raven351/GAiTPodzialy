@@ -30,18 +30,19 @@
 
     <string name="data_error">DATA ERROR</string>
     <string name="data_error_dialog_title">User log in failed!</string>
-    <string name="data_error_dialog_message">Application couldn\'t log in this user to GAiT website.\nTry logging in directly through GAiT website.\nIf you could log in properly and this message keeps popping up, please inform me about this through contact form at ravensu.com/contact</string>
+    <string name="data_error_dialog_message">Application couldn\'t log in this user to GAiT website.\nTry logging in directly through GAiT website.\nIf you could log in properly and this message keeps popping up, please inform me about this through contact form at <a href="https://dev.ravensu.com/contact">dev.ravensu.com/contact</a></string>
     <string name="data_error_dialog_negative_button">Open in browser</string>
     <string name="no_assignments">No assignments</string>
     <string name="no_documents">No documents</string>
     <string name="first_launch_welcome_dialog_title">Warning</string>
-    <string name="first_launch_welcome_dialog_message">Welcome!\n\nFollowing application is NOT affiliated with Gdańskie Autobusy i Tramwaje.\n\nThis application has been created as a hobby project for GAiT\'s drivers, their families and their friends.\n\nMain purpose of this application is to make it possible for drivers to view information about theirs assignments in a more clear and transparent way. Assignments\' data is fetched from site made for employees (podzialy.gait.pl). Even though creator of this app made every effort to make it free of any bugs and mistakes, he cannot guarantee that these won\'t occur and he cannot be held liable for any damages caused by errors in application.\n\nIn case of finding any bug, you can report it through contact form on ravensu.com\n\nHave a nice use! :)\nBartosz Baum  |  ravensu.com</string>
+    <string name="first_launch_welcome_dialog_message">Welcome!\n\nFollowing application is NOT affiliated with Gdańskie Autobusy i Tramwaje.\n\nThis application has been created as a hobby project for GAiT\'s drivers, their families and their friends.\n\nMain purpose of this application is to make it possible for drivers to view information about theirs assignments in a more clear and transparent way. Assignments\' data is fetched from site made for employees (podzialy.gait.pl). Even though creator of this app made every effort to make it free of any bugs and mistakes, he cannot guarantee that these won\'t occur and he cannot be held liable for any damages caused by errors in application.\n\nIn case of finding any bug, you can report it through contact form on <a href="https://dev.ravensu.com/contact">dev.ravensu.com/contact</a>\n\nHave a nice use! :)\nBartosz Baum  |  <a href="https://ravensu.com">ravensu.com</a></string>
     <string name="first_launch_welcome_dialog_positive">Accept</string>
     <string name="first_launch_welcome_dialog_negative">Decline</string>
 
     <string name="about">This application is NOT affiliated with Gdańskie Autobusy i Tramwaje.\nCreator of this app made every effort to make it free of any bugs and mistakes, however he cannot guarantee that these won\'t occur and he cannot be held liable for any damages caused by errors in application.\nData used in this application is fetched from site <a href = "http://podzialy.gait.pl">podzialy.gait.pl</a> using webscrapping method.</string>
     <string name="about_more_info">You can learn more about this application and see source code at <a href = "https://github.com/Raven351/GAiTPodzialy">github.com/Raven351/GAiTPodzialy</a></string>
-    <string name="about_made_by">Made by\nBartosz Baum\n<a href="https://dev.ravensu.com">dev.ravensu.com</a>\n\nLicense GNU GPLv3\n\nVersion 0.9</string>
+    <string name="about_made_by">Made by\nBartosz Baum\n<a href="https://dev.ravensu.com">dev.ravensu.com</a>\n\nCopyright 2020\n\nVersion 0.9.1</string>
+    <string name ="login_made_by">Application made by:\n\nBartosz Baum\n<a href="https://dev.ravensu.com">dev.ravensu.com</a></string>
 
     <string name="users_loading_error_dialog_title">Error!</string>
     <string name="users_loading_error_dialog_message">There was an error while attempting to load users.\nIt could be caused because of weak internet connection.</string>
