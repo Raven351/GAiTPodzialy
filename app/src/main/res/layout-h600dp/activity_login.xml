@@ -11,15 +11,15 @@
         android:id="@+id/gaitLogoLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="7"
-        android:paddingTop="10dp"
+        android:layout_weight="6"
+        android:paddingTop="40dp"
         android:src="@drawable/gait_podzialy_app_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/container"
-        android:layout_weight="3"
+        android:layout_weight="4"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -33,7 +33,7 @@
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:layout_marginStart="24dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="60dp"
             android:layout_marginEnd="24dp"
             android:autofillHints="@string/prompt_driver_number"
             android:elevation="0dp"
@@ -56,8 +56,8 @@
             android:layout_width="0dp"
             android:layout_height="45dp"
             android:textAlignment="textStart"
-            android:textColor="@color/colorAccent"
             android:textColorHint="@color/colorAccent"
+            android:textColor="@color/colorAccent"
             android:textSize="20sp"
             android:elevation="0dp"
             android:padding="10dp"
@@ -89,7 +89,8 @@
             app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/password" />
+            app:layout_constraintTop_toBottomOf="@+id/password"
+            app:layout_constraintVertical_bias="0.19999999" />
 
         <TextView
             android:id="@+id/textView"
