@@ -89,19 +89,20 @@
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
-        android:layout_height="64dp"
+        android:layout_height="wrap_content"
+        android:background="@color/lightRed"
+        android:elevation="6dp"
+        android:padding="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_assignments_list_activity"
-        android:background="@color/lightRed"
-        android:elevation="6dp">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_assignments_list_activity">
 
         <TextView
             android:id="@+id/driverId"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dp"
             android:text="@string/driverId"
             android:textColor="#FFFFFF"
             android:textSize="20sp"
@@ -113,7 +114,7 @@
             android:id="@+id/driverName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="2dp"
             android:text=""
             android:textColor="#FFFFFF"
             android:textSize="20sp"
@@ -126,25 +127,29 @@
         android:layout_width="match_parent"
         android:layout_height="20dp"
         android:background="@color/colorPrimary"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/assignments_list_viewpager">
+        app:layout_constraintTop_toBottomOf="@+id/assignments_list_viewpager"
+        app:layout_constraintVertical_bias="1.0">
+
         <me.relex.circleindicator.CircleIndicator3
             android:id="@+id/assignments_list_viewpager_indicator"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:ci_margin="20dp"/>
+            app:ci_margin="20dp" />
     </RelativeLayout>
+
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/assignments_list_viewpager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="120dp"
+        android:layout_height="0dp"
         android:layout_marginBottom="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
     </androidx.viewpager2.widget.ViewPager2>
 
