@@ -19,7 +19,7 @@
 
     <ImageButton
         android:id="@+id/setAsMainUserButton"
-        android:layout_width="60dp"
+        android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/rounded_button_background_blue"
@@ -32,7 +32,7 @@
 
     <ImageButton
         android:id="@+id/changeToUserButton"
-        android:layout_width="60dp"
+        android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/rounded_button_background_green"
@@ -45,7 +45,7 @@
 
     <ImageButton
         android:id="@+id/logOutUserButton"
-        android:layout_width="60dp"
+        android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/rounded_button_background"
