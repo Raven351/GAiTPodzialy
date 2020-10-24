@@ -39,9 +39,9 @@
     <string name="first_launch_welcome_dialog_positive">Accept</string>
     <string name="first_launch_welcome_dialog_negative">Decline</string>
 
-    <string name="about">This application is NOT affiliated with Gdańskie Autobusy i Tramwaje.\nCreator of this app made every effort to make it free of any bugs and mistakes, however he cannot guarantee that these won\'t occur and he cannot be held liable for any damages caused by errors in application.\nData used in this application is fetched from site <a href = "http://podzialy.gait.pl">podzialy.gait.pl</a> using webscrapping method.</string>
+    <string name="about">This application is NOT affiliated with Gdańskie Autobusy i Tramwaje.\nThis application has been created as a hobby project for GAiT\'s drivers, their families and their friends. Creator of this app made every effort to make it free of any bugs and mistakes, however he cannot guarantee that these won\'t occur and he cannot be held liable for any damages caused by errors in application.\nMain purpose of this application is to make it possible for drivers to view information about theirs assignments in a more clear and transparent way. Assignments\' data is fetched from site made for employees <a href = "http://podzialy.gait.pl">podzialy.gait.pl</a> using webscrapping method.\nIn case of finding any bug, you can report it through contact form on <a href="https://dev.ravensu.com/contact">dev.ravensu.com/contact</a>\nHave a nice use! :)</string>
     <string name="about_more_info">You can learn more about this application and see source code at <a href = "https://github.com/Raven351/GAiTPodzialy">github.com/Raven351/GAiTPodzialy</a></string>
-    <string name="about_made_by">Made by\nBartosz Baum\n<a href="https://dev.ravensu.com">dev.ravensu.com</a>\n\nCopyright 2020\n\nVersion 0.9.1</string>
+    <string name="about_made_by">Made with ❤ by:\nBartosz Baum\n<a href="https://dev.ravensu.com">dev.ravensu.com</a>\n\nCopyright 2020</string>
     <string name ="login_made_by">Application made by:\n\nBartosz Baum\n<a href="https://dev.ravensu.com">dev.ravensu.com</a></string>
 
     <string name="users_loading_error_dialog_title">Error!</string>
@@ -52,4 +52,5 @@
     <string name="exit_app_dialog_message">Do you really want to exit app?</string>
     <string name="dialog_yes">Yes</string>
     <string name="dialog_no">No</string>
+    <string name="version">"Version: "</string>
 </resources>
