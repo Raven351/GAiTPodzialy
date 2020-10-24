@@ -47,15 +47,16 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="20dp"
             tools:context=".activities.ui.AboutActivity">
-             <ImageView
+
+            <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="24dp"
                 android:src="@drawable/gait_podzialy_app_logo"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf= "parent" />
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/textview_made_by"
