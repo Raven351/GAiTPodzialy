@@ -46,7 +46,6 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
     public LiveData<Integer> getIsOnGoing(){
         return isOngoing;
     }
-    //todo fix case when user has no assignments
     private void loadFirstAssignment(){
         LocalDate date = LocalDate.now();
         ArrayList<Assignment> assignments = getSortedAssignments();
@@ -75,6 +74,10 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
                 break;
             }
             else i++;
+        }
+        if (firstAssignment.getValue() == null) {
+            firstAssignment.setValue(new Assignment());
+            firstAssignmentIndex = assignments.size();
         }
     }
 

@@ -20,8 +20,10 @@ import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
+import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
 
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 
 public class AssignmentsFirstSecondFragment extends Fragment {
@@ -82,19 +84,29 @@ public class AssignmentsFirstSecondFragment extends Fragment {
         assignmentsFirstSecondViewModel.getFirstAssignment().observe(getViewLifecycleOwner(), new Observer<Assignment>() {
             @Override
             public void onChanged(Assignment assignment) {
-                String dateFormat = assignment.Date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                assignmentFirstDateTextView.setText(dateFormat);
-                assignmentFirstCodeTextView.setText(assignment.AssignmentCode);
-                assignmentFirstNoticesTextView.setText(assignment.Comments);
-                assignmentFirstTimeTotal.setText(assignment.AssignmentDuration.toString());
-                assignmentFirstTimeStart.setText(assignment.AssignmentStartTime.toString());
-                assignmentFirstStartLocation.setText(assignment.AssignmentStartLocation);
-                assignmentFirstTimeEnd.setText(assignment.AssignmentEndTime.toString());
-                assignmentFirstEndLocation.setText(assignment.AssignmentEndLocation);
-                String weekday = assignment.Date.format(DateTimeFormatter.ofPattern("EEEE"));
-                weekday = weekday.substring(0, 1).toUpperCase() + weekday.substring(1);
-                assignmentFirstWeekDay.setText(weekday);
-
+                if (assignment != null){
+                    if (assignment.Date != null){
+                        String dateFormat = assignment.Date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                        assignmentFirstDateTextView.setText(dateFormat);
+                        String weekday = assignment.Date.format(DateTimeFormatter.ofPattern("EEEE"));
+                        weekday = weekday.substring(0, 1).toUpperCase() + weekday.substring(1);
+                        assignmentFirstWeekDay.setText(weekday);
+                        assignmentFirstTimeEnd.setText(assignment.AssignmentEndTime.toString());
+                        assignmentFirstTimeTotal.setText(assignment.AssignmentDuration.toString());
+                        assignmentFirstTimeStart.setText(assignment.AssignmentStartTime.toString());
+                    }
+                    else{
+                        assignmentFirstDateTextView.setText("-");
+                        assignmentFirstWeekDay.setText("-");
+                        assignmentFirstTimeEnd.setText("-");
+                        assignmentFirstTimeTotal.setText("-");
+                        assignmentFirstTimeStart.setText("-");
+                    }
+                    assignmentFirstCodeTextView.setText(assignment.AssignmentCode);
+                    assignmentFirstNoticesTextView.setText(assignment.Comments);
+                    assignmentFirstStartLocation.setText(assignment.AssignmentStartLocation);
+                    assignmentFirstEndLocation.setText(assignment.AssignmentEndLocation);
+                }
             }
         });
         assignmentsFirstSecondViewModel.getIsOnGoing().observe(getViewLifecycleOwner(), new Observer<Integer>() {
@@ -114,18 +126,30 @@ public class AssignmentsFirstSecondFragment extends Fragment {
         assignmentsFirstSecondViewModel.getSecondAssignment().observe(getViewLifecycleOwner(), new Observer<Assignment>() {
             @Override
             public void onChanged(Assignment assignment) {
-                String dateFormat = assignment.Date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                assignmentSecondDateTextView.setText(dateFormat);
-                assignmentSecondCodeTextView.setText(assignment.AssignmentCode);
-                assignmentSecondNoticesTextView.setText(assignment.Comments);
-                assignmentSecondTimeTotal.setText(assignment.AssignmentDuration.toString());
-                assignmentSecondTimeStart.setText(assignment.AssignmentStartTime.toString());
-                assignmentSecondTimeEnd.setText(assignment.AssignmentEndTime.toString());
-                assignmentSecondStartLocation.setText(assignment.AssignmentStartLocation);
-                assignmentSecondEndLocation.setText(assignment.AssignmentEndLocation);
-                String weekday = assignment.Date.format(DateTimeFormatter.ofPattern("EEEE"));
-                weekday = weekday.substring(0, 1).toUpperCase() + weekday.substring(1);
-                assignmentSecondWeekDay.setText(weekday);
+                if (assignment != null){
+                    if (assignment.Date != null){
+                        String dateFormat = assignment.Date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                        assignmentSecondDateTextView.setText(dateFormat);
+                        String weekday = assignment.Date.format(DateTimeFormatter.ofPattern("EEEE"));
+                        weekday = weekday.substring(0, 1).toUpperCase() + weekday.substring(1);
+                        assignmentSecondWeekDay.setText(weekday);
+                        assignmentSecondTimeTotal.setText(assignment.AssignmentDuration.toString());
+                        assignmentSecondTimeStart.setText(assignment.AssignmentStartTime.toString());
+                        assignmentSecondTimeEnd.setText(assignment.AssignmentEndTime.toString());
+                    }
+                    else {
+                        assignmentSecondDateTextView.setText("-");
+                        assignmentSecondWeekDay.setText("-");
+                        assignmentSecondTimeTotal.setText("-");
+                        assignmentSecondTimeStart.setText("-");
+                        assignmentSecondTimeEnd.setText("-");
+                    }
+                    assignmentSecondCodeTextView.setText(assignment.AssignmentCode);
+                    assignmentSecondNoticesTextView.setText(assignment.Comments);
+                    assignmentSecondStartLocation.setText(assignment.AssignmentStartLocation);
+                    assignmentSecondEndLocation.setText(assignment.AssignmentEndLocation);
+
+                }
             }
         });
 
