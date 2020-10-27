@@ -24,12 +24,22 @@ import org.threeten.bp.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class GAiTWebScrapper {
-    private String username;
-    private String password;
+    private final String username;
+    private final String password;
+    private String connectionURL;
 
     public GAiTWebScrapper(String username, String password){
         this.username = username;
         this.password = password;
+        setConnectionURL();
+    }
+
+    private void setConnectionURL() {
+        if (username != null && !username.equals("")){
+            char firstLetterUsername = username.charAt(0);
+            if (firstLetterUsername == '3') connectionURL = "http://tram.gait.pl/";
+            else connectionURL = "http://podzialy.gait.pl/";
+        }
     }
 
     /**
@@ -37,7 +47,7 @@ public class GAiTWebScrapper {
      * @return HTML document with GAiT website if logged in properly or null if not.
      */
     public Document GetGAiTWebsite() throws NullPointerException, IOException{
-        Connection.Response res = Jsoup.connect("http://podzialy.gait.pl/")
+        Connection.Response res = Jsoup.connect(connectionURL)
                 .followRedirects(true)
                 .userAgent("Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2228.0 Safari/537.36")
                 .timeout(32000)
