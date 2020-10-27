@@ -1,20 +1,14 @@
 package com.ravensu.gaitpodzialy.activities.ui.assignmentslist;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,21 +20,21 @@ import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
 import org.threeten.bp.format.DateTimeFormatter;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
 public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdapter.ViewHolder> {
-    private MutableLiveData<User> currentlySelectedUser = new MutableLiveData<>(UsersData.getCurrentlySelectedUser());
+    private final MutableLiveData<User> currentlySelectedUser = new MutableLiveData<>(UsersData.getCurrentlySelectedUser());
     private ArrayList<Document> documents;
-    private Fragment parentFragment;
-    private final String GAIT_SITE_URL = "http://podzialy.gait.pl/";
+    private final Fragment parentFragment;
+    private String gaitSiteURL = "http://podzialy.gait.pl/";
 
     public DocumentsListAdapter(Fragment fragment){
         this.documents = currentlySelectedUser.getValue().Documents;
         sortDocumentsByDate();
         this.parentFragment = fragment;
+        setConnectionURL();
     }
 
     private void sortDocumentsByDate() {
@@ -107,7 +101,7 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
                         @Override
                         public void run() {
                         Intent intent = new Intent();
-                        intent.setDataAndType(Uri.parse(GAIT_SITE_URL + url), "application/pdf");
+                        intent.setDataAndType(Uri.parse(gaitSiteURL + url), "application/pdf");
                         Intent chooserIntent = Intent.createChooser(intent, "Open Document");
                         chooserIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         parentFragment.startActivity(chooserIntent);
@@ -115,5 +109,14 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
                     }).start();
             }
         });
+    }
+
+    //todo refactor
+    private void setConnectionURL() {
+        if (currentlySelectedUser.getValue().UserId != null && !currentlySelectedUser.getValue().UserId.equals("")){
+            char firstLetterUsername = currentlySelectedUser.getValue().UserId.charAt(0);
+            if (firstLetterUsername == '3') gaitSiteURL = "http://tram.gait.pl/";
+            else gaitSiteURL = "http://podzialy.gait.pl/";
+        }
     }
 }
