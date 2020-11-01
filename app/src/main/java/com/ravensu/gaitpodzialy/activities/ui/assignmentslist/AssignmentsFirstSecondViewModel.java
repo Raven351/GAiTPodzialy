@@ -46,6 +46,7 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
     public LiveData<Integer> getIsOnGoing(){
         return isOngoing;
     }
+
     private void loadFirstAssignment(){
         LocalDate date = LocalDate.now();
         ArrayList<Assignment> assignments = getSortedAssignments();
@@ -59,7 +60,7 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
                 isOngoing.setValue(R.string.status_dayoff);
                 break;
             }
-            else if (assignmentDate.isEqual(date) && LocalTime.now().isBefore(assignments.get(i).AssignmentEndTime)){
+            else if ((assignmentDate.isEqual(date) && LocalTime.now().isBefore(assignments.get(i).AssignmentEndTime)) || (assignmentDate.isEqual(date) && assignments.get(i).AssignmentEndTime.isBefore(assignments.get(i).AssignmentStartTime))){
                 firstAssignment.setValue(assignments.get(i));
                 firstAssignmentIndex = i;
                 if (LocalTime.now().isAfter(assignments.get(i).AssignmentStartTime)){
@@ -67,7 +68,7 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
                 }
                 break;
             }
-            else if (assignmentDate.isAfter(date)){
+            else if (assignmentDate.isAfter(date) || assignmentDate.equals(date) && LocalTime.now().isBefore(assignments.get(i).AssignmentStartTime)){
                 firstAssignment.setValue(assignments.get(i));
                 firstAssignmentIndex = i;
                 isOngoing.setValue(R.string.status_willstart);
