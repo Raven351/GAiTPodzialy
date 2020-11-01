@@ -146,7 +146,6 @@ public class GAiTWebScrapper {
      * @return ArrayList of Assignemnt objects with assigned data from the assignment table of given HTML document.
      * @throws NullPointerException if given HTML document is null.
      */
-    @RequiresApi(api = Build.VERSION_CODES.O)
     public ArrayList<Assignment> ScrapAssignmentsTable(Document GAiTWebsite) {
         Document document =  GAiTWebsite;
         if (document == null) throw new NullPointerException("ScrapAssignmentsTable: Given HTML document is null");

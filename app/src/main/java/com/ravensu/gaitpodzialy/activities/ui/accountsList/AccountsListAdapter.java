@@ -3,7 +3,6 @@ package com.ravensu.gaitpodzialy.activities.ui.accountsList;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -109,7 +108,7 @@ public class AccountsListAdapter extends RecyclerView.Adapter<AccountsListAdapte
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                SavedAppLogins.RemoveCredentials(parentActivity, users.get(position).UserId);
+                                SavedAppLogins.removeCredentials(parentActivity, users.get(position).UserId);
                                 UsersData.removeUser(users.get(position).UserId);
                                 users.remove(users.get(position));
                                 if (getItemCount() == 0){

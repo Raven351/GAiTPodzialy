@@ -1,15 +1,11 @@
 package com.ravensu.gaitpodzialy.data;
 
 import android.content.Context;
-import android.util.Log;
 
-import com.ravensu.gaitpodzialy.webscrapper.GAiTWebScrapper;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
-import com.ravensu.gaitpodzialy.webscrapper.models.Document;
 import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -93,9 +89,9 @@ public class UsersData {
     public static void setIsUsersDataAccessAvailable(boolean isUsersDataAccessAvailable) { UsersData.isUsersDataAccessAvailable = isUsersDataAccessAvailable;}
 
     public static boolean loadUsersData(Context context) throws InterruptedException {
-        if (SavedAppLogins.ExistsAny(context)){
+        if (SavedAppLogins.existsAny(context)){
             users = new ConcurrentHashMap<>();
-            final Map<String, ?> savedUsersCredentials = SavedAppLogins.GetAllCredentials(context);
+            final Map<String, ?> savedUsersCredentials = SavedAppLogins.getAllCredentials(context);
             ExecutorService executorService = Executors.newFixedThreadPool(savedUsersCredentials.size());
             List<Future<User>> userFutureList = new ArrayList<Future<User>>();
             for (Map.Entry<String, ?> entry : savedUsersCredentials.entrySet()){

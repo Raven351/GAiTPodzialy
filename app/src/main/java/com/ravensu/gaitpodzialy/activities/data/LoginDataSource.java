@@ -41,12 +41,12 @@ public class LoginDataSource {
                     GAiTWebScrapper gAiTWebScrapper = new GAiTWebScrapper(userId, password);
                     Document gaitWebsite = gAiTWebScrapper.GetGAiTWebsite();
                     if (gaitWebsite == null) throw new Exception("Login failed");
-                    if (!SavedAppLogins.ExistsAny(context)) SavedAppMainLogin.SetMainLoginUserId(context, userId);
+                    if (!SavedAppLogins.existsAny(context)) SavedAppMainLogin.SetMainLoginUserId(context, userId);
                     ArrayList<Assignment> assignments = gAiTWebScrapper.ScrapAssignmentsTable(gaitWebsite);
                     String displayName = "";
                     if (assignments.size() > 0) displayName = assignments.get(0).DriverName;
-                    if (!SavedAppLogins.ExistsAny(context)) SavedAppMainLogin.SetMainLoginUserName(context, displayName);
-                    SavedAppLogins.SaveCredentials(context, userId, password);
+                    if (!SavedAppLogins.existsAny(context)) SavedAppMainLogin.SetMainLoginUserName(context, displayName);
+                    SavedAppLogins.saveCredentials(context, userId, password);
                     LoggedInUser user = new LoggedInUser(userId, displayName, assignments);
                     result[0] = new Result.Success<>(user);
                 } catch (Exception e) {
@@ -68,7 +68,7 @@ public class LoginDataSource {
 
     public void logout(String userId) {
         try{
-            SavedAppLogins.RemoveCredentials(context, userId);
+            SavedAppLogins.removeCredentials(context, userId);
         } catch (Exception e) {
             e.printStackTrace();
         }

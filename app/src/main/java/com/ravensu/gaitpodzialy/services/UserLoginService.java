@@ -35,7 +35,7 @@ public class UserLoginService extends IntentService {
             GAiTWebScrapper gAiTWebScrapper = new GAiTWebScrapper(intent.getStringExtra("username"), intent.getStringExtra("password"));
             Document gaitWebsite = gAiTWebScrapper.GetGAiTWebsite();
             if(gaitWebsite == null) throw new Exception("Login failed: GAIT Website Document is null.");
-            SavedAppLogins.SaveCredentials(this, intent.getStringExtra("username"), intent.getStringExtra("password"));
+            SavedAppLogins.saveCredentials(this, intent.getStringExtra("username"), intent.getStringExtra("password"));
             ArrayList<Assignment> assignments = gAiTWebScrapper.ScrapAssignmentsTable(gaitWebsite);
             String displayName = assignments.get(0).DriverName;
             bundle.putString("userId", intent.getStringExtra("username"));

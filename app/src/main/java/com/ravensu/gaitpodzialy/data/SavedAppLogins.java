@@ -29,7 +29,7 @@ public class SavedAppLogins {
      * @param context Current app context
      * @return Map containing credentials of all users saved in SharedPreferences. Key is UserId, value is password for given UserId.
      */
-    public static Map<String, ?> GetAllCredentials(Context context){
+    public static Map<String, ?> getAllCredentials(Context context){
         return getPreferences(context).getAll();
     }
 
@@ -39,7 +39,7 @@ public class SavedAppLogins {
      * @param userId UserId to search for in SharedPreferences
      * @return True if exists. False if not.
      */
-    public static boolean Exists(Context context, String userId){
+    public static boolean exists(Context context, String userId){
         return getPreferences(context).contains(userId);
     }
 
@@ -48,7 +48,7 @@ public class SavedAppLogins {
      * @param context Current app context
      * @return false if there 0 users saved in app_logins context, or true if else
      */
-    public static boolean ExistsAny(Context context){
+    public static boolean existsAny(Context context){
         if (getPreferences(context).getAll().size() == 0 ) return false;
         else return true;
     }
@@ -60,8 +60,8 @@ public class SavedAppLogins {
      * @param password Password of given UserId to add.
      * @throws IllegalArgumentException if user was already added.
      */
-    public static void SaveCredentials(Context context, String userId, String password){
-        if(Exists(context, userId)) throw new IllegalArgumentException("UserId already saved");
+    public static void saveCredentials(Context context, String userId, String password){
+        if(exists(context, userId)) throw new IllegalArgumentException("UserId already saved");
         SharedPreferences preferences = getPreferences(context);
         SharedPreferences.Editor preferencesEditor = preferences.edit();
         preferencesEditor.putString(userId, password);
@@ -73,8 +73,8 @@ public class SavedAppLogins {
      * @param context Current app context
      * @param userId UserId of which credentials shall be removed.
      */
-    public static void RemoveCredentials(Context context, String userId){
-        if(!Exists(context,userId)) throw new NullPointerException("UserId not found");
+    public static void removeCredentials(Context context, String userId){
+        if(!exists(context,userId)) throw new NullPointerException("UserId not found");
         SharedPreferences preferences = getPreferences(context);
         SharedPreferences.Editor preferencesEditor = preferences.edit();
         preferencesEditor.remove(userId);

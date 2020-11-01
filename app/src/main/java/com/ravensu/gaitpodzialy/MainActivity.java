@@ -4,20 +4,19 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
 import android.view.View;
 
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.ravensu.gaitpodzialy.activities.ui.MainViewPager;
 import com.ravensu.gaitpodzialy.activities.ui.login.LoginActivity;
 import com.ravensu.gaitpodzialy.data.SavedAppLogins;
-import com.ravensu.gaitpodzialy.data.SavedAppMainLogin;
 import com.ravensu.gaitpodzialy.data.UsersData;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,37 +26,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         AndroidThreeTen.init(this);
-        //debug
-//        final SharedPreferences appLogins = getSharedPreferences("app_logins", MODE_PRIVATE);
-//        SharedPreferences.Editor appLoginsEditor = appLogins.edit();
-//        appLoginsEditor.remove(TestingValues.usernameMichu);
-//        appLoginsEditor.apply();
-//        debug end
+        startApp(this);
+    }
+
+    private void startApp(final Context context){
         new CountDownTimer(1000, 1000){
             @Override
             public void onTick(long millisUntilFinished) {
-
             }
-
             @Override
             public void onFinish() {
-                startApp();
+                if(!SavedAppLogins.existsAny(context)){
+                    final SharedPreferences defaultPreferences = getSharedPreferences(getPackageName() + "_preferences", MODE_PRIVATE);
+                    if (!defaultPreferences.getBoolean("appUsageConditionsAccepted", false)){
+                        firstLaunchWarning();
+                    }
+                    else loginActivity();
+                }
+                else{
+                    assignmentsListActivity();
+                }
             }
         }.start();
-    }
-
-    private void startApp(){
-        if(!SavedAppLogins.ExistsAny(this)){
-            final SharedPreferences defaultPreferences = getSharedPreferences(getPackageName() + "_preferences", MODE_PRIVATE);
-            //defaultPreferences.edit().putBoolean("appUsageConditionsAccepted", false).apply(); //for debugging
-            if (!defaultPreferences.getBoolean("appUsageConditionsAccepted", false)){
-                firstLaunchWarning();
-            }
-            else loginActivity();
-        }
-        else{
-            assignmentsListActivity();
-        }
     }
 
     private void firstLaunchWarning() {
@@ -91,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
             boolean usersLoaded = UsersData.loadUsersData(this);
             Intent intent = new Intent(this, MainViewPager.class);
             intent.putExtra("FROM_ACTIVITY", "MAIN");
-            if (usersLoaded) startActivity(intent); //if there is week connection nul
+            if (usersLoaded) startActivity(intent); //if there is weak connection null
             else  {
                 findViewById(R.id.start_progress_circular).setVisibility(View.INVISIBLE);
                 usersLoadingErrorDialog();

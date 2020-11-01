@@ -47,19 +47,7 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
         if (!UsersData.getCurrentlySelectedUser().isUserProperlyLoggedIn){
             setContentView(R.layout.activity_main_view_pager_data_error);
             setUpToolbar();
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.data_error_dialog_title)
-                    .setMessage(R.string.data_error_dialog_message)
-                    .setPositiveButton("OK", null)
-                    .setNegativeButton(R.string.data_error_dialog_negative_button, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            String url = "http://podzialy.gait.pl/";
-                            Intent intent = new Intent(Intent.ACTION_VIEW);
-                            intent.setData(Uri.parse(url));
-                            startActivity(intent);
-                        }
-                    }).show();
+            showUserLoginFailedAlertDialog();
         }
         else{
             setContentView(R.layout.activity_main_view_pager);
@@ -86,6 +74,22 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
                 }
             });
         }
+    }
+
+    private void showUserLoginFailedAlertDialog() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.data_error_dialog_title)
+                .setMessage(R.string.data_error_dialog_message)
+                .setPositiveButton("OK", null)
+                .setNegativeButton(R.string.data_error_dialog_negative_button, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String url = "http://podzialy.gait.pl/";
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(url));
+                        startActivity(intent);
+                    }
+                }).show();
     }
 
     private boolean isPreviousActivityMain(){

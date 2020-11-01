@@ -30,9 +30,7 @@ import java.util.ArrayList;
  */
 public class AssignmentsListFragment extends Fragment {
 
-    // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
-    // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
     private AssignmentsListViewModel assignmentsListViewModel;
@@ -44,8 +42,6 @@ public class AssignmentsListFragment extends Fragment {
     public AssignmentsListFragment() {
     }
 
-    // TODO: Customize parameter initialization
-    @SuppressWarnings("unused")
     public static AssignmentsListFragment newInstance(int columnCount) {
         AssignmentsListFragment fragment = new AssignmentsListFragment();
         Bundle args = new Bundle();
