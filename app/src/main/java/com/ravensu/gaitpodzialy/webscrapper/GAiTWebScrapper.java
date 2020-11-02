@@ -82,13 +82,12 @@ public class GAiTWebScrapper {
      */
     private Assignment ParseAssignmentRecord(Elements row){
         Assignment assignment = new Assignment();
-        assignment.Date = LocalDate.parse(row.get(0).text(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        assignment.AssignmentStartDateTime = LocalDateTime.of(LocalDate.parse(row.get(0).text(), DateTimeFormatter.ofPattern("yyyy-MM-dd")), LocalTime.parse(row.get(5).text()));
+        assignment.setAssignmentEndDateTime(LocalTime.parse(row.get(6).text()));
         assignment.DriverNumber = row.get(1).text();
         assignment.DriverName = row.get(2).text();
         assignment.AssignmentCode = row.get(3).text();
         assignment.AssignmentStartLocation = row.get(4).text();
-        assignment.AssignmentStartTime = LocalTime.parse(row.get(5).text());
-        assignment.AssignmentEndTime = LocalTime.parse(row.get(6).text());
         assignment.AssignmentEndLocation = row.get(7).text();
         assignment.AssignmentDuration = LocalTime.parse(row.get(8).text());
         assignment.Comments = row.get(9).text();

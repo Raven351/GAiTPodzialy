@@ -7,26 +7,36 @@ import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.LocalTime;
 
 public class Assignment {
-    public LocalDate Date;
+    public LocalDateTime AssignmentStartDateTime;
+    public LocalDateTime AssignmentEndDateTime;
     public String DriverNumber;
     public String DriverName;
     public String AssignmentCode;
     public String AssignmentStartLocation;
     public String AssignmentEndLocation;
-    public LocalTime AssignmentStartTime;
-    public LocalTime AssignmentEndTime;
     public LocalTime AssignmentDuration;
     public String Comments;
 
     public boolean isSameData(Assignment assignment){
         return this.DriverNumber.equals(assignment.DriverNumber) &&
-                this.Date.equals(assignment.Date) &&
                 this.AssignmentCode.equals(assignment.AssignmentCode) &&
                 this.AssignmentStartLocation.equals(assignment.AssignmentStartLocation) &&
                 this.AssignmentEndLocation.equals(assignment.AssignmentEndLocation) &&
-                this.AssignmentStartTime.equals(assignment.AssignmentStartTime) &&
-                this.AssignmentEndTime.equals(assignment.AssignmentEndTime) &&
+                this.AssignmentStartDateTime.equals(assignment.AssignmentStartDateTime) &&
+                this.AssignmentEndDateTime.equals(assignment.AssignmentEndDateTime) &&
                 this.AssignmentDuration.equals(assignment.AssignmentDuration) &&
                 this.Comments.equals(assignment.Comments);
+    }
+
+    public void setAssignmentEndDateTime(LocalDateTime assignmentEndDateTime) {
+        AssignmentEndDateTime = assignmentEndDateTime;
+    }
+
+    public void setAssignmentEndDateTime(LocalTime assignmentEndTime){
+        LocalDate assignmentEndDate = this.AssignmentStartDateTime.toLocalDate();
+        if (assignmentEndTime.isBefore(AssignmentStartDateTime.toLocalTime())){
+            assignmentEndDate = assignmentEndDate.plusDays(1);
+        }
+        this.AssignmentEndDateTime = LocalDateTime.of(assignmentEndDate, assignmentEndTime);
     }
 }
