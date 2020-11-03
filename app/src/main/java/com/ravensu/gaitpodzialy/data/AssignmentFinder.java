@@ -1,6 +1,9 @@
 package com.ravensu.gaitpodzialy.data;
 
+import android.os.Build;
 import android.util.Log;
+
+import androidx.annotation.RequiresApi;
 
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
@@ -24,7 +27,7 @@ public class AssignmentFinder {
     }
 
     public ArrayList<Assignment> getSortedByDateAndTime(){
-        assignments.sort(new Comparator<Assignment>() {
+        Collections.sort(assignments, new Comparator<Assignment>() {
             @Override
             public int compare(Assignment o1, Assignment o2) {
                 return o1.AssignmentStartDateTime.compareTo(o2.AssignmentStartDateTime);
