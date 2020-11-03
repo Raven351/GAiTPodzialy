@@ -46,8 +46,12 @@ public class AssignmentFinder {
         int i = 0;
         if (assignments.size() == 0) return new Assignment();
         while (i < assignments.size()){
+            LocalDateTime assignmentStartDateTime = assignments.get(i).AssignmentStartDateTime;
             LocalDateTime assignmentEndDateTime = assignments.get(i).AssignmentEndDateTime;
-            if (assignmentEndDateTime.isBefore(currentDateTime)) i++;
+            if (assignmentStartDateTime.toLocalTime().equals(LocalTime.MIDNIGHT)
+                    && assignmentEndDateTime.toLocalTime().equals(LocalTime.MIDNIGHT)
+                    && assignmentStartDateTime.toLocalDate().isEqual(currentDateTime.toLocalDate())) return assignments.get(i);
+            else if (assignmentEndDateTime.isBefore(currentDateTime)) i++;
             else return assignments.get(i);
         }
         return new Assignment();
