@@ -20,11 +20,7 @@ import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
-import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
-
-import java.sql.Date;
-import java.text.SimpleDateFormat;
 
 public class AssignmentsFirstSecondFragment extends Fragment {
 
@@ -85,15 +81,15 @@ public class AssignmentsFirstSecondFragment extends Fragment {
             @Override
             public void onChanged(Assignment assignment) {
                 if (assignment != null){
-                    if (assignment.Date != null){
-                        String dateFormat = assignment.Date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                    if (assignment.AssignmentStartDateTime != null && assignment.AssignmentEndDateTime != null){
+                        String dateFormat = assignment.AssignmentStartDateTime.toLocalDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
                         assignmentFirstDateTextView.setText(dateFormat);
-                        String weekday = assignment.Date.format(DateTimeFormatter.ofPattern("EEEE"));
+                        String weekday = assignment.AssignmentStartDateTime.toLocalDate().format(DateTimeFormatter.ofPattern("EEEE"));
                         weekday = weekday.substring(0, 1).toUpperCase() + weekday.substring(1);
                         assignmentFirstWeekDay.setText(weekday);
-                        assignmentFirstTimeEnd.setText(assignment.AssignmentEndTime.toString());
+                        assignmentFirstTimeEnd.setText(assignment.AssignmentEndDateTime.toLocalTime().toString());
                         assignmentFirstTimeTotal.setText(assignment.AssignmentDuration.toString());
-                        assignmentFirstTimeStart.setText(assignment.AssignmentStartTime.toString());
+                        assignmentFirstTimeStart.setText(assignment.AssignmentStartDateTime.toLocalTime().toString());
                     }
                     else{
                         assignmentFirstDateTextView.setText("-");
@@ -109,7 +105,7 @@ public class AssignmentsFirstSecondFragment extends Fragment {
                 }
             }
         });
-        assignmentsFirstSecondViewModel.getIsOnGoing().observe(getViewLifecycleOwner(), new Observer<Integer>() {
+        assignmentsFirstSecondViewModel.getFirstAssignmentStatus().observe(getViewLifecycleOwner(), new Observer<Integer>() {
             @Override
             public void onChanged(Integer stringResource) {
                 String status = getResources().getString(stringResource);
@@ -127,15 +123,15 @@ public class AssignmentsFirstSecondFragment extends Fragment {
             @Override
             public void onChanged(Assignment assignment) {
                 if (assignment != null){
-                    if (assignment.Date != null){
-                        String dateFormat = assignment.Date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                    if (assignment.AssignmentStartDateTime != null && assignment.AssignmentEndDateTime != null){
+                        String dateFormat = assignment.AssignmentStartDateTime.toLocalDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
                         assignmentSecondDateTextView.setText(dateFormat);
-                        String weekday = assignment.Date.format(DateTimeFormatter.ofPattern("EEEE"));
+                        String weekday = assignment.AssignmentStartDateTime.toLocalDate().format(DateTimeFormatter.ofPattern("EEEE"));
                         weekday = weekday.substring(0, 1).toUpperCase() + weekday.substring(1);
                         assignmentSecondWeekDay.setText(weekday);
                         assignmentSecondTimeTotal.setText(assignment.AssignmentDuration.toString());
-                        assignmentSecondTimeStart.setText(assignment.AssignmentStartTime.toString());
-                        assignmentSecondTimeEnd.setText(assignment.AssignmentEndTime.toString());
+                        assignmentSecondTimeStart.setText(assignment.AssignmentStartDateTime.toLocalTime().toString());
+                        assignmentSecondTimeEnd.setText(assignment.AssignmentEndDateTime.toLocalTime().toString());
                     }
                     else {
                         assignmentSecondDateTextView.setText("-");

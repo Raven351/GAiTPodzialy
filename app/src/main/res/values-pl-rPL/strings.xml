@@ -53,4 +53,5 @@
     <string name="exit_app_dialog_message">Czy napewno chcesz zamknąć aplikację?</string>
     <string name="dialog_yes">Tak</string>
     <string name="dialog_no">Nie</string>
+    <string name="no_data">BRAK DANYCH</string>
 </resources>

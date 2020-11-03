@@ -56,8 +56,8 @@ public class AssignmentFinder {
     }
 
     public Assignment getUpcomingAssignmentBySequence(int assignmentIndex){
-        assignmentIndex = firstUpcomingAssignmentIndex + assignmentIndex - 1;
-        if (assignmentIndex >= firstUpcomingAssignmentIndex && assignmentIndex < assignments.size()){
+        assignmentIndex += firstUpcomingAssignmentIndex - 1;
+        if (assignmentIndex > firstUpcomingAssignmentIndex && assignmentIndex < assignments.size()){
             return assignments.get(assignmentIndex);
         }
         else return new Assignment();

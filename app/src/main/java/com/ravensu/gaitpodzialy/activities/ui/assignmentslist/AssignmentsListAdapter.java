@@ -46,23 +46,23 @@ public class AssignmentsListAdapter extends RecyclerView.Adapter<AssignmentsList
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         LocalDate today = LocalDate.now();
-        if (assignments.get(position).Date.equals(today)) {
+        if (assignments.get(position).AssignmentStartDateTime.toLocalDate().equals(today)) {
             holder.mView.setBackgroundColor(Color.parseColor("#aacef0"));
             todayAssignmentPosition = position;
         }
         else if(position % 2 == 1) holder.mView.setBackgroundColor(Color.parseColor("#e8e8e8"));
         else holder.mView.setBackgroundColor(Color.parseColor("#ffffff"));
         holder.mAssignment = assignments.get(position);
-        String dateFormat = assignments.get(position).Date.format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+        String dateFormat = assignments.get(position).AssignmentStartDateTime.toLocalDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
         holder.mDate.setText(dateFormat);
         holder.mAssignmentCode.setText(assignments.get(position).AssignmentCode);
         holder.mComments.setText(assignments.get(position).Comments);
-        holder.mTimeStart.setText(assignments.get(position).AssignmentStartTime.toString());
-        holder.mTimeEnd.setText(assignments.get(position).AssignmentEndTime.toString());
+        holder.mTimeStart.setText(assignments.get(position).AssignmentStartDateTime.toLocalTime().toString());
+        holder.mTimeEnd.setText(assignments.get(position).AssignmentEndDateTime.toLocalTime().toString());
         holder.mLocationStart.setText(assignments.get(position).AssignmentStartLocation);
         holder.mLocationEnd.setText(assignments.get(position).AssignmentEndLocation);
         holder.mTimeTotal.setText(assignments.get(position).AssignmentDuration.toString());
-        String weekday = assignments.get(position).Date.format(DateTimeFormatter.ofPattern("EEEE"));
+        String weekday = assignments.get(position).AssignmentStartDateTime.toLocalDate().format(DateTimeFormatter.ofPattern("EEEE"));
         weekday = weekday.substring(0, 1).toUpperCase() + weekday.substring(1);
         holder.mWeekday.setText(weekday);
     }
