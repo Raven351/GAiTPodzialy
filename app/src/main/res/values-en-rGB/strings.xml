@@ -18,8 +18,9 @@
     <string name="assignment_totalTime_label">Time total:</string>
     <string name="assignment_start_label">Start:</string>
     <string name="assignment_end_label">End:</string>
-    <string name="status_ongoing">Ongoing</string>
-    <string name="status_willstart">Will start</string>
+    <string name="status_ongoing">Ongoing, ends in:</string>
+    <string name="status_willstart">Will start in:</string>
+    <string name="status_dayoff">Day off</string>
 
     <!--    Users panel-->
     <string name="change_default_user_alert_dialog_message">"Do you really want to set this user as your default user?<br /> <br />After launching app next time, data of this user will be the first one to show up."</string>
@@ -46,7 +47,6 @@
 
     <string name="users_loading_error_dialog_title">Error!</string>
     <string name="users_loading_error_dialog_message">There was an error while attempting to load users.\nIt could be caused because of weak internet connection.</string>
-    <string name="status_dayoff">Day off</string>
 
     <string name="exit_app_dialog_title">Warning</string>
     <string name="exit_app_dialog_message">Do you really want to exit app?</string>

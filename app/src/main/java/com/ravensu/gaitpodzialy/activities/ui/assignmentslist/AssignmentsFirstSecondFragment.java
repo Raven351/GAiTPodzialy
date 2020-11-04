@@ -11,12 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ravensu.gaitpodzialy.R;
+import com.ravensu.gaitpodzialy.data.AssignmentCountdownRunnable;
 import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
@@ -44,6 +46,7 @@ public class AssignmentsFirstSecondFragment extends Fragment {
         final TextView assignmentFirstEndLocation = view.findViewById(R.id.assignmentFirstEndLocation);
         final TextView assignmentFirstTimeTotal = view.findViewById(R.id.assignmentFirstTimeTotal);
         final TextView assignmentFirstWeekDay = view.findViewById(R.id.assignmentFirstWeekDay);
+        final TextView assignmentFirstTimeLeft = view.findViewById(R.id.assignmentFirstTimeLeft);
         final TextView assignmentSecondDateTextView = view.findViewById(R.id.assignmentSecondDate);
         final TextView assignmentSecondCodeTextView = view.findViewById(R.id.assignmentSecondCode);
         final TextView assignmentSecondNoticesTextView = view.findViewById(R.id.assignmentSecondNotices);
@@ -74,6 +77,7 @@ public class AssignmentsFirstSecondFragment extends Fragment {
             assignmentSecondTimeTotal.setVisibility(View.GONE);
             assignmentFirstWeekDay.setVisibility(View.GONE);
             assignmentSecondWeekDay.setVisibility(View.GONE);
+            assignmentFirstTimeLeft.setVisibility(View.GONE);
         }
 
         assignmentsFirstSecondViewModel = new ViewModelProvider(this).get(AssignmentsFirstSecondViewModel.class);
@@ -90,6 +94,7 @@ public class AssignmentsFirstSecondFragment extends Fragment {
                         assignmentFirstTimeEnd.setText(assignment.AssignmentEndDateTime.toLocalTime().toString());
                         assignmentFirstTimeTotal.setText(assignment.AssignmentDuration.toString());
                         assignmentFirstTimeStart.setText(assignment.AssignmentStartDateTime.toLocalTime().toString());
+                        new AssignmentCountdownRunnable(assignment, assignmentFirstTimeLeft).run();
                     }
                     else{
                         assignmentFirstDateTextView.setText("-");
@@ -116,7 +121,10 @@ public class AssignmentsFirstSecondFragment extends Fragment {
                 else if (status.equals(getResources().getString(R.string.status_willstart))){
                     assignmentFirstStatusTextView.setTextColor(Color.parseColor("#19851b"));
                 }
-                else assignmentFirstStatusTextView.setTextColor(Color.parseColor("#39748f"));
+                else {
+                    assignmentFirstStatusTextView.setTextColor(Color.parseColor("#39748f"));
+                    assignmentFirstTimeLeft.setVisibility(View.GONE);
+                }
             }
         });
         assignmentsFirstSecondViewModel.getSecondAssignment().observe(getViewLifecycleOwner(), new Observer<Assignment>() {

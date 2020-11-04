@@ -18,8 +18,9 @@
     <string name="assignment_start_label">Rozpoczęcie:</string>
     <string name="assignment_end_label">Zakończenie:</string>
     <string name="tomorrow_assignment">Drugi najbliższy przydział</string>
-    <string name="status_ongoing">W trakcie</string>
-    <string name="status_willstart">Rozpocznie się</string>
+    <string name="status_ongoing">W trakcie, koniec za:</string>
+    <string name="status_willstart">Rozpocznie się za:</string>
+    <string name="status_dayoff">Dzień wolny</string>
 
     <!--    Users panel-->
     <string name="change_default_user_alert_dialog_message">"Czy napewno chcesz ustawić tego użytkownika jako domyślnego?\n\nDane domyślnego użytkownika będą wyświetlane od razu po uruchomieniu aplikacji."</string>
@@ -47,7 +48,6 @@
 
     <string name="users_loading_error_dialog_title">Wystąpił błąd!</string>
     <string name="users_loading_error_dialog_message">Wystąpił błąd podczas próby wczytania danych użytkownika.\n\nMoże być to spowodowane brakiem lub słabym połączeniem internetowym.</string>
-    <string name="status_dayoff">Dzień wolny</string>
 
     <string name="exit_app_dialog_title">Ostrzeżenie</string>
     <string name="exit_app_dialog_message">Czy napewno chcesz zamknąć aplikację?</string>
