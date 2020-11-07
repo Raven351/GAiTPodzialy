@@ -18,6 +18,7 @@ import java.util.concurrent.Future;
 /**
  * Accesses and stores users' data and info about app's users such as currently selected user and main user.
  */
+@Deprecated
 public class UsersData {
     private static User mainUser;
     private static User currentlySelectedUser; //user currently selected in app

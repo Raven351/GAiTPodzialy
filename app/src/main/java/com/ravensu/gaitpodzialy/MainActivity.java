@@ -17,7 +17,9 @@ import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.ravensu.gaitpodzialy.activities.ui.MainViewPager;
 import com.ravensu.gaitpodzialy.activities.ui.login.LoginActivity;
 import com.ravensu.gaitpodzialy.data.SavedAppLogins;
-import com.ravensu.gaitpodzialy.data.UsersData;
+import com.ravensu.gaitpodzialy.data.UsersLiveData;
+import com.ravensu.gaitpodzialy.data.UsersLiveDataLoader;
+import com.ravensu.gaitpodzialy.data.UsersLiveDataSingleton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -77,17 +79,14 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void assignmentsListActivity(){
-        try {
-            boolean usersLoaded = UsersData.loadUsersData(this);
-            Intent intent = new Intent(this, MainViewPager.class);
-            intent.putExtra("FROM_ACTIVITY", "MAIN");
-            if (usersLoaded) startActivity(intent); //if there is weak connection null
-            else  {
-                findViewById(R.id.start_progress_circular).setVisibility(View.INVISIBLE);
-                usersLoadingErrorDialog();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        UsersLiveDataLoader usersLiveDataLoader = new UsersLiveDataLoader(this);
+        boolean usersDataLoaded = usersLiveDataLoader.loadUsersdata();
+        Intent intent = new Intent(this, MainViewPager.class);
+        intent.putExtra("FROM_ACTIVITY", "MAIN");
+        if (usersDataLoaded) startActivity(intent); //if there is weak connection null
+        else  {
+            findViewById(R.id.start_progress_circular).setVisibility(View.INVISIBLE);
+            usersLoadingErrorDialog();
         }
     }
 

@@ -3,10 +3,14 @@ package com.ravensu.gaitpodzialy.activities.ui;
 import android.util.Log;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
 import com.ravensu.gaitpodzialy.data.UsersData;
+import com.ravensu.gaitpodzialy.data.UsersLiveData;
+import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
 public class MainViewPagerViewModel extends ViewModel {
     private String TAG = "MainViewPagerViewModel";
@@ -30,7 +34,7 @@ public class MainViewPagerViewModel extends ViewModel {
     }
 
     private void loadDriverName() {
-        if (UsersData.getCurrentlySelectedUser().Assignments.size() > 0){
+        if (UsersLiveData.getCurrentlySelectedUserLiveData().getValue().Assignments.size() > 0){
             driverName.setValue(UsersData.getCurrentlySelectedUser().Assignments.get(0).DriverName);
         }
         else driverName.setValue("");

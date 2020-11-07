@@ -27,6 +27,7 @@ import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsListFra
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsFirstSecondFragment;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.DocumentsListFragment;
 import com.ravensu.gaitpodzialy.data.UsersData;
+import com.ravensu.gaitpodzialy.data.UsersLiveData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 import me.relex.circleindicator.CircleIndicator3;
@@ -44,7 +45,7 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (!UsersData.getCurrentlySelectedUser().isUserProperlyLoggedIn){
+        if (!UsersLiveData.getCurrentlySelectedUserLiveData().getValue().isUserProperlyLoggedIn){
             setContentView(R.layout.activity_main_view_pager_data_error);
             setUpToolbar();
             showUserLoginFailedAlertDialog();
