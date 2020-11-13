@@ -21,6 +21,8 @@ import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.data.UsersLiveData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.ArrayList;
 
 /**
@@ -95,7 +97,7 @@ public class AssignmentsListFragment extends Fragment {
 
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NotNull Context context) {
         super.onAttach(context);
         if (context instanceof OnListFragmentInteractionListener) {
             mListener = (OnListFragmentInteractionListener) context;

@@ -9,33 +9,20 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ravensu.gaitpodzialy.data.UsersData;
+import com.ravensu.gaitpodzialy.data.UsersLiveData;
 import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
 import java.util.concurrent.ConcurrentHashMap;
 
 public class AccountsListViewModel extends AndroidViewModel {
-    private MutableLiveData<ConcurrentHashMap<String, User>> users;
+    private final LiveData<ConcurrentHashMap<String, User>> users = UsersLiveData.getUsersLiveData();
 
     public AccountsListViewModel(@NonNull Application application) {
         super(application);
-        users = new MutableLiveData<>(UsersData.getAllUsers());
     }
 
     public LiveData<ConcurrentHashMap<String, User>> getUsers(){
-        if (users == null){
-            users = new MutableLiveData<ConcurrentHashMap<String, User>>();
-            loadUsers();
-        }
         return users;
-    }
-
-    private void loadUsers() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                users = new MutableLiveData<>(UsersData.getAllUsers());
-            }
-        }).start();
     }
 
 }

@@ -32,15 +32,8 @@ public class AccountsListActivity extends AppCompatActivity {
         setUpToolbar();
         final AccountsListAdapter adapter = new AccountsListAdapter(this);
         recyclerView.setAdapter(adapter);
-        //viewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(this.getApplication())).get(AccountsListViewModel.class);
         accountsListViewModel = new ViewModelProvider(this).get(AccountsListViewModel.class);
-        accountsListViewModel.getUsers().observe(this, new Observer<ConcurrentHashMap<String, User>>() {
-            @Override
-            public void onChanged(ConcurrentHashMap<String, User> users) {
-                adapter.setUsers(users);
-            }
-        });
-
+        accountsListViewModel.getUsers().observe(this, adapter::setUsers);
     }
 
     private void setUpToolbar(){

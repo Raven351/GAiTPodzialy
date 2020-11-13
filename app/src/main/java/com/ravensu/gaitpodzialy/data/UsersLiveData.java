@@ -58,4 +58,10 @@ public class UsersLiveData {
         usersMap.put(user.UserId, user);
         users.setValue(usersMap);
     }
+
+    public static void removeUserData(String userId){
+        ConcurrentHashMap<String, User> users = getUsersLiveData().getValue();
+        users.remove(userId);
+        UsersLiveData.users.setValue(users);
+    }
 }

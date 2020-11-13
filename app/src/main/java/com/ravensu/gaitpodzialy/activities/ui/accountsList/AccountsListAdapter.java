@@ -21,6 +21,7 @@ import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.data.SavedAppLogins;
 import com.ravensu.gaitpodzialy.data.SavedAppMainLogin;
 import com.ravensu.gaitpodzialy.data.UsersData;
+import com.ravensu.gaitpodzialy.data.UsersLiveData;
 import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
 import java.util.ArrayList;
@@ -28,8 +29,8 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class AccountsListAdapter extends RecyclerView.Adapter<AccountsListAdapter.ViewHolder> {
 
-    private ArrayList<User> users = new ArrayList<User>();
-    private Activity parentActivity;
+    private final ArrayList<User> users = new ArrayList<User>();
+    private final Activity parentActivity;
     private AccountsListViewModel viewModel;
 
     public AccountsListAdapter(Activity activity){
@@ -48,8 +49,8 @@ public class AccountsListAdapter extends RecyclerView.Adapter<AccountsListAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         if (position % 2 == 1) holder.mView.setBackgroundColor(parentActivity.getResources().getColor(R.color.greyList));
-        if (users.get(position) == UsersData.getCurrentlySelectedUser()) holder.mView.setBackgroundColor(parentActivity.getResources().getColor(R.color.selectedUser));
-        if (users.get(position) == UsersData.getMainUser()) {
+        if (users.get(position) == UsersLiveData.getCurrentlySelectedUserLiveData().getValue()) holder.mView.setBackgroundColor(parentActivity.getResources().getColor(R.color.selectedUser));
+        if (users.get(position) == UsersLiveData.getMainUserLiveData().getValue()) {
             holder.mUserId.setTypeface(null, Typeface.BOLD);
             holder.mUserId.setTextColor(parentActivity.getResources().getColor(R.color.mainUser));
         }
@@ -59,17 +60,8 @@ public class AccountsListAdapter extends RecyclerView.Adapter<AccountsListAdapte
         holder.mChangeToUserButton.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                parentActivity.findViewById(R.id.accountsLoadingCircle).setVisibility(View.VISIBLE);
-                UsersData.setCurrentlySelectedUser(users.get(position).UserId);
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        parentActivity.findViewById(R.id.accountsLoadingCircle).setVisibility(View.GONE);
-                        parentActivity.finish();
-                    }
-                }, 500); //delay added because if active user is being changed too fast it will cause assignments views to not refresh itself and show assignments for previously selected user
-
+                UsersLiveData.setCurrentlySelectedUser(users.get(position));
+                parentActivity.finish();
             }
         });
         holder.mSetAsMainUserButton.setOnClickListener(new View.OnClickListener() {
@@ -81,7 +73,7 @@ public class AccountsListAdapter extends RecyclerView.Adapter<AccountsListAdapte
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                UsersData.setMainUser(users.get(position).UserId);
+                                UsersLiveData.setMainUser(users.get(position));
                                 SavedAppMainLogin.SetMainLoginUserId(parentActivity, users.get(position).UserId);
                                 if (users.get(position).Assignments.size()>0)
                                     SavedAppMainLogin.SetMainLoginUserName(parentActivity, users.get(position).Assignments.get(0).DriverName);
@@ -101,7 +93,7 @@ public class AccountsListAdapter extends RecyclerView.Adapter<AccountsListAdapte
                     Toast.makeText(parentActivity, R.string.unable_to_logout_toast, Toast.LENGTH_LONG).show();
                     return;
                 }
-                if (users.get(position).UserId.equals(UsersData.getCurrentlySelectedUserId())) UsersData.setCurrentlySelectedUser(UsersData.getMainUser().UserId);
+                if (users.get(position).UserId.equals(UsersLiveData.getCurrentlySelectedUserLiveData().getValue().UserId)) UsersLiveData.setCurrentlySelectedUser(UsersLiveData.getMainUserLiveData().getValue());
                 new AlertDialog.Builder(parentActivity)
                         .setTitle(users.get(position).UserId)
                         .setMessage(R.string.logout_confirmation_alert_dialog_message)
@@ -109,7 +101,7 @@ public class AccountsListAdapter extends RecyclerView.Adapter<AccountsListAdapte
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 SavedAppLogins.removeCredentials(parentActivity, users.get(position).UserId);
-                                UsersData.removeUser(users.get(position).UserId);
+                                UsersLiveData.removeUserData(users.get(position).UserId);
                                 users.remove(users.get(position));
                                 if (getItemCount() == 0){
                                     Intent intent = new Intent(parentActivity, MainActivity.class);
@@ -158,8 +150,7 @@ public class AccountsListAdapter extends RecyclerView.Adapter<AccountsListAdapte
     }
 
     private boolean canBeLogOut(String userId){
-        if (userId.equals(UsersData.getMainUser().UserId)) return false;
         //else return !userId.equals(UsersData.getCurrentlySelectedUserId());
-        else return true;
+        return !userId.equals(UsersLiveData.getMainUserLiveData().getValue().UserId);
     }
 }

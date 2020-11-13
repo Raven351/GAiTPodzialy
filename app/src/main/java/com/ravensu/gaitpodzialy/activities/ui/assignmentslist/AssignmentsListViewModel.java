@@ -15,7 +15,7 @@ import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 import java.util.ArrayList;
 
 public class AssignmentsListViewModel extends AndroidViewModel {
-    private LiveData<ArrayList<Assignment>> assignments;
+    private final LiveData<ArrayList<Assignment>> assignments;
 
     public AssignmentsListViewModel(@NonNull Application application) {
         super(application);
