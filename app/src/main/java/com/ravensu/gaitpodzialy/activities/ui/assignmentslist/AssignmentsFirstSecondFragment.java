@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.data.AssignmentCountdownRunnable;
 import com.ravensu.gaitpodzialy.data.UsersData;
+import com.ravensu.gaitpodzialy.data.UsersLiveData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 import org.threeten.bp.format.DateTimeFormatter;
@@ -57,7 +58,7 @@ public class AssignmentsFirstSecondFragment extends Fragment {
         final TextView assignmentSecondTimeTotal = view.findViewById(R.id.assignmentSecondTimeTotal);
         final TextView assignmentSecondWeekDay = view.findViewById(R.id.assignmentSecondWeekDay);
 
-        if (UsersData.getCurrentlySelectedUser().Assignments.size() == 0){
+        if (UsersLiveData.getCurrentlySelectedUserLiveData().getValue().Assignments.size() == 0){
             assignmentFirstStatusTextView.setVisibility(View.GONE);
             assignmentFirstStartLocation.setVisibility(View.GONE);
             assignmentFirstTimeStart.setVisibility(View.GONE);
