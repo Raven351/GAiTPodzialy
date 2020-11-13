@@ -26,13 +26,10 @@ import java.util.Date;
 
 public class AssignmentsListAdapter extends RecyclerView.Adapter<AssignmentsListAdapter.ViewHolder> {
 
-    private MutableLiveData<User> currentlySelectedUser = new MutableLiveData<>(UsersData.getCurrentlySelectedUser());
     private ArrayList<Assignment> assignments;
     private int todayAssignmentPosition;
 
     public AssignmentsListAdapter() {
-        this.assignments = currentlySelectedUser.getValue().Assignments;
-
     }
 
     @NotNull

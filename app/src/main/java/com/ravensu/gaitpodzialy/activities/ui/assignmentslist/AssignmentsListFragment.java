@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.data.UsersData;
+import com.ravensu.gaitpodzialy.data.UsersLiveData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 import java.util.ArrayList;
@@ -65,7 +66,7 @@ public class AssignmentsListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_assignments_list, container, false);
         final RecyclerView recyclerView = view.findViewById(R.id.assignmentsList);
         TextView assignmentsListInfoTextView = view.findViewById(R.id.assignmentsListInfoTextView);
-        if (UsersData.getCurrentlySelectedUser().Assignments.size() < 1){
+        if (UsersLiveData.getCurrentlySelectedUserLiveData().getValue().Assignments.size() < 1){
             assignmentsListInfoTextView.setText(R.string.no_assignments);
             assignmentsListInfoTextView.setVisibility(View.VISIBLE);
         }
@@ -83,12 +84,9 @@ public class AssignmentsListFragment extends Fragment {
             final AssignmentsListAdapter adapter = new AssignmentsListAdapter();
             recyclerView.setAdapter(adapter);
             assignmentsListViewModel = new ViewModelProvider(this).get(AssignmentsListViewModel.class);
-            assignmentsListViewModel.getAssignments().observe(getViewLifecycleOwner(), new Observer<ArrayList<Assignment>>() {
-                @Override
-                public void onChanged(ArrayList<Assignment> assignments) {
-                    adapter.notifyDataSetChanged();
-                    adapter.setAssignments(assignments);
-                }
+            assignmentsListViewModel.getAssignments().observe(getViewLifecycleOwner(), assignments -> {
+                adapter.setAssignments(assignments);
+                adapter.notifyDataSetChanged();
             });
         }
         return view;

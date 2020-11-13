@@ -6,34 +6,23 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+import androidx.lifecycle.Transformations;
 
 import com.ravensu.gaitpodzialy.data.UsersData;
+import com.ravensu.gaitpodzialy.data.UsersLiveData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 import java.util.ArrayList;
 
 public class AssignmentsListViewModel extends AndroidViewModel {
-    private MutableLiveData<ArrayList<Assignment>> assignments;
+    private LiveData<ArrayList<Assignment>> assignments;
 
     public AssignmentsListViewModel(@NonNull Application application) {
         super(application);
-        assignments = new MutableLiveData<>(UsersData.getCurrentlySelectedUser().Assignments);
+        assignments = Transformations.map(UsersLiveData.getCurrentlySelectedUserLiveData(), user -> user.Assignments);
     }
 
     public LiveData<ArrayList<Assignment>> getAssignments(){
-        if (assignments == null){
-            assignments = new MutableLiveData<ArrayList<Assignment>>();
-            loadAssignments();
-        }
         return assignments;
-    }
-
-    private void loadAssignments() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                assignments = new MutableLiveData<>(UsersData.getCurrentlySelectedUser().Assignments);
-            }
-        }).start();
     }
 }
