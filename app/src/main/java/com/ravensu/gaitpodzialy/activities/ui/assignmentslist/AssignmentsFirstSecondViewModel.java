@@ -1,20 +1,15 @@
 package com.ravensu.gaitpodzialy.activities.ui.assignmentslist;
 
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.ravensu.gaitpodzialy.R;
-import com.ravensu.gaitpodzialy.data.AssignmentFinder;
-import com.ravensu.gaitpodzialy.data.AssignmentStatus;
-import com.ravensu.gaitpodzialy.data.AssignmentStatusFinder;
-import com.ravensu.gaitpodzialy.data.UsersData;
-import com.ravensu.gaitpodzialy.data.UsersLiveData;
+import com.ravensu.gaitpodzialy.appdata.AssignmentFinder;
+import com.ravensu.gaitpodzialy.appdata.AssignmentStatus;
+import com.ravensu.gaitpodzialy.appdata.AssignmentStatusFinder;
+import com.ravensu.gaitpodzialy.appdata.UsersLiveData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
-
-import org.threeten.bp.LocalDate;
-import org.threeten.bp.LocalTime;
 
 public class AssignmentsFirstSecondViewModel extends ViewModel {
     private final String TAG = "AssignmentsFirstSecond";

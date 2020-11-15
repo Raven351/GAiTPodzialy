@@ -1,13 +1,7 @@
-package com.ravensu.gaitpodzialy.data;
-
-import android.os.Build;
-import android.util.Log;
-
-import androidx.annotation.RequiresApi;
+package com.ravensu.gaitpodzialy.appdata;
 
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
-import org.threeten.bp.LocalDate;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.LocalTime;
 

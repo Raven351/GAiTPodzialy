@@ -5,8 +5,8 @@ import android.os.Handler;
 import android.util.Log;
 
 import com.ravensu.gaitpodzialy.activities.data.model.LoggedInUser;
-import com.ravensu.gaitpodzialy.data.SavedAppLogins;
-import com.ravensu.gaitpodzialy.data.SavedAppMainLogin;
+import com.ravensu.gaitpodzialy.appdata.SavedAppLogins;
+import com.ravensu.gaitpodzialy.appdata.SavedAppMainLogin;
 import com.ravensu.gaitpodzialy.receivers.LoginResultReceiver;
 import com.ravensu.gaitpodzialy.webscrapper.GAiTWebScrapper;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;

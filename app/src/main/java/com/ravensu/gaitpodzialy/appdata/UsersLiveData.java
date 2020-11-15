@@ -1,20 +1,11 @@
-package com.ravensu.gaitpodzialy.data;
-
-import android.content.Context;
+package com.ravensu.gaitpodzialy.appdata;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 public class UsersLiveData {
     private static boolean usersDataLoaded = false;

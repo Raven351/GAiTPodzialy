@@ -1,4 +1,4 @@
-package com.ravensu.gaitpodzialy.data;
+package com.ravensu.gaitpodzialy.appdata;
 
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 

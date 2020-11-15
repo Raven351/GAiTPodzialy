@@ -1,4 +1,4 @@
-package com.ravensu.gaitpodzialy.data;
+package com.ravensu.gaitpodzialy.appdata;
 
 import android.content.Context;
 import android.content.SharedPreferences;

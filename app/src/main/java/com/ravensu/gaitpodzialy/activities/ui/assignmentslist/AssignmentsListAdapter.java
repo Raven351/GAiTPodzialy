@@ -1,6 +1,5 @@
 package com.ravensu.gaitpodzialy.activities.ui.assignmentslist;
 
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Color;
@@ -10,19 +9,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ravensu.gaitpodzialy.R;
-import com.ravensu.gaitpodzialy.data.UsersData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
-import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.jetbrains.annotations.NotNull;
 import org.threeten.bp.LocalDate;
 import org.threeten.bp.format.DateTimeFormatter;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 
 public class AssignmentsListAdapter extends RecyclerView.Adapter<AssignmentsListAdapter.ViewHolder> {
 

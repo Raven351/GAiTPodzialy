@@ -10,13 +10,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ravensu.gaitpodzialy.R;
-import com.ravensu.gaitpodzialy.data.UsersData;
+import com.ravensu.gaitpodzialy.appdata.GaitWebsiteUrlFinder;
+import com.ravensu.gaitpodzialy.appdata.UsersLiveData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Document;
-import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
 import org.threeten.bp.format.DateTimeFormatter;
 
@@ -25,25 +24,20 @@ import java.util.Collections;
 import java.util.Comparator;
 
 public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdapter.ViewHolder> {
-    private final MutableLiveData<User> currentlySelectedUser = new MutableLiveData<>(UsersData.getCurrentlySelectedUser());
     private ArrayList<Document> documents;
     private final Fragment parentFragment;
-    private String gaitSiteURL = "http://podzialy.gait.pl/";
+    private final String gaitSiteURL;
 
     public DocumentsListAdapter(Fragment fragment){
-        this.documents = currentlySelectedUser.getValue().Documents;
         sortDocumentsByDate();
         this.parentFragment = fragment;
-        setConnectionURL();
+        gaitSiteURL = new GaitWebsiteUrlFinder(UsersLiveData.getCurrentlySelectedUserLiveData().getValue().UserId).getSiteUrl();
     }
 
     private void sortDocumentsByDate() {
-        Collections.sort(documents, new Comparator<Document>() {
-            @Override
-            public int compare(Document o1, Document o2) {
-                return o2.Date.compareTo(o1.Date);
-            }
-        });
+        if (documents != null){
+            Collections.sort(documents, (o1, o2) -> o2.Date.compareTo(o1.Date));
+        }
     }
 
     @NonNull
@@ -109,14 +103,5 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
                     }).start();
             }
         });
-    }
-
-    //todo refactor
-    private void setConnectionURL() {
-        if (currentlySelectedUser.getValue().UserId != null && !currentlySelectedUser.getValue().UserId.equals("")){
-            char firstLetterUsername = currentlySelectedUser.getValue().UserId.charAt(0);
-            if (firstLetterUsername == '3') gaitSiteURL = "http://tram.gait.pl/";
-            else gaitSiteURL = "http://podzialy.gait.pl/";
-        }
     }
 }

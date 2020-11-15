@@ -1,17 +1,11 @@
 package com.ravensu.gaitpodzialy.activities.ui;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
-import com.ravensu.gaitpodzialy.data.UsersData;
-import com.ravensu.gaitpodzialy.data.UsersLiveData;
-import com.ravensu.gaitpodzialy.webscrapper.models.User;
+import com.ravensu.gaitpodzialy.appdata.UsersLiveData;
 
 public class MainViewPagerViewModel extends ViewModel {
     private String TAG = "MainViewPagerViewModel";

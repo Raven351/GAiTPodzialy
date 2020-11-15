@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +17,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ravensu.gaitpodzialy.MainActivity;
 import com.ravensu.gaitpodzialy.R;
-import com.ravensu.gaitpodzialy.data.SavedAppLogins;
-import com.ravensu.gaitpodzialy.data.SavedAppMainLogin;
-import com.ravensu.gaitpodzialy.data.UsersData;
-import com.ravensu.gaitpodzialy.data.UsersLiveData;
+import com.ravensu.gaitpodzialy.appdata.SavedAppLogins;
+import com.ravensu.gaitpodzialy.appdata.SavedAppMainLogin;
+import com.ravensu.gaitpodzialy.appdata.UsersLiveData;
 import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
 import java.util.ArrayList;

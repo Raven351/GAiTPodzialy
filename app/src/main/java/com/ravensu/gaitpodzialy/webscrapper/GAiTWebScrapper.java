@@ -5,6 +5,7 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
+import com.ravensu.gaitpodzialy.appdata.GaitWebsiteUrlFinder;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 import org.jsoup.Connection;
@@ -36,9 +37,7 @@ public class GAiTWebScrapper {
 
     private void setConnectionURL() {
         if (username != null && !username.equals("")){
-            char firstLetterUsername = username.charAt(0);
-            if (firstLetterUsername == '3') connectionURL = "http://tram.gait.pl/";
-            else connectionURL = "http://podzialy.gait.pl/";
+            connectionURL = new GaitWebsiteUrlFinder(username).getSiteUrl();
         }
     }
 

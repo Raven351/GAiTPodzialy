@@ -16,10 +16,8 @@ import android.view.View;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 import com.ravensu.gaitpodzialy.activities.ui.MainViewPager;
 import com.ravensu.gaitpodzialy.activities.ui.login.LoginActivity;
-import com.ravensu.gaitpodzialy.data.SavedAppLogins;
-import com.ravensu.gaitpodzialy.data.UsersLiveData;
-import com.ravensu.gaitpodzialy.data.UsersLiveDataLoader;
-import com.ravensu.gaitpodzialy.data.UsersLiveDataSingleton;
+import com.ravensu.gaitpodzialy.appdata.SavedAppLogins;
+import com.ravensu.gaitpodzialy.appdata.UsersLiveDataLoader;
 
 public class MainActivity extends AppCompatActivity {
 

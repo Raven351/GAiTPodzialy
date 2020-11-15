@@ -11,16 +11,14 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.ravensu.gaitpodzialy.R;
-import com.ravensu.gaitpodzialy.data.AssignmentCountdownRunnable;
-import com.ravensu.gaitpodzialy.data.UsersData;
-import com.ravensu.gaitpodzialy.data.UsersLiveData;
+import com.ravensu.gaitpodzialy.appdata.AssignmentCountdownRunnable;
+import com.ravensu.gaitpodzialy.appdata.UsersLiveData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 import org.threeten.bp.format.DateTimeFormatter;

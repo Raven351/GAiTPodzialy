@@ -1,15 +1,12 @@
-package com.ravensu.gaitpodzialy.data;
+package com.ravensu.gaitpodzialy.appdata;
 
 import android.os.Handler;
 import android.widget.TextView;
 
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
-import net.sf.cglib.core.Local;
-
 import org.threeten.bp.Duration;
 import org.threeten.bp.LocalDateTime;
-import org.threeten.bp.temporal.ChronoUnit;
 
 import java.util.Locale;
 

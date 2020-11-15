@@ -1,8 +1,7 @@
-package com.ravensu.gaitpodzialy.data;
+package com.ravensu.gaitpodzialy.appdata;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 
 /**
  * Accesses "app_main_login" SharedPreferences that store users credentials (userId and password)

@@ -7,7 +7,7 @@ import android.os.ResultReceiver;
 
 import androidx.annotation.Nullable;
 
-import com.ravensu.gaitpodzialy.data.SavedAppLogins;
+import com.ravensu.gaitpodzialy.appdata.SavedAppLogins;
 import com.ravensu.gaitpodzialy.webscrapper.GAiTWebScrapper;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 

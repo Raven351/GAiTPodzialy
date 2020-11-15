@@ -1,7 +1,6 @@
 package com.ravensu.gaitpodzialy.activities.ui.login;
 
 import android.app.Activity;
-import android.app.Instrumentation;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -25,7 +24,7 @@ import androidx.lifecycle.Observer;
 import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.activities.data.LoginDataSource;
 import com.ravensu.gaitpodzialy.activities.data.LoginRepository;
-import com.ravensu.gaitpodzialy.data.SavedAppMainLogin;
+import com.ravensu.gaitpodzialy.appdata.SavedAppMainLogin;
 
 public class LoginActivity extends AppCompatActivity {
 

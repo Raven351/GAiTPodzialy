@@ -2,7 +2,6 @@ package com.ravensu.gaitpodzialy.activities.ui.accountsList;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,10 +13,7 @@ import android.view.View;
 
 import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.activities.ui.login.LoginActivity;
-import com.ravensu.gaitpodzialy.data.UsersData;
-import com.ravensu.gaitpodzialy.webscrapper.models.User;
-
-import java.util.concurrent.ConcurrentHashMap;
+import com.ravensu.gaitpodzialy.appdata.UsersData;
 
 public class AccountsListActivity extends AppCompatActivity {
     private AccountsListViewModel accountsListViewModel;

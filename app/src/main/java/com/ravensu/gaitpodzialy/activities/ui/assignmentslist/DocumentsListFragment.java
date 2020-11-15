@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ravensu.gaitpodzialy.R;
-import com.ravensu.gaitpodzialy.data.UsersData;
+import com.ravensu.gaitpodzialy.appdata.UsersLiveData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Document;
 
 import java.util.ArrayList;
@@ -51,7 +51,7 @@ public class DocumentsListFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_documents_list, container, false);
         final RecyclerView recyclerView = view.findViewById(R.id.documentsList);
         TextView documentsListInfoTextView = view.findViewById(R.id.documentsListInfoTextView);
-        if (UsersData.getCurrentlySelectedUser().Documents.size() < 1){
+        if (UsersLiveData.getCurrentlySelectedUserLiveData().getValue().Documents.size() < 1){
             documentsListInfoTextView.setText(R.string.no_documents);
             documentsListInfoTextView.setVisibility(View.VISIBLE);
         }
@@ -72,8 +72,8 @@ public class DocumentsListFragment extends Fragment {
             documentsListViewModel.getDocuments().observe(getViewLifecycleOwner(), new Observer<ArrayList<Document>>() {
                 @Override
                 public void onChanged(ArrayList<Document> documents) {
-                    adapter.notifyDataSetChanged();
                     adapter.setDocuments(documents);
+                    adapter.notifyDataSetChanged();
                 }
             });
         }
