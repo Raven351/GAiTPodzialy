@@ -1,32 +1,34 @@
 package com.ravensu.gaitpodzialy.appdata;
 
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.widget.TextView;
 
+import androidx.lifecycle.LiveData;
+
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
+import org.jetbrains.annotations.NotNull;
 import org.threeten.bp.Duration;
 import org.threeten.bp.LocalDateTime;
 
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-public class AssignmentCountdownRunnable implements Runnable {
-    private final Assignment assignment;
-    private final TextView textView;
-    private final LocalDateTime assignmentStartDateTime;
-    private final LocalDateTime assignmentEndDateTime;
-    private final AssignmentStatus assignmentStatus;
-    Handler timerHandler = new Handler();
+public class AssignmentCountdownFinder {
+    private Assignment assignment;
+    private LocalDateTime assignmentStartDateTime;
+    private LocalDateTime assignmentEndDateTime;
+    private AssignmentStatus assignmentStatus;
 
-    public AssignmentCountdownRunnable(Assignment assignment, TextView textView) {
+    public AssignmentCountdownFinder(@NotNull Assignment assignment) {
         this.assignment = assignment;
-        this.textView = textView;
         this.assignmentStartDateTime = assignment.AssignmentStartDateTime;
         this.assignmentEndDateTime = assignment.AssignmentEndDateTime;
         this.assignmentStatus = new AssignmentStatusFinder(assignment).getAssignmentStatus();
     }
 
-    private String getTimeLeft(){
+    public String getTimeLeft(){
         switch (assignmentStatus){
             case WILL_START:
                 return getTimeLeftString(LocalDateTime.now(), assignmentStartDateTime);
@@ -53,11 +55,5 @@ public class AssignmentCountdownRunnable implements Runnable {
             timeLeft = String.format(localePL, "%02dm", duration.toMinutes());
         }
         return timeLeft;
-    }
-
-    @Override
-    public void run(){
-        textView.setText(getTimeLeft());
-        timerHandler.postDelayed(this, 15000);
     }
 }

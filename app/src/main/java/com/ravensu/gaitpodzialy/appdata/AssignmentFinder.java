@@ -38,7 +38,7 @@ public class AssignmentFinder {
         ArrayList<Assignment> assignments = getSortedByDateAndTime();
         LocalDateTime currentDateTime = LocalDateTime.now();
         int i = 0;
-        if (assignments.size() == 0) return new Assignment();
+        if (assignments.size() == 0) return null;
         while (i < assignments.size()){
             LocalDateTime assignmentStartDateTime = assignments.get(i).AssignmentStartDateTime;
             LocalDateTime assignmentEndDateTime = assignments.get(i).AssignmentEndDateTime;
@@ -48,7 +48,7 @@ public class AssignmentFinder {
             else if (assignmentEndDateTime.isBefore(currentDateTime)) i++;
             else return assignments.get(i);
         }
-        return new Assignment();
+        return null;
     }
 
     private int findFirstUpcomingAssignmentIndex(){

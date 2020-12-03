@@ -132,14 +132,6 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
     @Override
     protected void onRestart() {
         super.onRestart();
-        if (viewPager2 != null){
-            finish();
-            startActivity(getIntent().putExtra("CURRENT_PAGE", this.viewPager2.getCurrentItem()));
-        }
-        else {
-            finish();
-            startActivity(getIntent());
-        }
     }
 
     public void onClickInfoButton(View view) {
@@ -154,14 +146,15 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
         findViewById(R.id.infoButton).setEnabled(false);
         findViewById(R.id.accountsButton).setEnabled(false);
         findViewById(R.id.refreshButton).setEnabled(false);
-        final String currentlySelectedUserId = UsersData.getCurrentlySelectedUserId();
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                refreshData(currentlySelectedUserId);
-            }
-        });
-        thread.start();
+        final String currentlySelectedUserId = UsersLiveData.getCurrentlySelectedUserLiveData().getValue().UserId;
+        if (refreshData(currentlySelectedUserId)){
+            mainViewpagerLoadingCircle.setVisibility(View.GONE);
+            viewPager2.setUserInputEnabled(true);
+            findViewById(R.id.infoButton).setEnabled(true);
+            findViewById(R.id.accountsButton).setEnabled(true);
+            findViewById(R.id.refreshButton).setEnabled(true);
+        };
+
     }
 
     private static class ScreenSlidePagerAdapter extends FragmentStateAdapter{
@@ -193,21 +186,15 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
 
     }
 
-    private void refreshData(String currentlySelectedUserId){
-        try {
-            boolean usersDataLoaded = UsersData.loadUsersData(this);
-            if (usersDataLoaded) {
-                finish();
-                UsersData.setCurrentlySelectedUser(currentlySelectedUserId);
-                startActivity(getIntent().putExtra("CURRENT_PAGE", this.viewPager2.getCurrentItem()));
-            }
-            else{
-                usersLoadingErrorDialog();
-            }
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    private boolean refreshData(String currentlySelectedUserId){
+        boolean usersDataLoaded = UsersLiveData.loadUsersData(this);
+        if (usersDataLoaded) {
+            UsersLiveData.setCurrentlySelectedUser(UsersLiveData.getUsersLiveData().getValue().get(currentlySelectedUserId));
+        }
+        else{
             usersLoadingErrorDialog();
         }
+        return true;
     }
 
     private void usersLoadingErrorDialog(){

@@ -1,10 +1,12 @@
 package com.ravensu.gaitpodzialy.activities.ui.assignmentslist;
 
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
 import androidx.lifecycle.ViewModel;
 
 import com.ravensu.gaitpodzialy.R;
+import com.ravensu.gaitpodzialy.appdata.AssignmentCountdownFinder;
 import com.ravensu.gaitpodzialy.appdata.AssignmentFinder;
 import com.ravensu.gaitpodzialy.appdata.AssignmentStatus;
 import com.ravensu.gaitpodzialy.appdata.AssignmentStatusFinder;
@@ -16,7 +18,7 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
     private LiveData<Assignment> firstAssignment;
     private LiveData<Assignment> secondAssignment;
     private LiveData<Integer> firstAssignmentStatus;
-
+    private LiveData<String> firstAssignmentTimeLeft;
 
     public LiveData<Assignment> getFirstAssignment(){
         loadFirstAssignment();
@@ -33,6 +35,18 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
         return firstAssignmentStatus;
     }
 
+    public LiveData<String> getFirstAssignmentTimeLeft(){
+        if (firstAssignmentTimeLeft == null){
+            firstAssignmentTimeLeft = new MutableLiveData<>();
+        }
+        loadFirstAssignmentTimeLeft();
+        return firstAssignmentTimeLeft;
+    }
+
+    private void loadFirstAssignmentTimeLeft() {
+        firstAssignmentTimeLeft = Transformations.map(getFirstAssignment(), assignment -> new AssignmentCountdownFinder(assignment).getTimeLeft());
+    }
+
     private void loadFirstAssignment(){
         firstAssignment = Transformations.map(UsersLiveData.getCurrentlySelectedUserLiveData(), user -> {
             AssignmentFinder assignmentFinder = new AssignmentFinder(user.Assignments);
@@ -42,7 +56,7 @@ public class AssignmentsFirstSecondViewModel extends ViewModel {
 
     private void loadFirstAssignmentStatus(){
         firstAssignmentStatus = Transformations.map(getFirstAssignment(), firstAssignment -> {
-            if (firstAssignment != null){
+            if (firstAssignment.AssignmentStartDateTime != null){
                 AssignmentStatus assignmentStatus = new AssignmentStatusFinder(firstAssignment).getAssignmentStatus();
                     switch (assignmentStatus) {
                         case WILL_START:

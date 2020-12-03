@@ -14,6 +14,7 @@ import android.view.View;
 import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.activities.ui.login.LoginActivity;
 import com.ravensu.gaitpodzialy.appdata.UsersData;
+import com.ravensu.gaitpodzialy.appdata.UsersLiveData;
 
 public class AccountsListActivity extends AppCompatActivity {
     private AccountsListViewModel accountsListViewModel;
@@ -48,14 +49,9 @@ public class AccountsListActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 2){
             if (resultCode == Activity.RESULT_OK){
-                try {
-                    UsersData.loadUsersData(this);
-                    finish();
-                    startActivity(getIntent());
-                }
-                catch (InterruptedException e){
-
-                }
+                UsersLiveData.loadUsersData(this);
+                finish();
+                startActivity(getIntent());
             }
         }
     }
