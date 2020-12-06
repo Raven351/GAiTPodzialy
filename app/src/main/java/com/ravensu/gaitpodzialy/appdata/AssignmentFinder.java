@@ -61,6 +61,6 @@ public class AssignmentFinder {
         if (assignmentIndex > firstUpcomingAssignmentIndex && assignmentIndex < assignments.size()){
             return assignments.get(assignmentIndex);
         }
-        else return new Assignment();
+        else return null;
     }
 }

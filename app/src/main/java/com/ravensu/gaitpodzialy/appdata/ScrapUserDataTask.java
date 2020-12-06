@@ -4,6 +4,7 @@ import com.ravensu.gaitpodzialy.webscrapper.GAiTWebScrapper;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
+import org.jetbrains.annotations.TestOnly;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;

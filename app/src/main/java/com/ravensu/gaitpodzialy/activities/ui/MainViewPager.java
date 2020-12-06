@@ -24,7 +24,6 @@ import com.ravensu.gaitpodzialy.activities.ui.accountsList.AccountsListActivity;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsListFragment;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsFirstSecondFragment;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.DocumentsListFragment;
-import com.ravensu.gaitpodzialy.appdata.UsersData;
 import com.ravensu.gaitpodzialy.appdata.UsersLiveData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
@@ -42,37 +41,64 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        viewModel = new ViewModelProvider(this).get(MainViewPagerViewModel.class);
         super.onCreate(savedInstanceState);
-        if (!UsersLiveData.getCurrentlySelectedUserLiveData().getValue().isUserProperlyLoggedIn){
-            setContentView(R.layout.activity_main_view_pager_data_error);
-            setUpToolbar();
-            showUserLoginFailedAlertDialog();
-        }
-        else{
-            setContentView(R.layout.activity_main_view_pager);
-            setUpToolbar();
-            viewPager2 = findViewById(R.id.assignments_list_viewpager);
-            pageAdapter = new ScreenSlidePagerAdapter(this);
-            viewPager2.setAdapter(pageAdapter);
-            viewPager2.setCurrentItem(getIntent().getIntExtra("CURRENT_PAGE", 0), false);
-            CircleIndicator3 viewpagerIndicator = findViewById(R.id.assignments_list_viewpager_indicator);
-            viewpagerIndicator.setViewPager(viewPager2);
-            final TextView driverIdTextView = findViewById(R.id.driverId);
-            final TextView driverNameTextView = findViewById(R.id.driverName);
-            viewModel = new ViewModelProvider(this).get(MainViewPagerViewModel.class);
-            viewModel.getDriverId().observe(this, new Observer<String>() {
-                @Override
-                public void onChanged(String s) {
-                    driverIdTextView.setText(s);
-                }
-            });
-            viewModel.getDriverName().observe(this, new Observer<String>() {
-                @Override
-                public void onChanged(String s) {
-                    driverNameTextView.setText(s);
-                }
-            });
-        }
+        observeIsProperlyLoggedInLiveData();
+    }
+
+    private void observeIsProperlyLoggedInLiveData() {
+        viewModel.getIsProperlyLoggedIn().observe(this, isProperlyLoggedIn -> {
+            if (isProperlyLoggedIn){
+                setUpLoggedInView();
+            }
+            else{
+                setUpDataErrorView();
+            }
+        });
+    }
+
+
+    private void setUpDataErrorView() {
+        setContentView(R.layout.activity_main_view_pager_data_error);
+        setUpToolbar();
+        showUserLoginFailedAlertDialog();
+    }
+
+    private void setUpLoggedInView() {
+        setContentView(R.layout.activity_main_view_pager);
+        setUpViewPager();
+        setUpToolbar();
+        observeDriverIdLiveData();
+        observeDriverNameLiveData();
+    }
+
+    private void observeDriverNameLiveData() {
+        final TextView driverNameTextView = findViewById(R.id.driverName);
+        viewModel.getDriverName().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                driverNameTextView.setText(s);
+            }
+        });
+    }
+
+    private void observeDriverIdLiveData() {
+        final TextView driverIdTextView = findViewById(R.id.driverId);
+        viewModel.getDriverId().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(String s) {
+                driverIdTextView.setText(s);
+            }
+        });
+    }
+
+    private void setUpViewPager() {
+        viewPager2 = findViewById(R.id.assignments_list_viewpager);
+        pageAdapter = new ScreenSlidePagerAdapter(this);
+        viewPager2.setAdapter(pageAdapter);
+        viewPager2.setCurrentItem(getIntent().getIntExtra("CURRENT_PAGE", 0), false);
+        CircleIndicator3 viewpagerIndicator = findViewById(R.id.assignments_list_viewpager_indicator);
+        viewpagerIndicator.setViewPager(viewPager2);
     }
 
     private void showUserLoginFailedAlertDialog() {
@@ -139,8 +165,12 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
         startActivity(intent);
     }
 
+    //todo change
     public void onClickRefreshButton(View view) {
         mainViewpagerLoadingCircle = findViewById(R.id.mainViewpagerLoadingCircle);
+        view.setVisibility(View.GONE);
+        View refreshLoadingInProgressCircle = findViewById(R.id.refreshLoadingInProgressCircle);
+        refreshLoadingInProgressCircle.setVisibility(View.VISIBLE);
         mainViewpagerLoadingCircle.setVisibility(View.VISIBLE);
         viewPager2.setUserInputEnabled(false);
         findViewById(R.id.infoButton).setEnabled(false);
@@ -148,12 +178,14 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
         findViewById(R.id.refreshButton).setEnabled(false);
         final String currentlySelectedUserId = UsersLiveData.getCurrentlySelectedUserLiveData().getValue().UserId;
         if (refreshData(currentlySelectedUserId)){
+
             mainViewpagerLoadingCircle.setVisibility(View.GONE);
+            refreshLoadingInProgressCircle.setVisibility(View.GONE);
             viewPager2.setUserInputEnabled(true);
             findViewById(R.id.infoButton).setEnabled(true);
             findViewById(R.id.accountsButton).setEnabled(true);
             findViewById(R.id.refreshButton).setEnabled(true);
-        };
+        }
 
     }
 
@@ -183,7 +215,6 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
         public int getItemCount() {
             return NUM_PAGES;
         }
-
     }
 
     private boolean refreshData(String currentlySelectedUserId){

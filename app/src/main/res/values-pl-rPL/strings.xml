@@ -33,7 +33,8 @@
     <string name="data_error_dialog_title">Logowanie użytkownika nie powiodło się!</string>
     <string name="data_error_dialog_message">Aplikacja nie mogła zalogować się do strony internetowej GAiT.\nSpróbuj zalogować się bezpośrednio poprzez stronę internetową.\nJeżeli udało Ci się prawidłowo zalogować przez stronę internetową, a niniejszy komunikat dalej występuje, proszę o kontakt poprzez formularz kontaktowy na stronie <a href="https://dev.ravensu.com/contact">dev.ravensu.com/contact</a></string>
     <string name="data_error_dialog_negative_button">Otwórz w przeglądarce</string>
-    <string name="no_assignments">Brak przydziałów</string>
+    <string name="no_assignment">Brak podziału</string>
+    <string name="no_assignments">Brak podziałów</string>
     <string name="no_documents">No documents</string>
     <string name="first_launch_welcome_dialog_title">Ostrzeżenie</string>
     <string name="first_launch_welcome_dialog_message">Witaj!\n\nNiniejsza aplikacja NIE jest oficjalną aplikacją i nie należy do spółki Gdańskie Autobusy i Tramwaje.\n\nAplikacja powstała jako projekt hobbystyczny z myślą o kierowcach i motorniczych GAiT oraz ich rodzinach i znajomych.\n\nAplikacja ma na celu ułatwienie kierowcom i motorniczym spółki sprawdzanie własnych podziałów i wyświetlanie ich w przystępniejszy sposób. Dane dotyczące podziałów są pobierane ze strony dla pracowników (podzialy.gait.pl). Pomimo iż twórca dołożył wszelkich starań by aplikacja była wolna od błędów to należy mieć na uwadze, że takowe mogą wystąpić i twórca w żaden sposób nie ponosi odpowiedzialności za szkody w wyniku potencjalnych błędów w działaniu aplikacji.\n\nW przypadku odnalezienia błędu w działaniu aplikacji, można takowy błąd zgłosić za pomocą formularza kontaktowego na stronie <a href="https://dev.ravensu.com">dev.ravensu.com</a>.\n\nMiłego korzystania :)\nBartosz Baum  |  ravensu.com</string>

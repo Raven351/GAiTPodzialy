@@ -10,6 +10,7 @@ import com.ravensu.gaitpodzialy.appdata.UsersLiveData;
 public class MainViewPagerViewModel extends ViewModel {
     private String TAG = "MainViewPagerViewModel";
     private MutableLiveData<String> driverName;
+    private LiveData<Boolean> isProperlyLoggedIn;
 
     public LiveData<String> getDriverId(){
         return Transformations.map(UsersLiveData.getCurrentlySelectedUserLiveData(), user -> user.UserId);
@@ -23,4 +24,17 @@ public class MainViewPagerViewModel extends ViewModel {
             else return "";
         });
     }
+
+    public LiveData<Boolean> getIsProperlyLoggedIn() {
+        if (isProperlyLoggedIn == null){
+            isProperlyLoggedIn = new MutableLiveData<>();
+        }
+        loadIsProperlyLoggedIn();
+        return isProperlyLoggedIn;
+    }
+
+    private void loadIsProperlyLoggedIn() {
+        isProperlyLoggedIn = Transformations.map(UsersLiveData.getCurrentlySelectedUserLiveData(), user -> user.isUserProperlyLoggedIn);
+    }
+
 }

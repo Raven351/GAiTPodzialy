@@ -1,6 +1,5 @@
 package com.ravensu.gaitpodzialy.activities.ui.assignmentslist;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Context;
@@ -11,9 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import android.os.CountDownTimer;
 import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,7 +25,6 @@ import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 import org.threeten.bp.format.DateTimeFormatter;
 
 public class AssignmentsFirstSecondFragment extends Fragment {
-
     private AssignmentsFirstSecondViewModel assignmentsFirstSecondViewModel;
     private Thread firstAssignmentCountdownThread;
     private final Handler mainHandler = new Handler();
@@ -64,7 +60,48 @@ public class AssignmentsFirstSecondFragment extends Fragment {
         final TextView assignmentSecondEndLocation = view.findViewById(R.id.assignmentSecondEndLocation);
         final TextView assignmentSecondTimeTotal = view.findViewById(R.id.assignmentSecondTimeTotal);
         final TextView assignmentSecondWeekDay = view.findViewById(R.id.assignmentSecondWeekDay);
-        if (UsersLiveData.getCurrentlySelectedUserLiveData().getValue().Assignments.size() == 0){
+        assignmentsFirstSecondViewModel = new ViewModelProvider(this).get(AssignmentsFirstSecondViewModel.class);
+
+        assignmentsFirstSecondViewModel.getIsProperlyLoggedIn().observe(getViewLifecycleOwner(), isProperlyLoggedIn -> {
+            if (isProperlyLoggedIn) {
+                assignmentsFirstSecondViewModel.getFirstAssignmentLiveData().observe(getViewLifecycleOwner(), assignment -> onFirstAssignmentChanged(assignment,
+                        assignmentFirstDateTextView,
+                        assignmentFirstWeekDay,
+                        assignmentFirstTimeEnd,
+                        assignmentFirstTimeTotal,
+                        assignmentFirstTimeStart,
+                        assignmentFirstCodeTextView,
+                        assignmentFirstNoticesTextView,
+                        assignmentFirstStartLocation,
+                        assignmentFirstEndLocation));
+                assignmentsFirstSecondViewModel.getFirstAssignmentTimeLeft().observe(getViewLifecycleOwner(), assignmentFirstTimeLeft::setText);
+
+                assignmentsFirstSecondViewModel.getFirstAssignmentStatus().observe(getViewLifecycleOwner(), stringResource -> onFirstAssignmentStatusChanged(
+                        stringResource,
+                        assignmentFirstStatusTextView,
+                        assignmentFirstTimeLeft)
+                );
+
+                assignmentsFirstSecondViewModel.getSecondAssignmentLiveData().observe(getViewLifecycleOwner(), assignment -> onSecondAssignmentChanged(assignment,
+                        assignmentSecondDateTextView,
+                        assignmentSecondWeekDay,
+                        assignmentSecondTimeEnd,
+                        assignmentSecondTimeTotal,
+                        assignmentSecondTimeStart,
+                        assignmentSecondCodeTextView,
+                        assignmentSecondNoticesTextView,
+                        assignmentSecondStartLocation,
+                        assignmentSecondEndLocation));
+
+                if (firstAssignmentCountdownThread != null) firstAssignmentCountdownThread.interrupt();
+                firstAssignmentCountdownThread = new Thread(new uiRealTimeUpdater(mainHandler, assignmentFirstTimeLeft, assignmentsFirstSecondViewModel));
+                firstAssignmentCountdownThread.start();
+            }
+            else{
+                firstAssignmentCountdownThread.interrupt();
+            }
+        });
+        if (!UsersLiveData.getCurrentlySelectedUserLiveData().getValue().isUserProperlyLoggedIn){
             assignmentFirstStatusTextView.setVisibility(View.GONE);
             assignmentFirstStartLocation.setVisibility(View.GONE);
             assignmentFirstTimeStart.setVisibility(View.GONE);
@@ -87,89 +124,14 @@ public class AssignmentsFirstSecondFragment extends Fragment {
             assignmentFirstTimeLeft.setVisibility(View.GONE);
         }
 
-        firstAssignmentCountdownThread = new Thread(new updateAssignmentFirstTimeLeftRunnable(assignmentFirstTimeLeft, mainHandler));
-        firstAssignmentCountdownThread.start();
-
-        assignmentsFirstSecondViewModel = new ViewModelProvider(this).get(AssignmentsFirstSecondViewModel.class);
-        assignmentsFirstSecondViewModel.getFirstAssignment().observe(getViewLifecycleOwner(), new Observer<Assignment>() {
-            @Override
-            public void onChanged(Assignment assignment) {
-                if (assignment != null){
-                    if (assignment.AssignmentStartDateTime != null && assignment.AssignmentEndDateTime != null){
-                        String dateFormat = assignment.AssignmentStartDateTime.toLocalDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                        assignmentFirstDateTextView.setText(dateFormat);
-                        String weekday = assignment.AssignmentStartDateTime.toLocalDate().format(DateTimeFormatter.ofPattern("EEEE"));
-                        weekday = weekday.substring(0, 1).toUpperCase() + weekday.substring(1);
-                        assignmentFirstWeekDay.setText(weekday);
-                        assignmentFirstTimeEnd.setText(assignment.AssignmentEndDateTime.toLocalTime().toString());
-                        assignmentFirstTimeTotal.setText(assignment.AssignmentDuration.toString());
-                        assignmentFirstTimeStart.setText(assignment.AssignmentStartDateTime.toLocalTime().toString());
-                    }
-                    else{
-                        assignmentFirstDateTextView.setText("-");
-                        assignmentFirstWeekDay.setText("-");
-                        assignmentFirstTimeEnd.setText("-");
-                        assignmentFirstTimeTotal.setText("-");
-                        assignmentFirstTimeStart.setText("-");
-                    }
-                    assignmentFirstCodeTextView.setText(assignment.AssignmentCode);
-                    assignmentFirstNoticesTextView.setText(assignment.Comments);
-                    assignmentFirstStartLocation.setText(assignment.AssignmentStartLocation);
-                    assignmentFirstEndLocation.setText(assignment.AssignmentEndLocation);
-                }
-            }
-        });
-        assignmentsFirstSecondViewModel.getFirstAssignmentTimeLeft().observe(getViewLifecycleOwner(), assignmentFirstTimeLeft::setText);
-        assignmentsFirstSecondViewModel.getFirstAssignmentStatus().observe(getViewLifecycleOwner(), new Observer<Integer>() {
-            @Override
-            public void onChanged(Integer stringResource) {
-                String status = getResources().getString(stringResource);
-                assignmentFirstStatusTextView.setText(status);
-                if (status.equals(getResources().getString(R.string.status_ongoing))) {
-                    assignmentFirstStatusTextView.setTextColor(Color.parseColor("#1895f5"));
-                    assignmentFirstTimeLeft.setVisibility(View.VISIBLE);
-                }
-                else if (status.equals(getResources().getString(R.string.status_willstart))){
-                    assignmentFirstStatusTextView.setTextColor(Color.parseColor("#19851b"));
-                    assignmentFirstTimeLeft.setVisibility(View.VISIBLE);
-                }
-                else {
-                    assignmentFirstStatusTextView.setTextColor(Color.parseColor("#39748f"));
-                    assignmentFirstTimeLeft.setVisibility(View.GONE);
-                }
-            }
-        });
-        assignmentsFirstSecondViewModel.getSecondAssignment().observe(getViewLifecycleOwner(), new Observer<Assignment>() {
-            @Override
-            public void onChanged(Assignment assignment) {
-                if (assignment != null){
-                    if (assignment.AssignmentStartDateTime != null && assignment.AssignmentEndDateTime != null){
-                        String dateFormat = assignment.AssignmentStartDateTime.toLocalDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
-                        assignmentSecondDateTextView.setText(dateFormat);
-                        String weekday = assignment.AssignmentStartDateTime.toLocalDate().format(DateTimeFormatter.ofPattern("EEEE"));
-                        weekday = weekday.substring(0, 1).toUpperCase() + weekday.substring(1);
-                        assignmentSecondWeekDay.setText(weekday);
-                        assignmentSecondTimeTotal.setText(assignment.AssignmentDuration.toString());
-                        assignmentSecondTimeStart.setText(assignment.AssignmentStartDateTime.toLocalTime().toString());
-                        assignmentSecondTimeEnd.setText(assignment.AssignmentEndDateTime.toLocalTime().toString());
-                    }
-                    else {
-                        assignmentSecondDateTextView.setText("-");
-                        assignmentSecondWeekDay.setText("-");
-                        assignmentSecondTimeTotal.setText("-");
-                        assignmentSecondTimeStart.setText("-");
-                        assignmentSecondTimeEnd.setText("-");
-                    }
-                    assignmentSecondCodeTextView.setText(assignment.AssignmentCode);
-                    assignmentSecondNoticesTextView.setText(assignment.Comments);
-                    assignmentSecondStartLocation.setText(assignment.AssignmentStartLocation);
-                    assignmentSecondEndLocation.setText(assignment.AssignmentEndLocation);
-
-                }
-            }
-        });
 
         return view;
+    }
+
+    private void showDataErrorControls() {
+    }
+
+    private void showLoggedInControls() {
     }
 
     @Override
@@ -182,26 +144,129 @@ public class AssignmentsFirstSecondFragment extends Fragment {
         super.onAttach(context);
     }
 
-    private static class updateAssignmentFirstTimeLeftRunnable implements Runnable{
+    private void onFirstAssignmentChanged(Assignment assignment,
+                                          TextView assignmentFirstDateTextView,
+                                          TextView assignmentFirstWeekDay,
+                                          TextView assignmentFirstTimeEnd,
+                                          TextView assignmentFirstTimeTotal,
+                                          TextView assignmentFirstTimeStart,
+                                          TextView assignmentFirstCodeTextView,
+                                          TextView assignmentFirstNoticesTextView,
+                                          TextView assignmentFirstStartLocation,
+                                          TextView assignmentFirstEndLocation){
+        if (assignment != null){
+            if (assignment.AssignmentStartDateTime != null && assignment.AssignmentEndDateTime != null){
+                String dateFormat = assignment.AssignmentStartDateTime.toLocalDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                assignmentFirstDateTextView.setText(dateFormat);
+                String weekday = assignment.AssignmentStartDateTime.toLocalDate().format(DateTimeFormatter.ofPattern("EEEE"));
+                weekday = weekday.substring(0, 1).toUpperCase() + weekday.substring(1);
+                assignmentFirstWeekDay.setText(weekday);
+                assignmentFirstTimeEnd.setText(assignment.AssignmentEndDateTime.toLocalTime().toString());
+                assignmentFirstTimeTotal.setText(assignment.AssignmentDuration.toString());
+                assignmentFirstTimeStart.setText(assignment.AssignmentStartDateTime.toLocalTime().toString());
+            }
+            assignmentFirstCodeTextView.setText(assignment.AssignmentCode);
+            assignmentFirstNoticesTextView.setText(assignment.Comments);
+            assignmentFirstStartLocation.setText(assignment.AssignmentStartLocation);
+            assignmentFirstEndLocation.setText(assignment.AssignmentEndLocation);
+        }
+        else{
+            assignmentFirstDateTextView.setText(R.string.no_assignment);
+            assignmentFirstWeekDay.setText("");
+            assignmentFirstTimeEnd.setText("");
+            assignmentFirstTimeTotal.setText("");
+            assignmentFirstTimeStart.setText("");
+            assignmentFirstCodeTextView.setText("");
+            assignmentFirstNoticesTextView.setText("");
+            assignmentFirstStartLocation.setText("");
+            assignmentFirstEndLocation.setText("");
+        }
+    }
+
+    private void onFirstAssignmentStatusChanged(int stringResource, TextView assignmentFirstStatusTextView, TextView assignmentFirstTimeLeft){
+        String status = getResources().getString(stringResource);
+        assignmentFirstStatusTextView.setText(status);
+        if (status.equals(getResources().getString(R.string.status_ongoing))) {
+            assignmentFirstStatusTextView.setTextColor(Color.parseColor("#1895f5"));
+            assignmentFirstTimeLeft.setVisibility(View.VISIBLE);
+        }
+        else if (status.equals(getResources().getString(R.string.status_willstart))){
+            assignmentFirstStatusTextView.setTextColor(Color.parseColor("#19851b"));
+            assignmentFirstTimeLeft.setVisibility(View.VISIBLE);
+        }
+        else {
+            assignmentFirstStatusTextView.setTextColor(Color.parseColor("#39748f"));
+            assignmentFirstTimeLeft.setVisibility(View.GONE);
+        }
+    }
+
+    private void onSecondAssignmentChanged(Assignment assignment,
+                                          TextView assignmentSecondDateTextView,
+                                          TextView assignmentSecondWeekDay,
+                                          TextView assignmentSecondTimeEnd,
+                                          TextView assignmentSecondTimeTotal,
+                                          TextView assignmentSecondTimeStart,
+                                          TextView assignmentSecondCodeTextView,
+                                          TextView assignmentSecondNoticesTextView,
+                                          TextView assignmentSecondStartLocation,
+                                          TextView assignmentSecondEndLocation){
+        if (assignment != null){
+            if (assignment.AssignmentStartDateTime != null && assignment.AssignmentEndDateTime != null){
+                String dateFormat = assignment.AssignmentStartDateTime.toLocalDate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"));
+                assignmentSecondDateTextView.setText(dateFormat);
+                String weekday = assignment.AssignmentStartDateTime.toLocalDate().format(DateTimeFormatter.ofPattern("EEEE"));
+                weekday = weekday.substring(0, 1).toUpperCase() + weekday.substring(1);
+                assignmentSecondWeekDay.setText(weekday);
+                assignmentSecondTimeTotal.setText(assignment.AssignmentDuration.toString());
+                assignmentSecondTimeStart.setText(assignment.AssignmentStartDateTime.toLocalTime().toString());
+                assignmentSecondTimeEnd.setText(assignment.AssignmentEndDateTime.toLocalTime().toString());
+            }
+            assignmentSecondCodeTextView.setText(assignment.AssignmentCode);
+            assignmentSecondNoticesTextView.setText(assignment.Comments);
+            assignmentSecondStartLocation.setText(assignment.AssignmentStartLocation);
+            assignmentSecondEndLocation.setText(assignment.AssignmentEndLocation);
+
+        }
+        else {
+            assignmentSecondDateTextView.setText(R.string.no_assignment);
+            assignmentSecondWeekDay.setText("");
+            assignmentSecondTimeTotal.setText("");
+            assignmentSecondTimeStart.setText("");
+            assignmentSecondTimeEnd.setText("");
+            assignmentSecondCodeTextView.setText("");
+            assignmentSecondNoticesTextView.setText("");
+            assignmentSecondStartLocation.setText("");
+            assignmentSecondEndLocation.setText("");
+        }
+    }
+
+    private static class uiRealTimeUpdater implements Runnable{
         TextView assignmentFirstTimeLeft;
         Handler uiThreadHandler;
+        AssignmentsFirstSecondViewModel assignmentFirstSecondViewModelProvider;
 
-        public updateAssignmentFirstTimeLeftRunnable(TextView assignmentFirstTimeLeft, Handler uiThreadHandler) {
+        public uiRealTimeUpdater(Handler uiThreadHandler, TextView assignmentFirstTimeLeft, AssignmentsFirstSecondViewModel assignmentFirstSecondViewModelProvider) {
             this.assignmentFirstTimeLeft = assignmentFirstTimeLeft;
             this.uiThreadHandler = uiThreadHandler;
+            this.assignmentFirstSecondViewModelProvider = assignmentFirstSecondViewModelProvider;
         }
 
         @Override
         public void run() {
             try {
                 while (!Thread.currentThread().isInterrupted()){
-                    uiThreadHandler.post(() -> assignmentFirstTimeLeft.setText(new AssignmentCountdownFinder(new AssignmentFinder(UsersLiveData.getCurrentlySelectedUserLiveData().getValue().Assignments).getFirstUpcomingAssignment()).getTimeLeft()));
+                    if (UsersLiveData.getCurrentlySelectedUserLiveData().getValue() != null){
+                        if (UsersLiveData.getCurrentlySelectedUserLiveData().getValue().Assignments.size() > 0){
+                            uiThreadHandler.post(() -> assignmentFirstTimeLeft.setText(new AssignmentCountdownFinder(new AssignmentFinder(UsersLiveData.getCurrentlySelectedUserLiveData().getValue().Assignments).getFirstUpcomingAssignment()).getTimeLeft()));
+                        }
+                        uiThreadHandler.post(() -> assignmentFirstSecondViewModelProvider.setFirstAssignment(new AssignmentFinder(UsersLiveData.getCurrentlySelectedUserLiveData().getValue().Assignments).getFirstUpcomingAssignment()));
+                        uiThreadHandler.post(() -> assignmentFirstSecondViewModelProvider.setSecondAssignment(new AssignmentFinder(UsersLiveData.getCurrentlySelectedUserLiveData().getValue().Assignments).getUpcomingAssignmentBySequence(2)));
+                    }
                     Thread.sleep(15000);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
         }
     }
 }

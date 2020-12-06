@@ -85,7 +85,9 @@ public class UsersLiveData {
                 }
             }
             mainUser.setValue(users.getValue().get(SavedAppMainLogin.GetMainLoginUserId(context)));
-            currentlySelectedUser.setValue(mainUser.getValue());
+            if (currentlySelectedUser.getValue() == null){
+                currentlySelectedUser.setValue(mainUser.getValue());
+            }
         }
         return currentlySelectedUser.getValue() != null;
     }

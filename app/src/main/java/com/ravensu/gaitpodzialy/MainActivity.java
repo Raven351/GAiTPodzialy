@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void startApp(final Context context){
-        new CountDownTimer(1000, 1000){
+        new CountDownTimer(100, 100){
             @Override
             public void onTick(long millisUntilFinished) {
             }
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void assignmentsListActivity(){
         UsersLiveDataLoader usersLiveDataLoader = new UsersLiveDataLoader(this);
-        boolean usersDataLoaded = usersLiveDataLoader.loadUsersdata();
+        boolean usersDataLoaded = usersLiveDataLoader.loadUsersData();
         Intent intent = new Intent(this, MainViewPager.class);
         intent.putExtra("FROM_ACTIVITY", "MAIN");
         if (usersDataLoaded) startActivity(intent); //if there is weak connection null

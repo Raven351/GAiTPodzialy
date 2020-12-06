@@ -19,7 +19,7 @@ public class UsersLiveDataLoader {
         this.context = context;
     }
 
-    public boolean loadUsersdata(){
+    public boolean loadUsersData(){
         if (SavedAppLogins.existsAny(context)){
             final Map<String, ?> savedUsersCredentials = SavedAppLogins.getAllCredentials(context);
             ExecutorService executorService = Executors.newFixedThreadPool(savedUsersCredentials.size());
