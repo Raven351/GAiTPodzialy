@@ -25,6 +25,7 @@ import com.ravensu.gaitpodzialy.activities.ui.accountsList.AccountsListActivity;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsListFragment;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsFirstSecondFragment;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.DocumentsListFragment;
+import com.ravensu.gaitpodzialy.appdata.GaitWebsiteUrlFinder;
 import com.ravensu.gaitpodzialy.appdata.UsersLiveData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
@@ -172,26 +173,28 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
         View infoButton = findViewById(R.id.infoButton);
         View accountsButton = findViewById(R.id.accountsButton);
         View refreshLoadingInProgressCircle = findViewById(R.id.refreshLoadingInProgressCircle);
-//        refreshButton.setVisibility(View.INVISIBLE);
-//        refreshLoadingInProgressCircle.setVisibility(View.VISIBLE);
-        //viewPager2.setUserInputEnabled(false);
-//        findViewById(R.id.infoButton).setEnabled(false);
-//        findViewById(R.id.accountsButton).setEnabled(false);
-//        findViewById(R.id.refreshButton).setEnabled(false);
-        final String currentlySelectedUserId = UsersLiveData.getCurrentlySelectedUserLiveData().getValue().UserId;
-        new refreshDataAsyncTask(currentlySelectedUserId, refreshButton, refreshLoadingInProgressCircle, infoButton, accountsButton).execute("");
-
-//        while (!refreshData(currentlySelectedUserId)){
-//            refreshLoadingInProgressCircle.setVisibility(View.GONE);
-//            refreshButton.setVisibility(View.VISIBLE);
-//            //viewPager2.setUserInputEnabled(true);
-//            findViewById(R.id.infoButton).setEnabled(true);
-//            findViewById(R.id.accountsButton).setEnabled(true);
-//            findViewById(R.id.refreshButton).setEnabled(true);
-//        }
-//        ExecutorService executorService = Executors.newFixedThreadPool(1);
-//        Callable<Boolean> callable = () -> refreshData(currentlySelectedUserId);
-//        Future<Boolean> refreshCompleted = executorService.submit(callable);
+        if (UsersLiveData.getCurrentlySelectedUserLiveData().getValue() != null) {
+            final String currentlySelectedUserId = UsersLiveData.getCurrentlySelectedUserLiveData().getValue().UserId;
+            RefreshDataAsyncTask refreshDataAsyncTask = new RefreshDataAsyncTask(currentlySelectedUserId, refreshButton, refreshLoadingInProgressCircle, infoButton, accountsButton);
+            refreshDataAsyncTask.execute("");
+            new Thread(() -> {
+                try {
+                    Thread.sleep(30000);
+                    if (!refreshDataAsyncTask.getStatus().equals(AsyncTask.Status.FINISHED)) {
+                        runOnUiThread(()->{
+                            refreshDataAsyncTask.cancel(true);
+                            refreshLoadingInProgressCircle.setVisibility(View.GONE);
+                            refreshButton.setVisibility(View.VISIBLE);
+                            accountsButton.setEnabled(true);
+                            infoButton.setEnabled(true);
+                            usersRefreshDataErrorDialog(currentlySelectedUserId);
+                        });
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
     }
 
     private static class ScreenSlidePagerAdapter extends FragmentStateAdapter{
@@ -228,11 +231,11 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
             UsersLiveData.postCurrentlySelectedUser(UsersLiveData.getUsersLiveData().getValue().get(currentlySelectedUserId));
         }
         else{
-            usersLoadingErrorDialog();
+            usersLoadingErrorDialog(currentlySelectedUserId);
         }
     }
 
-    private void usersLoadingErrorDialog(){
+    private void usersLoadingErrorDialog(String currentlySelectedUserId){
         new androidx.appcompat.app.AlertDialog.Builder(this)
             .setTitle(R.string.users_loading_error_dialog_title)
             .setMessage(R.string.users_loading_error_dialog_message)
@@ -246,7 +249,7 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
             .setNegativeButton(R.string.data_error_dialog_negative_button, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    String url = "http://podzialy.gait.pl/";
+                    String url = new GaitWebsiteUrlFinder(currentlySelectedUserId).getSiteUrl();
                     Intent intent = new Intent(Intent.ACTION_VIEW);
                     intent.setData(Uri.parse(url));
                     startActivity(intent);
@@ -255,14 +258,35 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
             }).show();
     }
 
-    private class refreshDataAsyncTask extends AsyncTask<String, String, String>{
+    private void usersRefreshDataErrorDialog(String currentlySelectedUserId){
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle(R.string.users_loading_error_dialog_title)
+                .setMessage(R.string.users_loading_error_dialog_message)
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .setNegativeButton(R.string.data_error_dialog_negative_button, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String url = new GaitWebsiteUrlFinder(currentlySelectedUserId).getSiteUrl();
+                        Intent intent = new Intent(Intent.ACTION_VIEW);
+                        intent.setData(Uri.parse(url));
+                        startActivity(intent);
+                    }
+                }).show();
+    }
+
+    private class RefreshDataAsyncTask extends AsyncTask<String, String, String>{
         private final String currentlySelectedUserId;
         private final View refreshButton;
         private final View refreshLoadingInProgressCircle;
         private final View infoButton;
         private final View accountsButton;
 
-        public refreshDataAsyncTask(String currentlySelectedUserId, View refreshButton, View refreshLoadingInProgressCircle, View infoButton, View accountsButton) {
+        public RefreshDataAsyncTask(String currentlySelectedUserId, View refreshButton, View refreshLoadingInProgressCircle, View infoButton, View accountsButton) {
             this.currentlySelectedUserId = currentlySelectedUserId;
             this.refreshButton = refreshButton;
             this.refreshLoadingInProgressCircle = refreshLoadingInProgressCircle;
