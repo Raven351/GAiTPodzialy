@@ -14,6 +14,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -167,26 +168,30 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
 
     //todo change
     public void onClickRefreshButton(View view) {
-        mainViewpagerLoadingCircle = findViewById(R.id.mainViewpagerLoadingCircle);
-        view.setVisibility(View.GONE);
+        View refreshButton = findViewById(R.id.refreshButton);
+        View infoButton = findViewById(R.id.infoButton);
+        View accountsButton = findViewById(R.id.accountsButton);
         View refreshLoadingInProgressCircle = findViewById(R.id.refreshLoadingInProgressCircle);
-        refreshLoadingInProgressCircle.setVisibility(View.VISIBLE);
-        mainViewpagerLoadingCircle.setVisibility(View.VISIBLE);
-        viewPager2.setUserInputEnabled(false);
-        findViewById(R.id.infoButton).setEnabled(false);
-        findViewById(R.id.accountsButton).setEnabled(false);
-        findViewById(R.id.refreshButton).setEnabled(false);
+//        refreshButton.setVisibility(View.INVISIBLE);
+//        refreshLoadingInProgressCircle.setVisibility(View.VISIBLE);
+        //viewPager2.setUserInputEnabled(false);
+//        findViewById(R.id.infoButton).setEnabled(false);
+//        findViewById(R.id.accountsButton).setEnabled(false);
+//        findViewById(R.id.refreshButton).setEnabled(false);
         final String currentlySelectedUserId = UsersLiveData.getCurrentlySelectedUserLiveData().getValue().UserId;
-        if (refreshData(currentlySelectedUserId)){
+        new refreshDataAsyncTask(currentlySelectedUserId, refreshButton, refreshLoadingInProgressCircle, infoButton, accountsButton).execute("");
 
-            mainViewpagerLoadingCircle.setVisibility(View.GONE);
-            refreshLoadingInProgressCircle.setVisibility(View.GONE);
-            viewPager2.setUserInputEnabled(true);
-            findViewById(R.id.infoButton).setEnabled(true);
-            findViewById(R.id.accountsButton).setEnabled(true);
-            findViewById(R.id.refreshButton).setEnabled(true);
-        }
-
+//        while (!refreshData(currentlySelectedUserId)){
+//            refreshLoadingInProgressCircle.setVisibility(View.GONE);
+//            refreshButton.setVisibility(View.VISIBLE);
+//            //viewPager2.setUserInputEnabled(true);
+//            findViewById(R.id.infoButton).setEnabled(true);
+//            findViewById(R.id.accountsButton).setEnabled(true);
+//            findViewById(R.id.refreshButton).setEnabled(true);
+//        }
+//        ExecutorService executorService = Executors.newFixedThreadPool(1);
+//        Callable<Boolean> callable = () -> refreshData(currentlySelectedUserId);
+//        Future<Boolean> refreshCompleted = executorService.submit(callable);
     }
 
     private static class ScreenSlidePagerAdapter extends FragmentStateAdapter{
@@ -217,37 +222,76 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
         }
     }
 
-    private boolean refreshData(String currentlySelectedUserId){
-        boolean usersDataLoaded = UsersLiveData.loadUsersData(this);
+    private void refreshDataAsync(String currentlySelectedUserId){
+        boolean usersDataLoaded = UsersLiveData.loadUsersDataAsync(this);
         if (usersDataLoaded) {
-            UsersLiveData.setCurrentlySelectedUser(UsersLiveData.getUsersLiveData().getValue().get(currentlySelectedUserId));
+            UsersLiveData.postCurrentlySelectedUser(UsersLiveData.getUsersLiveData().getValue().get(currentlySelectedUserId));
         }
         else{
             usersLoadingErrorDialog();
         }
-        return true;
     }
 
     private void usersLoadingErrorDialog(){
         new androidx.appcompat.app.AlertDialog.Builder(this)
-                .setTitle(R.string.users_loading_error_dialog_title)
-                .setMessage(R.string.users_loading_error_dialog_message)
-                .setCancelable(false)
-                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        finishAffinity();
-                    }
-                })
-                .setNegativeButton(R.string.data_error_dialog_negative_button, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String url = "http://podzialy.gait.pl/";
-                        Intent intent = new Intent(Intent.ACTION_VIEW);
-                        intent.setData(Uri.parse(url));
-                        startActivity(intent);
-                        finishAffinity();
-                    }
-                }).show();
+            .setTitle(R.string.users_loading_error_dialog_title)
+            .setMessage(R.string.users_loading_error_dialog_message)
+            .setCancelable(false)
+            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    finishAffinity();
+                }
+            })
+            .setNegativeButton(R.string.data_error_dialog_negative_button, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    String url = "http://podzialy.gait.pl/";
+                    Intent intent = new Intent(Intent.ACTION_VIEW);
+                    intent.setData(Uri.parse(url));
+                    startActivity(intent);
+                    finishAffinity();
+                }
+            }).show();
+    }
+
+    private class refreshDataAsyncTask extends AsyncTask<String, String, String>{
+        private final String currentlySelectedUserId;
+        private final View refreshButton;
+        private final View refreshLoadingInProgressCircle;
+        private final View infoButton;
+        private final View accountsButton;
+
+        public refreshDataAsyncTask(String currentlySelectedUserId, View refreshButton, View refreshLoadingInProgressCircle, View infoButton, View accountsButton) {
+            this.currentlySelectedUserId = currentlySelectedUserId;
+            this.refreshButton = refreshButton;
+            this.refreshLoadingInProgressCircle = refreshLoadingInProgressCircle;
+            this.infoButton = infoButton;
+            this.accountsButton = accountsButton;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            refreshButton.setVisibility(View.INVISIBLE);
+            accountsButton.setEnabled(false);
+            infoButton.setEnabled(false);
+            refreshLoadingInProgressCircle.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected String doInBackground(String... strings) {
+            refreshDataAsync(currentlySelectedUserId);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            refreshLoadingInProgressCircle.setVisibility(View.GONE);
+            refreshButton.setVisibility(View.VISIBLE);
+            accountsButton.setEnabled(true);
+            infoButton.setEnabled(true);
+        }
     }
 }

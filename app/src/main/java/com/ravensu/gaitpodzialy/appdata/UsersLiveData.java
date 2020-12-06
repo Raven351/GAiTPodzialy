@@ -46,6 +46,10 @@ public class UsersLiveData {
         currentlySelectedUser.setValue(user);
     }
 
+    public static void postCurrentlySelectedUser(User user){
+        currentlySelectedUser.postValue(user);
+    }
+
     public static LiveData<ConcurrentHashMap<String, User>> getUsersLiveData(){
         return users;
     }
@@ -59,6 +63,15 @@ public class UsersLiveData {
         users.setValue(usersMap);
     }
 
+    public static synchronized void addUserDataAsync(User user){
+        ConcurrentHashMap<String, User> usersMap = users.getValue();
+        if (usersMap == null) {
+            usersMap = new ConcurrentHashMap<>();
+        }
+        usersMap.put(user.UserId, user);
+        users.postValue(usersMap);
+    }
+
     public static void removeUserData(String userId){
         ConcurrentHashMap<String, User> users = getUsersLiveData().getValue();
         if (users != null) {
@@ -69,31 +82,65 @@ public class UsersLiveData {
 
     public static boolean loadUsersData(Context context) {
         if (SavedAppLogins.existsAny(context)){
-            final Map<String, ?> savedUsersCredentials = SavedAppLogins.getAllCredentials(context);
-            ExecutorService executorService = Executors.newFixedThreadPool(savedUsersCredentials.size());
             List<Future<User>> usersFutureList = new ArrayList<>();
-            for (Map.Entry<String, ?> entry : savedUsersCredentials.entrySet()){
-                ScrapUserDataTask scrapUserDataTask = new ScrapUserDataTask(entry.getKey(), entry.getValue().toString());
-                Future<User> userFuture = executorService.submit(scrapUserDataTask);
-                usersFutureList.add(userFuture);
-            }
-            for (Future<User> userFuture : usersFutureList){
-                try{
-                    UsersLiveData.addUserData(userFuture.get());
-                } catch (InterruptedException | ExecutionException e) {
-                    e.printStackTrace();
-                }
-            }
-            mainUser.setValue(users.getValue().get(SavedAppMainLogin.GetMainLoginUserId(context)));
-            if (currentlySelectedUser.getValue() == null){
-                currentlySelectedUser.setValue(mainUser.getValue());
-            }
+            loadDataToList(context, usersFutureList);
+            addUsersToUsersLiveData(usersFutureList);
+            setUpAppMainUser(context);
         }
         return currentlySelectedUser.getValue() != null;
     }
 
-    public static void loadUsersDataAsync(Context context){
-        Thread thread = new Thread(() -> loadUsersData(context));
-        thread.start();
+    public static boolean loadUsersDataAsync(Context context){
+        if (SavedAppLogins.existsAny(context)){
+            List<Future<User>> usersFutureList = new ArrayList<>();
+            loadDataToList(context, usersFutureList);
+            addUsersToUsersLiveDataAsync(usersFutureList);
+            setUpAppMainUserAsync(context);
+        }
+        return currentlySelectedUser.getValue() != null;
+    }
+
+    private static void setUpAppMainUserAsync(Context context) {
+        mainUser.postValue(users.getValue().get(SavedAppMainLogin.GetMainLoginUserId(context)));
+        if (currentlySelectedUser.getValue() == null){
+            currentlySelectedUser.postValue(mainUser.getValue());
+        }
+    }
+
+    private static void addUsersToUsersLiveDataAsync(List<Future<User>> usersFutureList) {
+        for (Future<User> userFuture : usersFutureList){
+            try{
+                UsersLiveData.addUserDataAsync(userFuture.get());
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    private static void setUpAppMainUser(Context context) {
+        mainUser.setValue(users.getValue().get(SavedAppMainLogin.GetMainLoginUserId(context)));
+        if (currentlySelectedUser.getValue() == null){
+            currentlySelectedUser.setValue(mainUser.getValue());
+        }
+    }
+
+    private static void loadDataToList(Context context, List<Future<User>> usersFutureList) {
+        final Map<String, ?> savedUsersCredentials = SavedAppLogins.getAllCredentials(context);
+        ExecutorService executorService = Executors.newFixedThreadPool(savedUsersCredentials.size());
+        for (Map.Entry<String, ?> entry : savedUsersCredentials.entrySet()){
+            ScrapUserDataTask scrapUserDataTask = new ScrapUserDataTask(entry.getKey(), entry.getValue().toString());
+            Future<User> userFuture = executorService.submit(scrapUserDataTask);
+            usersFutureList.add(userFuture);
+        }
+    }
+
+    private static void addUsersToUsersLiveData(List<Future<User>> usersFutureList) {
+        for (Future<User> userFuture : usersFutureList){
+            try{
+                UsersLiveData.addUserData(userFuture.get());
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
