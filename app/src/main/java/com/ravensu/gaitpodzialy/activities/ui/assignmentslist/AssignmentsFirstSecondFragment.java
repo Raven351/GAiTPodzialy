@@ -188,14 +188,17 @@ public class AssignmentsFirstSecondFragment extends Fragment {
         assignmentFirstStatusTextView.setText(status);
         if (status.equals(getResources().getString(R.string.status_ongoing))) {
             assignmentFirstStatusTextView.setTextColor(Color.parseColor("#1895f5"));
+            assignmentFirstTimeLeft.setTextColor(Color.parseColor("#1895f5"));
             assignmentFirstTimeLeft.setVisibility(View.VISIBLE);
         }
         else if (status.equals(getResources().getString(R.string.status_willstart))){
             assignmentFirstStatusTextView.setTextColor(Color.parseColor("#19851b"));
+            assignmentFirstTimeLeft.setTextColor(Color.parseColor("#19851b"));
             assignmentFirstTimeLeft.setVisibility(View.VISIBLE);
         }
         else {
             assignmentFirstStatusTextView.setTextColor(Color.parseColor("#39748f"));
+            assignmentFirstTimeLeft.setTextColor(Color.parseColor("#39748f"));
             assignmentFirstTimeLeft.setVisibility(View.GONE);
         }
     }

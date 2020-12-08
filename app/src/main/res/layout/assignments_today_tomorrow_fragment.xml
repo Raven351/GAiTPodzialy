@@ -50,26 +50,29 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
-                    <TextView
-                        android:id="@+id/assignmentFirstStatus"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/assignment_sample_status"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/todayAssignmentLabel" />
+                        app:layout_constraintTop_toBottomOf="@+id/todayAssignmentLabel"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="8dp">
+                        <TextView
+                            android:id="@+id/assignmentFirstStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/assignment_sample_status" />
 
-                    <TextView
-                        android:id="@+id/assignmentFirstTimeLeft"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="4dp"
-                        android:textSize="12sp"
-                        android:text=""
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/assignmentFirstStatus" />
+                        <TextView
+                            android:id="@+id/assignmentFirstTimeLeft"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=""
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginStart="4dp"/>
+                    </LinearLayout>
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
