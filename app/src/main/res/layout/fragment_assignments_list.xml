@@ -22,13 +22,27 @@
         android:id="@+id/assignmentsList"
         android:name="com.ravensu.gaitpodzialy.AssignmentsListFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
         app:layoutManager="LinearLayoutManager"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/showTodayButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:scrollbars="vertical"
         tools:context=".activities.ui.assignmentslist.AssignmentsListFragment"
         tools:listitem="@layout/fragment_assignments_item" />
+
+    <Button
+        android:id="@+id/showTodayButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/buttonShowToday"
+        android:textColor="#FFFFFF"
+        android:padding="0dp"
+        android:layout_margin="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/lightRed"
+        android:elevation="5dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

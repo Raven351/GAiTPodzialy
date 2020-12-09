@@ -13,6 +13,7 @@ import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 import org.jetbrains.annotations.NotNull;
 import org.threeten.bp.LocalDate;
+import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
 
 import java.util.ArrayList;
@@ -23,6 +24,11 @@ public class AssignmentsListAdapter extends RecyclerView.Adapter<AssignmentsList
     private int todayAssignmentPosition;
 
     public AssignmentsListAdapter() {
+    }
+
+    public AssignmentsListAdapter(ArrayList<Assignment> assignments){
+        this.assignments = assignments;
+        todayAssignmentPosition = findTodayAssignmentPosition(assignments);
     }
 
     @NotNull
@@ -64,9 +70,26 @@ public class AssignmentsListAdapter extends RecyclerView.Adapter<AssignmentsList
 
     public int getTodayAssignmentPosition() {return todayAssignmentPosition;}
 
+    private int findTodayAssignmentPosition(ArrayList<Assignment> assignments){
+        for (Assignment assignment: assignments) {
+            if (LocalDateTime.now().toLocalDate().isEqual(assignment.AssignmentStartDateTime.toLocalDate())) return todayAssignmentPosition = assignments.indexOf(assignment);
+        }
+        return 0;
+    }
+
     public void setAssignments(ArrayList<Assignment> assignments){
         this.assignments = assignments;
-        notifyDataSetChanged();
+        this.todayAssignmentPosition = findTodayAssignmentPosition(assignments);
+    }
+
+    //todo to other class
+    private ArrayList<Assignment> removePreviousAssignmentsFromList(ArrayList<Assignment> assignments){
+        for (int i = 0; i<assignments.size(); i++) {
+            if(assignments.size() > 2){
+                if (assignments.get(i).AssignmentStartDateTime.isBefore(LocalDateTime.now().minusDays(2))) assignments.remove(assignments.get(i));
+            }
+        }
+        return assignments;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

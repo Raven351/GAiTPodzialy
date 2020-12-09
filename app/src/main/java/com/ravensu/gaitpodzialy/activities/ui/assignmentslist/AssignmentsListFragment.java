@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.ravensu.gaitpodzialy.R;
@@ -62,6 +63,7 @@ public class AssignmentsListFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_assignments_list, container, false);
         final RecyclerView recyclerView = view.findViewById(R.id.assignmentsList);
+        Button showTodayButton = view.findViewById(R.id.showTodayButton);
         TextView assignmentsListInfoTextView = view.findViewById(R.id.assignmentsListInfoTextView);
         if (UsersLiveData.getCurrentlySelectedUserLiveData().getValue().Assignments.size() < 1){
             assignmentsListInfoTextView.setText(R.string.no_assignments);
@@ -73,18 +75,18 @@ public class AssignmentsListFragment extends Fragment {
         // Set the adapter
         if (recyclerView != null) {
             Context context = view.getContext();
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            final AssignmentsListAdapter adapter = new AssignmentsListAdapter();
+            final AssignmentsListAdapter adapter = new AssignmentsListAdapter(UsersLiveData.getCurrentlySelectedUserLiveData().getValue().Assignments);
             recyclerView.setAdapter(adapter);
             assignmentsListViewModel = new ViewModelProvider(this).get(AssignmentsListViewModel.class);
             assignmentsListViewModel.getAssignments().observe(getViewLifecycleOwner(), assignments -> {
                 adapter.setAssignments(assignments);
-                adapter.notifyDataSetChanged();
             });
+            if (mColumnCount <= 1) {
+                recyclerView.setLayoutManager(new LinearLayoutManager(context));
+                showTodayButton.setOnClickListener(v -> recyclerView.post(() -> recyclerView.smoothScrollToPosition(adapter.getTodayAssignmentPosition())));
+            } else {
+                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
+            }
         }
         return view;
     }
@@ -113,8 +115,6 @@ public class AssignmentsListFragment extends Fragment {
         super.onResume();
 
     }
-
-
 
     /**
      * This interface must be implemented by activities that contain this
