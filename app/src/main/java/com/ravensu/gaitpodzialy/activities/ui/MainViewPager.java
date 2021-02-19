@@ -23,7 +23,7 @@ import android.widget.TextView;
 import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.activities.ui.accountsList.AccountsListActivity;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsListFragment;
-import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.AssignmentsFirstSecondFragment;
+import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.assignmentsfirstsecond.AssignmentsFirstSecondFragment;
 import com.ravensu.gaitpodzialy.activities.ui.assignmentslist.DocumentsListFragment;
 import com.ravensu.gaitpodzialy.appdata.GaitWebsiteUrlFinder;
 import com.ravensu.gaitpodzialy.appdata.UsersLiveData;
@@ -40,6 +40,7 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
     private FragmentStateAdapter pageAdapter;
     private MainViewPagerViewModel viewModel;
     private RelativeLayout mainViewpagerLoadingCircle;
+    private String currentlySelectedUserId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,19 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
     private void observeIsProperlyLoggedInLiveData() {
         viewModel.getIsProperlyLoggedIn().observe(this, isProperlyLoggedIn -> {
             if (isProperlyLoggedIn){
-                setUpLoggedInView();
+                if ((UsersLiveData.getCurrentlySelectedUserLiveData().getValue()) != null){
+                    if (currentlySelectedUserId.equals(UsersLiveData.getCurrentlySelectedUserLiveData().getValue().UserId)){
+
+                    }
+                    else{
+                        setUpLoggedInView();
+                        currentlySelectedUserId = UsersLiveData.getCurrentlySelectedUserLiveData().getValue().UserId;
+                    }
+                }
+                else{
+                    setUpLoggedInView();
+                    currentlySelectedUserId = UsersLiveData.getCurrentlySelectedUserLiveData().getValue().UserId;
+                }
             }
             else{
                 setUpDataErrorView();

@@ -78,9 +78,7 @@ public class AssignmentsListFragment extends Fragment {
             final AssignmentsListAdapter adapter = new AssignmentsListAdapter(UsersLiveData.getCurrentlySelectedUserLiveData().getValue().Assignments);
             recyclerView.setAdapter(adapter);
             assignmentsListViewModel = new ViewModelProvider(this).get(AssignmentsListViewModel.class);
-            assignmentsListViewModel.getAssignments().observe(getViewLifecycleOwner(), assignments -> {
-                adapter.setAssignments(assignments);
-            });
+            assignmentsListViewModel.getAssignments().observe(getViewLifecycleOwner(), adapter::setAssignments);
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
                 showTodayButton.setOnClickListener(v -> recyclerView.post(() -> recyclerView.smoothScrollToPosition(adapter.getTodayAssignmentPosition())));

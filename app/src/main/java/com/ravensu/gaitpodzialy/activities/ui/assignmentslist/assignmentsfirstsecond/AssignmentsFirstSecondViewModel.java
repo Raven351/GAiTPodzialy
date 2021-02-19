@@ -1,4 +1,4 @@
-package com.ravensu.gaitpodzialy.activities.ui.assignmentslist;
+package com.ravensu.gaitpodzialy.activities.ui.assignmentslist.assignmentsfirstsecond;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MediatorLiveData;

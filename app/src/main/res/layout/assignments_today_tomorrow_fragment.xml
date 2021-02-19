@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:id="@+id/todayTomorrowScrollView">
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -21,8 +22,7 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
-            app:cardCornerRadius="@dimen/assignments_card_corner_radius"
-            >
+            app:cardCornerRadius="@dimen/assignments_card_corner_radius">
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -37,7 +37,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
-
                     <TextView
                         android:id="@+id/todayAssignmentLabel"
                         android:layout_width="wrap_content"
@@ -49,7 +48,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -63,7 +61,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/assignment_sample_status" />
-
                         <TextView
                             android:id="@+id/assignmentFirstTimeLeft"
                             android:layout_width="wrap_content"
@@ -72,8 +69,6 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginStart="4dp"/>
                     </LinearLayout>
-
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/first_assignment_data_container"
@@ -84,7 +79,6 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/todayAssignmentLabelContainer"
                     app:layout_constraintVertical_bias="0.0">
-
                     <TextView
                         android:id="@+id/assignmentFirstDate"
                         android:layout_width="wrap_content"
@@ -96,7 +90,6 @@
                         app:layout_constraintHorizontal_bias="0.05"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
                     <TextView
                         android:id="@+id/assignmentFirstWeekDay"
                         android:layout_width="wrap_content"
@@ -109,7 +102,6 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@id/assignmentFirstDate"
                         app:layout_constraintTop_toBottomOf="@+id/assignmentFirstDate" />
-
                     <TextView
                         android:id="@+id/assignmentFirstCode"
                         android:layout_width="wrap_content"
@@ -122,7 +114,6 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/assignmentFirstWeekDay"
                         app:layout_constraintTop_toBottomOf="@+id/assignmentFirstWeekDay" />
-
                     <TextView
                         android:id="@+id/assignmentFirstTimeEnd"
                         android:layout_width="wrap_content"
@@ -133,7 +124,6 @@
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="@+id/assignmentTodayEndLabel"
                         app:layout_constraintTop_toBottomOf="@+id/assignmentTodayEndLabel" />
-
                     <TextView
                         android:id="@+id/assignmentFirstTimeTotal"
                         android:layout_width="wrap_content"
@@ -145,7 +135,6 @@
                         app:layout_constraintBottom_toBottomOf="@+id/assignmentTodayTimeTotalLabel"
                         app:layout_constraintStart_toEndOf="@+id/assignmentTodayTimeTotalLabel"
                         app:layout_constraintTop_toTopOf="@+id/assignmentTodayTimeTotalLabel" />
-
                     <TextView
                         android:id="@+id/assignmentFirstNotices"
                         android:layout_width="wrap_content"
@@ -159,7 +148,6 @@
                         android:textSize="14sp"
                         app:layout_constraintStart_toStartOf="@+id/assignmentFirstCode"
                         app:layout_constraintTop_toBottomOf="@+id/assignmentFirstCode" />
-
                     <TextView
                         android:id="@+id/assignmentTodayTimeTotalLabel"
                         android:layout_width="wrap_content"
@@ -170,7 +158,6 @@
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="@+id/assignmentFirstEndLocation"
                         app:layout_constraintStart_toStartOf="parent" />
-
                     <TextView
                         android:id="@+id/assignmentFirstTimeStart"
                         android:layout_width="wrap_content"
@@ -181,7 +168,6 @@
                         android:layout_marginTop="2dp"
                         app:layout_constraintEnd_toEndOf="@+id/assignmentTodayStartLabel"
                         app:layout_constraintTop_toBottomOf="@+id/assignmentTodayStartLabel" />
-
                     <TextView
                         android:id="@+id/assignmentTodayStartLabel"
                         android:layout_width="wrap_content"
@@ -193,7 +179,6 @@
                         app:layout_constraintHorizontal_bias="0.95"
                         app:layout_constraintStart_toEndOf="@+id/assignmentFirstDate"
                         app:layout_constraintTop_toTopOf="parent" />
-
                     <TextView
                         android:id="@+id/assignmentTodayEndLabel"
                         android:layout_width="wrap_content"
@@ -206,7 +191,6 @@
                         app:layout_constraintHorizontal_bias="1"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/assignmentFirstStartLocation" />
-
                     <TextView
                         android:id="@+id/assignmentFirstStartLocation"
                         android:layout_width="0dp"
@@ -225,7 +209,6 @@
                         app:layout_constraintEnd_toEndOf="@+id/assignmentFirstTimeStart"
                         app:layout_constraintStart_toEndOf="@+id/assignmentFirstDate"
                         app:layout_constraintTop_toBottomOf="@+id/assignmentFirstTimeStart" />
-
                     <TextView
                         android:id="@+id/assignmentFirstEndLocation"
                         android:layout_width="0dp"
@@ -246,7 +229,6 @@
                         app:layout_constraintTop_toBottomOf="@+id/assignmentFirstTimeEnd" />
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.appcompat.widget.LinearLayoutCompat>
-
         </androidx.cardview.widget.CardView>
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -257,8 +239,7 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="10dp"
             app:cardBackgroundColor="#FFFFFF"
-            app:cardCornerRadius="@dimen/assignments_card_corner_radius"
-            >
+            app:cardCornerRadius="@dimen/assignments_card_corner_radius">
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -272,7 +253,6 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
-
                     <TextView
                         android:id="@+id/tomorrowAssignmentLabel"
                         android:layout_width="wrap_content"
@@ -284,7 +264,6 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -302,7 +281,6 @@
                         app:layout_constraintHorizontal_bias="0.05"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
                     <TextView
                         android:id="@+id/assignmentSecondWeekDay"
                         android:layout_width="wrap_content"
@@ -315,7 +293,6 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/assignmentSecondDate"
                         app:layout_constraintTop_toBottomOf="@+id/assignmentSecondDate" />
-
                     <TextView
                         android:id="@+id/assignmentSecondCode"
                         android:layout_width="wrap_content"
@@ -328,7 +305,6 @@
                         app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/assignmentSecondWeekDay"
                         app:layout_constraintTop_toBottomOf="@+id/assignmentSecondWeekDay" />
-
                     <TextView
                         android:id="@+id/assignmentSecondTimeEnd"
                         android:layout_width="wrap_content"
@@ -339,7 +315,6 @@
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="@+id/assignmentTomorrowEndLabel"
                         app:layout_constraintTop_toBottomOf="@+id/assignmentTomorrowEndLabel" />
-
                     <TextView
                         android:id="@+id/assignmentSecondTimeTotal"
                         android:layout_width="wrap_content"
@@ -350,7 +325,6 @@
                         android:layout_marginStart="4dp"
                         app:layout_constraintStart_toEndOf="@+id/assignmentTomorrowTimeTotalLabel"
                         app:layout_constraintTop_toTopOf="@+id/assignmentTomorrowTimeTotalLabel" />
-
                     <TextView
                         android:id="@+id/assignmentSecondNotices"
                         android:layout_width="wrap_content"
@@ -362,10 +336,8 @@
                         android:text="@string/assignment_sample_notices"
                         android:textColor="#000000"
                         android:textSize="14sp"
-
                         app:layout_constraintStart_toStartOf="@+id/assignmentSecondCode"
                         app:layout_constraintTop_toBottomOf="@+id/assignmentSecondCode" />
-
                     <TextView
                         android:id="@+id/assignmentTomorrowTimeTotalLabel"
                         android:layout_width="wrap_content"
@@ -375,7 +347,6 @@
                         android:textSize="12sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/assignmentSecondNotices" />
-
                     <TextView
                         android:id="@+id/assignmentSecondTimeStart"
                         android:layout_width="wrap_content"
@@ -386,7 +357,6 @@
                         android:textSize="14sp"
                         app:layout_constraintEnd_toEndOf="@+id/assignmentSecondStartLabel"
                         app:layout_constraintTop_toBottomOf="@+id/assignmentSecondStartLabel" />
-
                     <TextView
                         android:id="@+id/assignmentSecondStartLabel"
                         android:layout_width="wrap_content"
@@ -398,7 +368,6 @@
                         app:layout_constraintHorizontal_bias="0.95"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
-
                     <TextView
                         android:id="@+id/assignmentTomorrowEndLabel"
                         android:layout_width="wrap_content"
@@ -411,7 +380,6 @@
                         app:layout_constraintHorizontal_bias="0.95"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/assignmentSecondStartLocation" />
-
                     <TextView
                         android:id="@+id/assignmentSecondStartLocation"
                         android:layout_width="0dp"
@@ -429,7 +397,6 @@
                         app:layout_constraintEnd_toEndOf="@+id/assignmentSecondTimeStart"
                         app:layout_constraintStart_toEndOf="@+id/assignmentSecondDate"
                         app:layout_constraintTop_toBottomOf="@+id/assignmentSecondTimeStart" />
-
                     <TextView
                         android:id="@+id/assignmentSecondEndLocation"
                         android:layout_width="0dp"
@@ -447,12 +414,8 @@
                         app:layout_constraintEnd_toEndOf="@+id/assignmentSecondTimeEnd"
                         app:layout_constraintStart_toEndOf="@+id/assignmentSecondTimeTotal"
                         app:layout_constraintTop_toBottomOf="@+id/assignmentSecondTimeEnd" />
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.cardview.widget.CardView>
-
-
     </androidx.appcompat.widget.LinearLayoutCompat>
-
 </androidx.core.widget.NestedScrollView>

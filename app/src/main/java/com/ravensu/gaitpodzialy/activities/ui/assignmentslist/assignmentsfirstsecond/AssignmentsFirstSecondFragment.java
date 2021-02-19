@@ -1,4 +1,4 @@
-package com.ravensu.gaitpodzialy.activities.ui.assignmentslist;
+package com.ravensu.gaitpodzialy.activities.ui.assignmentslist.assignmentsfirstsecond;
 
 import androidx.lifecycle.ViewModelProvider;
 
@@ -19,10 +19,13 @@ import android.widget.TextView;
 import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.appdata.AssignmentCountdownFinder;
 import com.ravensu.gaitpodzialy.appdata.AssignmentFinder;
+import com.ravensu.gaitpodzialy.appdata.AssignmentStatusFinder;
 import com.ravensu.gaitpodzialy.appdata.UsersLiveData;
 import com.ravensu.gaitpodzialy.webscrapper.models.Assignment;
 
 import org.threeten.bp.format.DateTimeFormatter;
+
+import java.util.ArrayList;
 
 public class AssignmentsFirstSecondFragment extends Fragment {
     private AssignmentsFirstSecondViewModel assignmentsFirstSecondViewModel;
@@ -35,7 +38,7 @@ public class AssignmentsFirstSecondFragment extends Fragment {
     public static AssignmentsFirstSecondFragment newInstance() {
         return new AssignmentsFirstSecondFragment();
     }
-
+    //todo clean up this mess
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable final ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -75,13 +78,11 @@ public class AssignmentsFirstSecondFragment extends Fragment {
                         assignmentFirstStartLocation,
                         assignmentFirstEndLocation));
                 assignmentsFirstSecondViewModel.getFirstAssignmentTimeLeft().observe(getViewLifecycleOwner(), assignmentFirstTimeLeft::setText);
-
                 assignmentsFirstSecondViewModel.getFirstAssignmentStatus().observe(getViewLifecycleOwner(), stringResource -> onFirstAssignmentStatusChanged(
                         stringResource,
                         assignmentFirstStatusTextView,
                         assignmentFirstTimeLeft)
                 );
-
                 assignmentsFirstSecondViewModel.getSecondAssignmentLiveData().observe(getViewLifecycleOwner(), assignment -> onSecondAssignmentChanged(assignment,
                         assignmentSecondDateTextView,
                         assignmentSecondWeekDay,
@@ -92,9 +93,8 @@ public class AssignmentsFirstSecondFragment extends Fragment {
                         assignmentSecondNoticesTextView,
                         assignmentSecondStartLocation,
                         assignmentSecondEndLocation));
-
                 if (firstAssignmentCountdownThread != null) firstAssignmentCountdownThread.interrupt();
-                firstAssignmentCountdownThread = new Thread(new uiRealTimeUpdater(mainHandler, assignmentFirstTimeLeft, assignmentsFirstSecondViewModel));
+                firstAssignmentCountdownThread = new Thread(new uiRealTimeUpdater(mainHandler,assignmentFirstStatusTextView ,assignmentFirstTimeLeft, assignmentsFirstSecondViewModel));
                 firstAssignmentCountdownThread.start();
             }
             else{
@@ -123,15 +123,7 @@ public class AssignmentsFirstSecondFragment extends Fragment {
             assignmentSecondWeekDay.setVisibility(View.GONE);
             assignmentFirstTimeLeft.setVisibility(View.GONE);
         }
-
-
         return view;
-    }
-
-    private void showDataErrorControls() {
-    }
-
-    private void showLoggedInControls() {
     }
 
     @Override
@@ -244,11 +236,14 @@ public class AssignmentsFirstSecondFragment extends Fragment {
     }
 
     private static class uiRealTimeUpdater implements Runnable{
+        TextView assignmentFirstStatus;
         TextView assignmentFirstTimeLeft;
         Handler uiThreadHandler;
         AssignmentsFirstSecondViewModel assignmentFirstSecondViewModelProvider;
+        int DELAY = 60000;
 
-        public uiRealTimeUpdater(Handler uiThreadHandler, TextView assignmentFirstTimeLeft, AssignmentsFirstSecondViewModel assignmentFirstSecondViewModelProvider) {
+        public uiRealTimeUpdater(Handler uiThreadHandler, TextView assignmentFirstStatus, TextView assignmentFirstTimeLeft, AssignmentsFirstSecondViewModel assignmentFirstSecondViewModelProvider) {
+            this.assignmentFirstStatus = assignmentFirstStatus;
             this.assignmentFirstTimeLeft = assignmentFirstTimeLeft;
             this.uiThreadHandler = uiThreadHandler;
             this.assignmentFirstSecondViewModelProvider = assignmentFirstSecondViewModelProvider;
@@ -259,13 +254,16 @@ public class AssignmentsFirstSecondFragment extends Fragment {
             try {
                 while (!Thread.currentThread().isInterrupted()){
                     if (UsersLiveData.getCurrentlySelectedUserLiveData().getValue() != null){
+                        ArrayList<Assignment> assignments = new ArrayList<>(UsersLiveData.getCurrentlySelectedUserLiveData().getValue().Assignments);
+                        Assignment firstUpcomingAssignment = new AssignmentFinder(assignments).getFirstUpcomingAssignment();
+                        Assignment secondUpcomingAssignment = new AssignmentFinder(assignments).getUpcomingAssignmentBySequence(2);
                         if (UsersLiveData.getCurrentlySelectedUserLiveData().getValue().Assignments.size() > 0){
-                            uiThreadHandler.post(() -> assignmentFirstTimeLeft.setText(new AssignmentCountdownFinder(new AssignmentFinder(UsersLiveData.getCurrentlySelectedUserLiveData().getValue().Assignments).getFirstUpcomingAssignment()).getTimeLeft()));
+                            uiThreadHandler.post(() -> assignmentFirstTimeLeft.setText(new AssignmentCountdownFinder(firstUpcomingAssignment).getTimeLeft()));
                         }
-                        uiThreadHandler.post(() -> assignmentFirstSecondViewModelProvider.setFirstAssignment(new AssignmentFinder(UsersLiveData.getCurrentlySelectedUserLiveData().getValue().Assignments).getFirstUpcomingAssignment()));
-                        uiThreadHandler.post(() -> assignmentFirstSecondViewModelProvider.setSecondAssignment(new AssignmentFinder(UsersLiveData.getCurrentlySelectedUserLiveData().getValue().Assignments).getUpcomingAssignmentBySequence(2)));
+                        uiThreadHandler.post(() -> assignmentFirstSecondViewModelProvider.setFirstAssignment(firstUpcomingAssignment));
+                        uiThreadHandler.post(() -> assignmentFirstSecondViewModelProvider.setSecondAssignment(secondUpcomingAssignment));
                     }
-                    Thread.sleep(15000);
+                    Thread.sleep(DELAY);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
