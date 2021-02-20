@@ -56,4 +56,7 @@
     <string name="dialog_no">Nie</string>
     <string name="no_data">BRAK DANYCH</string>
     <string name="buttonShowToday">Przewiń do dzisiaj</string>
+    <string name="logout">Wyloguj</string>
+    <string name="setAsDefault">Ustaw jako domyślny</string>
+    <string name="select">Wybierz</string>
 </resources>

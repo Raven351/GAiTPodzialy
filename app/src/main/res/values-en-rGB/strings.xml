@@ -56,4 +56,7 @@
     <string name="version">"Version: "</string>
     <string name="no_data">NO DATA</string>
     <string name="buttonShowToday">Go to today</string>
+    <string name="logout">Logout</string>
+    <string name="setAsDefault">Set as default</string>
+    <string name="select">Select</string>
 </resources>
