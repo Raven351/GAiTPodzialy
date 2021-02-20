@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ravensu.gaitpodzialy.MainActivity;
@@ -20,6 +22,7 @@ import com.ravensu.gaitpodzialy.R;
 import com.ravensu.gaitpodzialy.appdata.SavedAppLogins;
 import com.ravensu.gaitpodzialy.appdata.SavedAppMainLogin;
 import com.ravensu.gaitpodzialy.appdata.UsersLiveData;
+import com.ravensu.gaitpodzialy.dialogs.ConfirmGeneralDialogFragment;
 import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
 import java.util.ArrayList;
@@ -29,11 +32,13 @@ public class AccountsListAdapter extends RecyclerView.Adapter<AccountsListAdapte
 
     private final ArrayList<User> users = new ArrayList<User>();
     private final Activity parentActivity;
+    private final FragmentManager fragmentManager;
     private AccountsListViewModel viewModel;
 
-    public AccountsListAdapter(Activity activity){
+    public AccountsListAdapter(Activity activity, FragmentManager fragmentManager){
         super();
         this.parentActivity = activity;
+        this.fragmentManager = fragmentManager;
     }
 
     @NonNull
@@ -65,22 +70,9 @@ public class AccountsListAdapter extends RecyclerView.Adapter<AccountsListAdapte
         holder.mSetAsMainUserButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(parentActivity)
-                        .setTitle(users.get(position).UserId)
-                        .setMessage(R.string.change_default_user_alert_dialog_message)
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                UsersLiveData.setMainUser(users.get(position));
-                                SavedAppMainLogin.SetMainLoginUserId(parentActivity, users.get(position).UserId);
-                                if (users.get(position).Assignments.size()>0)
-                                    SavedAppMainLogin.SetMainLoginUserName(parentActivity, users.get(position).Assignments.get(0).DriverName);
-                                parentActivity.finish();
-                                parentActivity.startActivity(parentActivity.getIntent());
-                                Toast.makeText(parentActivity, (parentActivity.getString(R.string.change_default_user_success_toast_1)) + " " + users.get(position).UserId + " " + (parentActivity.getString(R.string.change_default_user_success_toast_2)), Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setNegativeButton(android.R.string.no, null).show();
+                Bundle args = new Bundle();
+                args.putString("UserId", users.get(position).UserId);
+                ConfirmGeneralDialogFragment.newInstance(users.get(position).UserId ,parentActivity.getString(R.string.change_default_user_alert_dialog_message), args).show(fragmentManager, "ConfirmSetAsMainUser");
             }
         });
 
