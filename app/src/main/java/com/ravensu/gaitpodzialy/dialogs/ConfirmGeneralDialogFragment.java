@@ -43,12 +43,7 @@ public class ConfirmGeneralDialogFragment extends BaseDialogFragment<ConfirmGene
         return new AlertDialog.Builder(getActivity())
                 .setTitle(getArguments().getString("title"))
                 .setMessage(getArguments().getString("message"))
-                .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        getActivityInstance().onPositiveClicked(ConfirmGeneralDialogFragment.this);
-                    }
-                })
+                .setPositiveButton(android.R.string.yes, (dialog, which) -> getActivityInstance().onPositiveClicked(ConfirmGeneralDialogFragment.this))
                 .setNegativeButton(android.R.string.no, (dialog, which) -> getActivityInstance().onNegativeClicked(ConfirmGeneralDialogFragment.this))
                 .create();
     }
