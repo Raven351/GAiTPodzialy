@@ -6,10 +6,14 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.ravensu.gaitpodzialy.MainActivity;
@@ -21,12 +25,11 @@ import com.ravensu.gaitpodzialy.appdata.UsersLiveData;
 import com.ravensu.gaitpodzialy.dialogs.ConfirmGeneralDialogFragment;
 import com.ravensu.gaitpodzialy.webscrapper.models.User;
 
-public class AccountsListActivity extends AppCompatActivity implements ConfirmGeneralDialogFragment.onDialogFragmentClickListener {
+public class AccountsListActivity extends AppCompatActivity implements ConfirmGeneralDialogFragment.onDialogFragmentClickListener, PopupMenu.OnMenuItemClickListener {
+    private final String TAG = "AccountsListActivity";
     private AccountsListViewModel accountsListViewModel;
     private RecyclerView recyclerView;
     private AccountsListAdapter adapter;
-    private User currentlySelectedUserTemp;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +54,6 @@ public class AccountsListActivity extends AppCompatActivity implements ConfirmGe
         Intent intent = new Intent(this, LoginActivity.class);
         intent.putExtra("requestCode", 2);
         startActivityForResult(intent, 2);
-        currentlySelectedUserTemp = UsersLiveData.getCurrentlySelectedUserLiveData().getValue();
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -102,5 +104,24 @@ public class AccountsListActivity extends AppCompatActivity implements ConfirmGe
         if (user.Assignments.size()>0)
             SavedAppMainLogin.SetMainLoginUserName(this, user.Assignments.get(0).DriverName);
         Toast.makeText(this, (this.getString(R.string.change_default_user_success_toast_1)) + " " + userId + " " + (this.getString(R.string.change_default_user_success_toast_2)), Toast.LENGTH_SHORT).show();
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.selectUserMenuItem:
+                Log.d(TAG, "onMenuItemClick: clicked");
+                adapter.selectUser();
+                return true;
+            case R.id.setAsDefaultUserMenuItem:
+                adapter.onClickSetAsMainUser();
+                return true;
+            case R.id.logOutUserMenuItem:
+                adapter.onClickLogoutUser();
+                return true;
+            default:
+                return false;
+        }
     }
 }

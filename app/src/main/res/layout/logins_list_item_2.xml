@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/loginsListItem2Layout"
     android:layout_width="match_parent"
     android:layout_height="60dp">
 
@@ -23,12 +23,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/surname"
-        android:textSize="24sp"
         android:ellipsize="end"
         android:maxLines="1"
+        android:text=""
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/changeToUserButton"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/userId"
         app:layout_constraintTop_toTopOf="parent" />
@@ -44,8 +43,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_baseline_more_vert_24"
-        android:onClick="showUserOptionsMenu"/>
+        app:srcCompat="@drawable/ic_baseline_more_vert_24" />
 
     <ImageView
         android:id="@+id/driverTypeIcon"
@@ -55,6 +53,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/bus_icon"/>
+        app:srcCompat="@drawable/bus_icon" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

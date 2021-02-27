@@ -54,7 +54,7 @@ public class MainViewPager extends AppCompatActivity implements AssignmentsListF
             if (isProperlyLoggedIn){
                 if ((UsersLiveData.getCurrentlySelectedUserLiveData().getValue()) != null){
                     if (currentlySelectedUserId.equals(UsersLiveData.getCurrentlySelectedUserLiveData().getValue().UserId)){
-
+                        setUpLoggedInView();
                     }
                     else{
                         setUpLoggedInView();
