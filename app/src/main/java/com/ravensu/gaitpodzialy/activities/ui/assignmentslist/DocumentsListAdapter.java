@@ -29,14 +29,14 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
     private final String gaitSiteURL;
 
     public DocumentsListAdapter(Fragment fragment){
-        sortDocumentsByDate();
         this.parentFragment = fragment;
         gaitSiteURL = new GaitWebsiteUrlFinder(UsersLiveData.getCurrentlySelectedUserLiveData().getValue().UserId).getSiteUrl();
     }
 
     private void sortDocumentsByDate() {
         if (documents != null){
-            Collections.sort(documents, (o1, o2) -> o2.Date.compareTo(o1.Date));
+            Collections.sort(documents, (o1, o2) -> o1.Date.compareTo(o2.Date));
+            Collections.reverse(documents);
         }
     }
 
@@ -69,6 +69,7 @@ public class DocumentsListAdapter extends RecyclerView.Adapter<DocumentsListAdap
 
     public void setDocuments(ArrayList<Document> documents){
         this.documents = documents;
+        sortDocumentsByDate();
         notifyDataSetChanged();
     }
 

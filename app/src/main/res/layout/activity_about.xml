@@ -58,6 +58,17 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <ImageView
+                android:id="@+id/aboutRavensuLogo"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="16dp"
+                android:src="@drawable/raven_logo"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/version" />
+
+
             <TextView
                 android:id="@+id/textview_made_by"
                 android:layout_width="wrap_content"
@@ -67,7 +78,7 @@
                 android:textAlignment="center"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textview_about" />
+                app:layout_constraintTop_toBottomOf="@id/textview_about" />
             <TextView
                 android:id="@+id/version"
                 android:layout_width="wrap_content"

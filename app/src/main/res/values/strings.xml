@@ -56,7 +56,7 @@
     <string name="about">Niniejsza aplikacja NIE jest oficjalną aplikacją i nie należy do spółki Gdańskie Autobusy i Tramwaje.\nAplikacja powstała jako projekt hobbystyczny z myślą o kierowcach i motorniczych GAiT oraz ich rodzinach i znajomych. Twórca w żaden sposób nie ponosi odpowiedzialności za szkody w wyniku potencjalnych błędów w działaniu aplikacji.\nAplikacja ma na celu ułatwienie kierowcom i motorniczym spółki sprawdzanie własnych podziałów i wyświetlanie ich w przystępniejszy sposób. Dane dotyczące podziałów są pobierane ze strony <a href = "http://podzialy.gait.pl">podzialy.gait.pl</a> za pomocą metody webscrapping\'u.\nW przypadku odnalezienia błędu w działaniu aplikacji, można takowy błąd zgłosić za pomocą formularza kontaktowego na stronie <a href="https://dev.ravensu.com/contact">dev.ravensu.com/contact</a>.</string>
     <string name="about_more_info">Możesz dowiedzieć się więcej o tej aplikacji i zobaczyć jej kod źródłowy na <a href = "https://github.com/Raven351/GAiTPodzialy">github.com/Raven351/GAiTPodzialy</a></string>
     <string name="about_made_by">Made with ❤ by:\nBartosz Baum\n<a href="https://dev.ravensu.com">dev.ravensu.com</a>\n\nCopyright 2020</string>
-    <string name ="login_made_by">Aplikacja wykonana przez:\n\nBartosz Baum\n<a href="https://dev.ravensu.com">dev.ravensu.com</a></string>
+    <string name ="login_made_by">Aplikacja wykonana przez:\nBartosz Baum\n<a href="https://dev.ravensu.com">dev.ravensu.com</a></string>
 
     <string name="users_loading_error_dialog_title">Wystąpił błąd!</string>
     <string name="users_loading_error_dialog_message">Wystąpił błąd podczas próby wczytania danych użytkownika.\n\nMoże być to spowodowane brakiem lub słabym połączeniem internetowym.</string>

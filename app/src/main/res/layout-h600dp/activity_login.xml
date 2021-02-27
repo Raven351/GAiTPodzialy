@@ -112,6 +112,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <ImageView
+            android:id="@+id/aboutRavensuLogo"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/raven_logo"
+            app:layout_constraintBottom_toTopOf="@id/login_made_by"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/login" />
+
         <ProgressBar
             android:id="@+id/loading"
             android:layout_width="wrap_content"
